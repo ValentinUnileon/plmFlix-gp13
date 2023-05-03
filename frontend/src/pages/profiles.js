@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-export default function Counts() {
+export default function Profiles() {
     return (
         <p>hola</p>
     )

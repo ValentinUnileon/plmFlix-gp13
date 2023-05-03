@@ -1,6 +1,6 @@
 import './App.css';
 import Login from "./pages/login.js";
-import Counts from "./pages/counts.js";
+import Profiles from "./pages/profiles.js";
 
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -19,7 +19,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Navigate to="/login" />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/:user/counts" element={<Counts />} />
+          <Route path="/:user/profiles" element={<Profiles />} />
         </Routes>
       </Router>
     </LocalizationProvider>

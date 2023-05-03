@@ -1,14 +1,28 @@
 const express = require("express");
 const cors = require('cors');
-//const connectDB = require ("./config/db");
+const connectDB = require ("./config/db");
 
-//connectDB ();
+const User = require("./models/User");
+
+connectDB ();
 
 var app = express();
 app.use(express.json());
 app.use(cors());
 
-//app.use("/login", require("./routes/login"));
+/*
+const user = new User({username: "hola", password: "hola"});
+
+user.save()
+.then(() => {
+    console.log('Carta añadida correctamente');
+})
+.catch((err) => {
+    console.error(err);
+})
+*/
+
+app.use("/login", require("./routes/login"));
 //app.use("/", require("./routes/cards"));
 
 app.listen(5000, function () {

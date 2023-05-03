@@ -1,27 +1,53 @@
 import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import {Alert} from '@mui/material';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import {Button, TextField, Typography} from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import {getEndPoint} from './const/const'
-const theme = createTheme();
+import {getEndPoint} from './const/const';
+import { makeStyles } from '@mui/styles';
+
+
+const useStyles = makeStyles({
+  root: {
+    backgroundImage: 'url(https://assets.nflxext.com/ffe/siteui/vlv3/efb4855d-e702-43e5-9997-bba0154152e0/1844f11c-1c2c-453b-80d4-2287d580c455/ES-es-20230417-popsignuptwoweeks-perspective_alpha_website_medium.jpg)',
+    backgroundSize: 'cover',
+    height: '100vh',
+    display: 'flex',
+    justifyContent: 'center',
+    alignContent: 'center'
+  },
+  textfield:{
+    '& .MuiInputBase-input':{
+      color: 'white',
+    },
+    '& .MuiOutLinedInput-root .MuiOutlinedInput-notchedOutline': {
+      borderColor: 'white',
+    },
+    '& .MuiOutLinedInput-root:hover .MuiOutlinedInput-notchedOutline':{
+      borderColor: 'white',
+    },
+    '& .MuiOutLinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline':{
+      borderColor: 'white',
+    },
+  },
+  formContainer: {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    backgroundColor: 'rgba(0, 0, 0, 0.88)',
+    padding: '2rem',
+    borderRadius: '0.5rem',
+    boxShadow: '0 0.5rem 1rem rgba(0, 0, 0, 0.9)'
+  }
+});
 
 export default function Login() {
 
   const [showError, setshowError] = React.useState(false);
 
-    const navigate = useNavigate();
+  const navigate = useNavigate();
+
+  const classes = useStyles();
     
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -32,7 +58,7 @@ export default function Login() {
     }
     axios.post(getEndPoint('/login'), payload)
     .then((response)=> {
-      navigate(`/${response.data.user}/animal-crossing-cards`)
+      navigate(`/${response.data.user}/counts`);
       console.log(response.data);
     })
     .catch((error)=>{
@@ -42,73 +68,15 @@ export default function Login() {
   };
 
   return (
-    <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
-        >
-          {
-            showError &&
-            <Alert severity="error">Usuario o contraseña mal</Alert>
-          }
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign in
-          </Typography>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              autoFocus
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Sign In
-            </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link href="#" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid>
-            </Grid>
-          </Box>
-        </Box>
-      </Container>
-    </ThemeProvider>
+    <div className={classes.root}>
+      <div className={classes.formContainer}>
+        <form>
+          <Typography variant="h4" frontWeight = 'bold' color='white'>Iniciar sesión</Typography>
+          <TextField label='Correo electrónico' className={classes.textfield} margin="normal" fullWidth/>
+          <TextField label='Contraseña' type="password" className={classes.textfield} margin="normal" fullWidth/>
+          <Button variant="contained" color="primary" fullWidth>Iniciar Sesion</Button>
+        </form>
+      </div>
+    </div>
   );
 }

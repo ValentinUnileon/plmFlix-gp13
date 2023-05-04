@@ -10,7 +10,7 @@ router.post("/", async function (req, res) {
   const logedUser = await User.findOne({username: user});
 
   if(!logedUser) {
-    return res.status(400)
+    return res.status(400);
   }
 
   if(logedUser.password != password){

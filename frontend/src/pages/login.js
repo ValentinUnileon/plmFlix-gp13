@@ -55,13 +55,17 @@ export default function Login() {
       user: data.get('email'),
       password: data.get('password'),
     }
+
     axios.post(getEndPoint('/login'), payload)
     .then((response)=> {
-      navigate(`/${response.data.user}/counts`);
-      console.log(response.data);
+      navigate(`/${response.data.username}/profiles`);
+      console.log("segurooo");
     })
     .catch((error)=>{
+      
       setshowError(true);
+      console.log("ERROR");
+    
     });
 
   };

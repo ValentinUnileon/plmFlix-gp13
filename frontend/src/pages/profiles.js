@@ -19,7 +19,10 @@ const useStyles = makeStyles({
       height: '100vh',
       display: 'flex',
       justifyContent: 'center',
-      alignContent: 'center'
+      alignContent: 'center',
+      display: "grid",
+      gridTemplateColumns: "repeat(4,1fr)",
+      gripGap: "5px",
     },
     textfield:{
       '& .MuiInputBase-input':{
@@ -47,17 +50,22 @@ const useStyles = makeStyles({
     }
   });
 
-  const classes = useStyles();
+  
 
 export default function Profiles() {
+  const classes = useStyles();
     return (
 
 
         <div className={classes.root}>
         <div className={classes.formContainer}>
-          <form>
+            
+
+          <Typography style={{color: 'white'}}>Elige un perfil</Typography>
+
             <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" size="100%" />
-          </form>
+            <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" size="100%" />
+          
         </div>
       </div>
 

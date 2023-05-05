@@ -5,6 +5,10 @@ import { createTheme, ThemeProvider  } from '@mui/material/styles';
 import {Button, TextField, Typography, Avatar} from '@mui/material';
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { getEndpoint } from "./const/const";
+import axios from "axios";
 
 
 const useStyles = makeStyles({
@@ -43,14 +47,14 @@ const useStyles = makeStyles({
 
 
 export default function Profiles() {
+
+
+  const { user } = useParams();
   const classes = useStyles();
   const navigate = useNavigate();
-  const nuevoPerfil={nombre: "loco"};
-  const nuevoPerfil2={nombre: "PEPE"};
+  const nuevoPerfil={user: "papi", nombre: "loco"};    //quitar
+  const nuevoPerfil2={user: "pepito", nombre: "PEPE"}; //quitar
   const [profilesList, setProfilesList] = useState([nuevoPerfil, nuevoPerfil2]);
-
-  //FALTA RELLENAR LA LISTA DE PERFILES CON UN GET A LA DATABASE PILLANDO EL USUARIO DE LA URL****
-
 
   const theme = createTheme();
   theme.typography.h3 = {
@@ -70,6 +74,21 @@ export default function Profiles() {
   function click(profile){
     navigate(`/${profile.user}/${profile.nombre}/principal`);
   }
+
+  //CICLO DE VIDA DEL COMPONENTE
+
+  useEffect(() => {
+
+  axios.get(getEndpoint(`/${user}/counts`))
+  .then((response) => {
+
+    //La peticion devuelve el array de perfiles del usuario indicado
+    setProfilesList(response.data);   
+
+  });
+
+  }, [])  
+
 
   return (
     <div className={classes.root}>

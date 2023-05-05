@@ -2,7 +2,7 @@ import * as React from 'react';
 import {Button, TextField, Typography} from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import {getEndPoint} from './const/const';
+import {getEndpoint} from './const/const';
 import { makeStyles } from '@mui/styles';
 
 
@@ -56,7 +56,7 @@ export default function Login() {
       user: data.get('email'),
       password: data.get('password'),
     }
-    axios.post(getEndPoint('/login'), payload)
+    axios.post(getEndpoint('/login'), payload)
     .then((response)=> {
       navigate(`/${response.data.user}/counts`);
       console.log(response.data);

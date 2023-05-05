@@ -1,4 +1,4 @@
-import * as React from 'react'
+/*import * as React from 'react'
 import { Box, Avatar, Icons } from 'grommet';
 
 
@@ -11,4 +11,4 @@ export default function Profiles() {
             </Avatar>
         </Box>
     )
-}
+}*/

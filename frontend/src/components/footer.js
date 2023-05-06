@@ -14,9 +14,9 @@ export default function Footer() {
         </Link>
       </div>
       <div className={classes.row}>
-        <Link to="/login" className={classes.item}>tu prima</Link>
-        <Link to="/login" className={classes.item}>en 4</Link>
-        <Link to="/login" className={classes.item}>estoy hasta el nabo loko</Link>
+        <Link to="/login" className={classes.item}>Terminos y Aviso de privacidad</Link>
+        <Link to="/login" className={classes.item}>Ayuda</Link>
+        <Link to="/login" className={classes.item}>Acerca de nosotros</Link>
       </div>
 
       <div className={classes.row}>
@@ -31,7 +31,7 @@ const useStyles = makeStyles({
     backgroundColor: "#000",
     width: "100%",
     height: "130px",
-    position: "fixed",
+    position: "relative",
     bottom: 0,
     left: 0,
     right: 0,

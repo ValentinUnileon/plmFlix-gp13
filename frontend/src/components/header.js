@@ -11,9 +11,14 @@ const useStyles = makeStyles({
   
   root: {
     backgroundColor: '#000',
+    height: "50px",
+    position: 'sticky',
     top: 0,
     left: 0,
     right: 0,
+    display: 'flex',
+    alignItems: 'center',
+    zIndex: 1,
   },
 
   logo:  {
@@ -27,9 +32,14 @@ const useStyles = makeStyles({
     cursor:'pointer',
   },
   toolbar: {
+    width: '100%',
     display: 'flex', 
     justifyContent: 'space-between',
     alignItems: 'center',
+    margin: '0px 15px 0px',
+  },
+  item: {
+    color: 'white',
   }
 });
 
@@ -39,10 +49,10 @@ export default function Header(){
   const [show, setShow] = useState(false);
   
   const hideHeader = () =>{
-    if(window.scrollY > 75){
-      setShow(true);
-    }else{
+    if(window.scrollY < 15){
       setShow(false);
+    }else{
+      setShow(true);
     }
   }
 
@@ -54,16 +64,23 @@ export default function Header(){
 
 
   return (
-    <AppBar  className={`${classes.root} ${show && classes.transparent}`} position="sticky" elevation={0}>
-      <Toolbar className={classes.toolbar}>
+    <div className={`${classes.root} ${!show && classes.transparent}`} elevation={0}>
+      <div className={classes.toolbar}>
         <Link to="/login">
           <img src={logoNetflix} alt="logo Netflix" className={classes.logo} />
         </Link>
-        <Link to="/profiles">
+        <Link to="/profiles" className={classes.item}>
+          Peliculas
+        </Link>
+        <Link to="/profiles" className={classes.item}>
+          Series
+        </Link>
+        <Link to="/profiles" className={classes.item}>
           <Avatar className={classes.avatar}></Avatar>
         </Link>
-      </Toolbar>
-    </AppBar>
+      </div>
+    </div>
+      
   )
 }
 

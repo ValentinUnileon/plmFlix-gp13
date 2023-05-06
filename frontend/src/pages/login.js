@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Button, TextField, Typography} from '@mui/material';
+import {Button, TextField, Typography, Alert, Box} from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import {getEndpoint} from './const/const';
@@ -15,18 +15,17 @@ const useStyles = makeStyles({
     justifyContent: 'center',
     alignContent: 'center'
   },
-  textfield:{
-    '& .MuiInputBase-input':{
-      color: 'white',
+  textField: {
+    '& .MuiInputBase-input': {
+      color: '#fff',
     },
-    '& .MuiOutLinedInput-root .MuiOutlinedInput-notchedOutline': {
-      borderColor: 'white',
+    '& .MuiInputLabel-root': {
+      color: '#fff',
     },
-    '& .MuiOutLinedInput-root:hover .MuiOutlinedInput-notchedOutline':{
-      borderColor: 'white',
-    },
-    '& .MuiOutLinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline':{
-      borderColor: 'white',
+    '& .MuiOutlinedInput-root': {
+      '& fieldset': {
+        borderColor: '#fff',
+      },
     },
   },
   formContainer: {
@@ -56,27 +55,40 @@ export default function Login() {
       user: data.get('email'),
       password: data.get('password'),
     }
-    axios.post(getEndpoint('/login'), payload)
+
+    axios.post(getEndPoint('/login'), payload)
     .then((response)=> {
-      navigate(`/${response.data.user}/counts`);
-      console.log(response.data);
+      navigate(`/${response.data.username}/profiles`);
+      console.log("segurooo");
     })
     .catch((error)=>{
+      
       setshowError(true);
+      console.log("ERROR");
+    
     });
 
   };
 
   return (
     <div className={classes.root}>
-      <div className={classes.formContainer}>
-        <form>
+      <Box sx={{
+            marginTop: 8,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}>
+      {
+        showError &&
+        <Alert severity="error">Usuario o contraseña mal</Alert>
+      }
+        <Box component="form" onSubmit={handleSubmit} noValidate className={classes.formContainer}>
           <Typography variant="h4" frontWeight = 'bold' color='white'>Iniciar sesión</Typography>
-          <TextField label='Correo electrónico' className={classes.textfield} margin="normal" fullWidth/>
-          <TextField label='Contraseña' type="password" className={classes.textfield} margin="normal" fullWidth/>
-          <Button variant="contained" color="primary" fullWidth>Iniciar Sesion</Button>
-        </form>
-      </div>
+          <TextField label='Correo electrónico' className={classes.textField} margin="normal" fullWidth id="email" name="email" autoComplete="email" required autoFocus/>
+          <TextField label='Contraseña' type="password" className={classes.textField} margin="normal" fullWidth id="password" name="password" required  />
+          <Button variant="contained" color="primary" fullWidth type="submit">Iniciar Sesion</Button>
+        </Box>
+      </Box>
     </div>
   );
 }

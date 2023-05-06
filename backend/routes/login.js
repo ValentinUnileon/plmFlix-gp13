@@ -9,8 +9,8 @@ router.post("/", async function (req, res) {
   
   const logedUser = await User.findOne({username: user});
 
-  if(!logedUser) {
-    return res.status(400);
+  if(logedUser==null) {
+    return res.status(400).send("No existe usuario");
   }
 
   if(logedUser.password != password){

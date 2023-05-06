@@ -56,7 +56,7 @@ export default function Login() {
       password: data.get('password'),
     }
 
-    axios.post(getEndPoint('/login'), payload)
+    axios.post(getEndpoint('/login'), payload)
     .then((response)=> {
       navigate(`/${response.data.username}/profiles`);
       console.log("segurooo");

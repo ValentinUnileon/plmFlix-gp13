@@ -18,7 +18,7 @@ function App() {
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <Router>
         <Routes>
-          <Route path="/" element={<Navigate to="/:user/profiles" />} />
+          <Route path="/" element={<Navigate to="/login" />} />
           <Route path="/login" element={<Login />} />
           <Route path="/:user/profiles" element={<Profiles />} />
           <Route path="/:user/:profile/principal" element={<Principal />} />

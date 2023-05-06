@@ -1,11 +1,10 @@
 import './App.css';
 import Login from "./pages/login.js";
 import Profiles from "./pages/profiles.js";
-import Principal from "./pages/principal.js";
-
+import Home from "./pages/home";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-
+import { makeStyles } from '@mui/styles';
 import {
   BrowserRouter as Router,
   Routes,
@@ -14,6 +13,7 @@ import {
 } from "react-router-dom";
 
 function App() {
+  const classes = useStyles();
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <Router>
@@ -28,4 +28,10 @@ function App() {
   );
 }
 
+const useStyles = makeStyles({
+  root: {
+    minHeight: '100vh',
+    backgroundColor: '#111',
+  },
+});
 export default App;

@@ -10,6 +10,7 @@ const useStyles = makeStyles({
   root: {
     backgroundImage: 'url(https://assets.nflxext.com/ffe/siteui/vlv3/efb4855d-e702-43e5-9997-bba0154152e0/1844f11c-1c2c-453b-80d4-2287d580c455/ES-es-20230417-popsignuptwoweeks-perspective_alpha_website_medium.jpg)',
     backgroundSize: 'cover',
+    backgroundColor: '#fff',
     height: '100vh',
     display: 'flex',
     justifyContent: 'center',

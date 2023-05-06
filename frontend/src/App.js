@@ -21,7 +21,7 @@ function App() {
           <Route path="/" element={<Navigate to="/login" />} />
           <Route path="/login" element={<Login />} />
           <Route path="/:user/profiles" element={<Profiles />} />
-          <Route path="/:user/:profile/principal" element={<Principal />} />
+          <Route path="/:user/:profile/home" element={<Home />} />
         </Routes>
       </Router>
     </LocalizationProvider>

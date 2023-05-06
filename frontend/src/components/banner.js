@@ -3,8 +3,8 @@ import * as React from 'react';
 import {Button, TextField, Typography, Toolbar, AppBar, Avatar} from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { Link } from 'react-router-dom';
-import imgBanner from '../images/banner1.jpg';
-import videoBanner from '../videos/Vengadores.mp4'
+//import imgBanner from '../images/banner1.jpg';
+//import videoBanner from '../videos/Vengadores.mp4'
 import '../cssComponents/banner.css'
 
 export default function Banner(){
@@ -14,27 +14,14 @@ export default function Banner(){
     /* funcion onclick que ponga mute o no el banner */
     /* funcion añadir a mi lista */
     /* funcion map para poner video del banner  */ 
-  /*return (
-    <div className={classes.root}> 
-      <div className={classes.content}>
-        <Typography variant="h2" color='white'>
-          Movie Title
-        </Typography>
-        <div className={classes.buttons}>
-          <Button>Play</Button>
-          <Button>My List</Button>
-      </div>
-
-      <div className={classes.fadeBottom} />
-      </div>
-      
-    </div>
-  )*/
+  
 
   return (
     <div className="video-background"> 
     <video autoPlay muted loop>
-        <source src={videoBanner} type="video/mp4" />
+        { //<source src={videoBanner} type="video/mp4" /> 
+        }
+
     </video>
       <div className="video-overlay">
         <div className={classes.content}>
@@ -54,7 +41,7 @@ export default function Banner(){
 
 const useStyles = makeStyles({
     root:  {
-      backgroundImage: `url(${imgBanner})`,
+      //backgroundImage: `url(${imgBanner})`,
       position: 'relative',
       width: '100%',
       height: '440px',

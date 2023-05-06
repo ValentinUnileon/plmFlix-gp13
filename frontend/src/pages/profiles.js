@@ -9,6 +9,8 @@ import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getEndpoint } from "./const/const";
 import axios from "axios";
+import Header from "../components/header"
+import Footer from "../components/footer";
 
 
 const useStyles = makeStyles({
@@ -72,7 +74,7 @@ export default function Profiles() {
   //FUNCIONES
 
   function click(profile){
-    navigate(`/${profile.user}/${profile.nombre}/principal`);
+    navigate(`/${profile.user}/${profile.nombre}/home`);
   }
 
   //CICLO DE VIDA DEL COMPONENTE
@@ -91,25 +93,31 @@ export default function Profiles() {
 
 
   return (
-    <div className={classes.root}>
-      <div className={classes.formContainer}>
-        <ThemeProvider theme={theme}>
-          <Typography variant="h3" className={classes.title}>
-            ¿Que quieres ver? Elige tu perfil
-          </Typography>
-        </ThemeProvider>
-        <div className={classes.avatarContainer}>
+    <div>
+    <Header />
+    
+        
+        <div className={classes.root}>
+        <div className={classes.formContainer}>
+            <ThemeProvider theme={theme}>
+            <Typography variant="h3" className={classes.title}>
+                ¿Que quieres ver? Elige tu perfil
+            </Typography>
+            </ThemeProvider>
+            <div className={classes.avatarContainer}>
 
-          {profilesList.map((profile , index) => (
-              <Profile
-                profile={profile}
-                click={click}
-              />
+            {profilesList.map((profile , index) => (
+                <Profile
+                    profile={profile}
+                    click={click}
+                />
 
-          ))}
+            ))}
 
+            </div>
         </div>
-      </div>
+        </div>
+    <Footer />
     </div>
   );
 }

@@ -54,7 +54,7 @@ export default function Profiles() {
   const { user } = useParams();
   const classes = useStyles();
   const navigate = useNavigate();
-  const [profilesList, setProfilesList] = useState();
+  const [profilesList, setProfilesList] = useState([]);
 
   const theme = createTheme();
   theme.typography.h3 = {
@@ -72,7 +72,7 @@ export default function Profiles() {
   //FUNCIONES
 
   function click(profile){
-    navigate(`/${profile.user}/${profile.nombre}/home`);
+    navigate(`/${user}/${profile.name}/home`);
   }
 
   //CICLO DE VIDA DEL COMPONENTE

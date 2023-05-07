@@ -17,7 +17,7 @@ export default function Profile({profile, click})
     return (
         <div>
         <Avatar  onClick={() => handleClick(profile)} sx={{ width: 160, height: 160 }} alt="Remy Sharp" src="/static/images/avatar/1.jpg" size="100%" variant="square"/>   
-        <p style={styles} >{profile.nombre}</p>  
+        <p style={styles} >{profile.name}</p>  
         </div>  
     );
 }

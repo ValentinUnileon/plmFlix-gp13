@@ -14,8 +14,6 @@ let user = new Schema({
         type: String,
         requiered: true,
     },
-
-    profiles: [{ type: Schema.Types.ObjectId, ref: 'Profile' }]
      
  });
     

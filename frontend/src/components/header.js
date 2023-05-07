@@ -75,7 +75,7 @@ export default function Header(){
         <Link to="/profiles" className={classes.item}>
           Series
         </Link>
-        <Link to="/:user/profiles" className={classes.item}>
+        <Link to="/profiles" className={classes.item}>
           <Avatar className={classes.avatar}></Avatar>
         </Link>
       </div>

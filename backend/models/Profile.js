@@ -9,6 +9,11 @@ let profile = new Schema({
         unique: true,
         index: true,
     },
+    
+    user: {
+        type: mongoose.Schema.Types.ObjectId ,
+        ref: "User",
+   },
      
  });
     

@@ -54,9 +54,7 @@ export default function Profiles() {
   const { user } = useParams();
   const classes = useStyles();
   const navigate = useNavigate();
-  const nuevoPerfil={user: "papi", nombre: "loco"};    //quitar
-  const nuevoPerfil2={user: "pepito", nombre: "PEPE"}; //quitar
-  const [profilesList, setProfilesList] = useState([nuevoPerfil, nuevoPerfil2]);
+  const [profilesList, setProfilesList] = useState();
 
   const theme = createTheme();
   theme.typography.h3 = {
@@ -81,7 +79,7 @@ export default function Profiles() {
 
   useEffect(() => {
 
-  axios.get(getEndpoint(`/${user}/counts`))
+  axios.get(getEndpoint(`/${user}/profiles`))
   .then((response) => {
 
     //La peticion devuelve el array de perfiles del usuario indicado
@@ -89,7 +87,7 @@ export default function Profiles() {
 
   });
 
-  }, [])  
+  }, []);  
 
 
   return (

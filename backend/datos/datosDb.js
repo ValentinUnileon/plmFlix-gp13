@@ -1,11 +1,13 @@
 const mongoose = require("mongoose");
 
 const Profile = require("../models/Profile");
-const profiles = require('./profiles');
+var dataProf = require('./profiles');
+var profiles = dataProf.data;
 
 
 const User = require("../models/User");
-const users = require('./users');
+var dataU = require("./users")
+var users = dataU.data;
 
 
 const crearDB = () => {
@@ -16,33 +18,35 @@ const crearDB = () => {
 
             // Continúa con la creación de nuevas colecciones y la inserción de datos
             const usuariosArray = users;
-
             const perfilesArray = profiles;
 
+
+            ///Funciones
             const insertarUsuariosPerfiles = async () => {
                 try {
                     const usuarios = await User.insertMany(usuariosArray);
-                    console.log('Usuarios creados:', usuarios);
 
                     const perfilesConReferencia = perfilesArray.map(perfil => {
                         const usuarioAsociado = usuarios.find(usuario => usuario.username === perfil.user);
                         return {
-                            usuario: usuarioAsociado._id,
-                            name: perfil.name
-                            // Otros campos del perfil
+
+                            name: perfil.name,
+                            user: usuarioAsociado._id
                         };
                     });
 
                     const perfiles = await Profile.insertMany(perfilesConReferencia);
-                    console.log('Perfiles creados:', perfiles);
-
-                    // Continuar con el resto del código
                 } catch (err) {
                     console.error(err);
                 }
+                console.log("Usuarios con sus perfiles añadidos");
             };
 
-            insertarUsuariosPerfiles()
+
+            ///Ejecucion
+            insertarUsuariosPerfiles();
+            //insertarVideos();
+
         })
         .catch((err) => {
             console.error(err);

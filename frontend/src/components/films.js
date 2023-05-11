@@ -1,5 +1,6 @@
 import React from 'react'
 import { makeStyles } from '@mui/styles';
+import Cartel from "../components/carteles";
 
 export default function Films() {
   const classes = useStyles();
@@ -8,8 +9,8 @@ export default function Films() {
     /*  */
     /*  */
     <div className={classes.root}>
-      films
-      </div>
+      <Cartel />
+    </div>
   )
 }
 
@@ -18,7 +19,7 @@ const useStyles = makeStyles({
     position: 'relative',
     width: '100%',
     height: '150px',
-    marginTop: '20px',
+    marginTop: '100px',
   },
 
 });

@@ -17,9 +17,9 @@ export default function Films() {
 const useStyles = makeStyles({
   root:  {
     position: 'relative',
-    width: '100%',
+    width: '370ox',
     height: '150px',
-    marginTop: '100px',
+    marginTop: '0px',
   },
 
 });

@@ -4,7 +4,8 @@ import { makeStyles } from '@mui/styles';
 import Header from "../components/header"
 import Banner from "../components/banner";
 import Footer from "../components/footer";
-import Films from "../components/films";
+
+import Categoria from "../components/category";
 
 export default function Home(){
     const classes = useStyles();
@@ -12,13 +13,16 @@ export default function Home(){
     <div className={classes.root}>
         <Header />
         <Banner />
-        nombre categoria
-    
-        <Films />
-        nombre categoria
-        <Films />
-        nombre categoria
-        <Films />
+
+        <div className='container'>
+        <Categoria />
+        <Categoria />
+        <Categoria />
+        </div>
+        
+
+
+
 
         <Footer />
         
@@ -32,4 +36,8 @@ const useStyles = makeStyles({
       width: '100%',
       height:'100%',
     },
+
+    container: {
+      margin: '10px 10px 10px 10px',
+    }
 });

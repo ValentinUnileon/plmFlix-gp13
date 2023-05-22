@@ -10,6 +10,10 @@ const User = require("../models/User");
 const dataU = require("./users")
 const users = dataU.data;
 
+const Categoria = require("../models/Categorias");
+const dataC = require("./categorias");
+const categorias = dataC.data;
+
 const Videos = require("../models/Videos");
 const dataV = require("./videos");
 const videos = dataV.data;
@@ -22,6 +26,7 @@ const crearDB = () => {
             const usuariosArray = users;
             const perfilesArray = profiles;
             const videosArray = videos;
+            const categoriasArray = categorias;
 
             const insertarUsuariosPerfiles = async () => {
                 try {
@@ -96,17 +101,29 @@ const crearDB = () => {
                 }
             };
 
-            const insertarListasDeVideos = async () => {
+            const insertarCategorias = async () => {
                 try {
-                    // Insertar listas de videos aquí
+                    await insertarVideos();
+                    const categoriasConVideos = [];
+                    for (const cat of categorias) {
+                        const videosCat = await Videos.find({
+                            categorie: cat.title
+                        });
+                        categoriasConVideos.push({
+                            title: cat.title,
+                            videos: videosCat,
+                        });
+                    }
+
+                    const categoriasInsert = await Categoria.insertMany(categoriasConVideos);
+                    console.log("Categorias con sus videos");
                 } catch (err) {
                     console.error(err);
                 }
             };
 
             insertarUsuariosPerfiles();
-            insertarVideos();
-            insertarListasDeVideos();
+            insertarCategorias();
         })
         .catch((err) => {
             console.error(err);

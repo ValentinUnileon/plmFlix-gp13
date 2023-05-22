@@ -12,8 +12,12 @@ export default function Home(){
     <div className={classes.root}>
         <Header />
         <Banner />
+        nombre categoria
+    
         <Films />
+        nombre categoria
         <Films />
+        nombre categoria
         <Films />
 
         <Footer />

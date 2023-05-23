@@ -10,7 +10,7 @@ import '../cssComponents/adminStyle.css';
 
 const useStyles = makeStyles({
   root: {
-    backgroundImage: 'url(https://www.ribescasals.com/media/catalog/product/cache/ac95d467f39086acf44821b87fe7ae41/t/e/tela-loneta-negra.jpg)',
+    //backgroundImage: 'url(https://www.ribescasals.com/media/catalog/product/cache/ac95d467f39086acf44821b87fe7ae41/t/e/tela-loneta-negra.jpg)',
     backgroundSize: 'cover',
     backgroundColor: '#111',
     height: '100vh',
@@ -59,7 +59,7 @@ const UserList = () => {
         setUsers(response.data);
       })
       .catch(error => {
-        console.error('Error fetching users:', error);
+        console.error('Error al buscar los usuarios: ', error);
       });
   }, []);
 
@@ -84,7 +84,7 @@ const MovieList = () => {
         setMovies(response.data);
       })
       .catch(error => {
-        console.error('Error fetching movies:', error);
+        console.error('Error al buscar las peliculas:', error);
       });
   }, []);
 

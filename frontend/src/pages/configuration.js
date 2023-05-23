@@ -8,7 +8,7 @@ import { Divider } from '@mui/material';
 
 const useStyles = makeStyles({
   root: {
-    backgroundImage: 'url(https://www.ribescasals.com/media/catalog/product/cache/ac95d467f39086acf44821b87fe7ae41/t/e/tela-loneta-negra.jpg)',
+    //backgroundImage: 'url(https://www.ribescasals.com/media/catalog/product/cache/ac95d467f39086acf44821b87fe7ae41/t/e/tela-loneta-negra.jpg)',
     backgroundSize: 'cover',
     backgroundColor: '#111',
     height: '100vh',

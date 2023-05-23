@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const video = new Schema({
+const episodio = new Schema({
     title: {
         type: String,
     },
@@ -15,16 +15,16 @@ const video = new Schema({
         type: String,
         required: true
     },
+    videoPrinc:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Video',
+    },
     likes: {
         type: Number
     },
     categorie: {
         type: String,
     },
-    serie: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Video',
-    }]
 });
 
-module.exports = mongoose.model('Video', video);
+module.exports = mongoose.model('Ep', episodio);

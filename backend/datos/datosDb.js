@@ -18,6 +18,10 @@ const Videos = require("../models/Videos");
 const dataV = require("./videos");
 const videos = dataV.data;
 
+const Episodios = require("../models/Episodios");
+const dataE = require("./episodios");
+const episodios = dataE.data;
+
 const crearDB = () => {
     mongoose.connection.dropDatabase()
         .then(() => {
@@ -27,6 +31,7 @@ const crearDB = () => {
             const perfilesArray = profiles;
             const videosArray = videos;
             const categoriasArray = categorias;
+            const episodiosArray = episodios;
 
             const insertarUsuariosPerfiles = async () => {
                 try {
@@ -72,6 +77,7 @@ const crearDB = () => {
 
             const insertarVideos = async () => {
                 try {
+                    //añadir los videos
                     const videoInfoPromises = videosArray.map(video => {
                         return getYouTubeVideoInfo(video.videoUrl)
                             .then(videoInfo => {
@@ -96,6 +102,40 @@ const crearDB = () => {
                     const videosInfoComp = await Promise.all(videoInfoPromises);
                     const videos = await Videos.insertMany(videosInfoComp);
                     console.log("Videos añadidos");
+
+                    //añadimos sus episodios
+                    // var videosSinEp = await Videos.find();
+                    // var episodios = [];
+                    // for (let i = 0; i < videosArray.length; i++) {
+                    //     var video = videosSinEp[i];
+                    //     var elementoVideos = videosArray[i];
+
+                    //    const episodiosInfoPromises = elementoVideos.serie.map(async (episodio) => {
+                    //         return getYouTubeVideoInfo(episodio.videoUrl)
+                    //             .then(epInfo => {
+                    //                 if (epInfo) {
+                    //                     const titulo = epInfo.title;
+                    //                     const descripcion = epInfo.description;
+                    //                     return {
+                    //                         videoUrl: episodio.videoUrl,
+                    //                         title: titulo,
+                    //                         description: descripcion,
+                    //                         thumbnailUrl: getYouTubeThumbnail(episodio.videoUrl),
+                    //                         likes: video.likes,
+                    //                         categorie: video.categorie,
+                    //                         videoPrinc: video
+                    //                     };
+                    //                 }
+                    //             })
+                    //             .catch(error => {
+                    //                 console.error('Error:', error);
+                    //             });
+                    //     });
+                    //     const episodiosInfoComp = await Promise.all(episodiosInfoPromises);
+                    //     const episodios = await Episodios.insertMany(episodiosInfoComp);
+                    //     video.serie = episodios;
+                    //     videos.save();
+                    // }
                 } catch (err) {
                     console.error(err);
                 }
@@ -105,7 +145,7 @@ const crearDB = () => {
                 try {
                     await insertarVideos();
                     const categoriasConVideos = [];
-                    for (const cat of categorias) {
+                    for (const cat of categoriasArray) {
                         const videosCat = await Videos.find({
                             categorie: cat.title
                         });

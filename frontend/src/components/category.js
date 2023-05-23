@@ -5,21 +5,37 @@ import AddIcon from '@mui/icons-material/Add';
 import Fab from '@mui/material/Fab';
 import NavigationIcon from '@mui/icons-material/Navigation';
 import Films from "../components/films";
+import { useState } from "react";
+import { useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
+import { useParams } from "react-router-dom";
+
+import axios from "axios";
 
 
 
-export default function Categoria() {
+
+
+export default function Categoria({click, categoria, filmLista}) {
     const classes = useStyles();
+    const [filmList, setFilmList] = useState([filmLista]);
 
+    function handleClick(film){
+        console.log("categori");
+        click(film);  
+    }
     return (
+
+        
         <div>
             <div><label>ss</label></div>
             <div className={classes.root}>
-            <div className={classes.pelis} ><Films /></div>
-            <div><Films /></div>
-            <div><Films /></div>
-            <div><Films /></div>
-            <div><Films /></div>
+           
+            {filmList.map((film , index) => (
+                 <div className={classes.pelis} onClick={() => handleClick(film)} ><Films film={film} /></div>
+
+            ))}
+
             </div>
         </div>
       )

@@ -2,14 +2,17 @@ import React from 'react'
 import { makeStyles } from '@mui/styles';
 import Cartel from "../components/carteles";
 
-export default function Films() {
+
+
+export default function Films({film}) {
   const classes = useStyles();
+
   return (
-    /* funcion onClick que lleve a la pagina de visualizacion del video */
-    /*  */
-    /*  */
+
     <div className={classes.root}>
-      <Cartel />
+      <Cartel 
+        
+      />
     </div>
   )
 }

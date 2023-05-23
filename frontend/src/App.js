@@ -2,6 +2,7 @@ import './App.css';
 import Login from "./pages/login.js";
 import Profiles from "./pages/profiles.js";
 import Home from "./pages/home";
+import ViewFilms from "./pages/viewFilms";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { makeStyles } from '@mui/styles';
@@ -22,6 +23,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/:user/profiles" element={<Profiles />} />
           <Route path="/:user/:profile/home" element={<Home />} />
+          <Route path="/:user/:profile/:film/viewFilms" element={<ViewFilms />} />
         </Routes>
       </Router>
     </LocalizationProvider>

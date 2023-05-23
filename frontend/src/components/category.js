@@ -1,8 +1,10 @@
 import React from 'react'
 import { makeStyles } from '@mui/styles';
 import Box from '@mui/material/Box';
+import { Container } from "@mui/system";
 import AddIcon from '@mui/icons-material/Add';
 import Fab from '@mui/material/Fab';
+import {Grid} from "@mui/material";
 import NavigationIcon from '@mui/icons-material/Navigation';
 import Films from "../components/films";
 import { useState } from "react";
@@ -28,15 +30,26 @@ export default function Categoria({click, categoria, filmLista}) {
 
         
         <div>
-            <div><label>ss</label></div>
-            <div className={classes.root}>
-           
+            <div className={classes.titulo}><label>asdfasdfasdf</label></div>
+        
+            <Grid container spacing={2}>
+
             {filmList.map((film , index) => (
+
+                <Container maxW_idth={"sm"}>
+
+                <Grid item xs={2} key={index}>
                  <div className={classes.pelis} onClick={() => handleClick(film)} ><Films film={film} /></div>
+                 </Grid >
+
+                 </Container>
 
             ))}
 
-            </div>
+         
+
+            </Grid>
+         
         </div>
       )
 
@@ -57,7 +70,7 @@ const useStyles = makeStyles({
     },
 
     pelis: {
-        backgroundColor: '#000',
+        backgroundColor: '#fff5',
         width: '370px',
         margin: 'auto',
     },

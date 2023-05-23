@@ -10,7 +10,7 @@ var app = express();
 app.use(express.json());
 app.use(cors());
 
-/*
+
 const user = new User({username: "hola", password: "hola"});
 
 user.save()
@@ -21,7 +21,7 @@ user.save()
     console.error(err);
 })
 
-*/
+
 
 
 app.use("/login", require("./routes/login"));

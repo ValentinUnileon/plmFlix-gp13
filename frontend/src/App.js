@@ -11,6 +11,8 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
+import Configuration from './pages/configuration';
+import Administrador from './pages/administrador';
 
 function App() {
   const classes = useStyles();
@@ -19,9 +21,11 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Navigate to="/login" />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/login" element={<Administrador />} />
           <Route path="/:user/profiles" element={<Profiles />} />
           <Route path="/:user/:profile/home" element={<Home />} />
+          <Route path="/:user/:profile/configuration" element={<Configuration />} />
+          <Route path="/:user/:profile/administrador" element={<Administrador />} />
         </Routes>
       </Router>
     </LocalizationProvider>

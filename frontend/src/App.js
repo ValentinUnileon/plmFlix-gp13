@@ -21,7 +21,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Navigate to="/login" />} />
-          <Route path="/login" element={<Administrador />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/:user/profiles" element={<Profiles />} />
           <Route path="/:user/:profile/home" element={<Home />} />
           <Route path="/:user/:profile/configuration" element={<Configuration />} />

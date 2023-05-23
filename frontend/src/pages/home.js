@@ -21,8 +21,7 @@ export default function Home(){
   const [filmList, setFilmList] = useState([  { id: "1", name: "uno" },
   { id: "2", name: "dos" }]);
 
-  const [categoriesList, setCategoriesList] = useState([  { name: "uno" },
-  { name: "dos" }]);
+  const [categoriesList, setCategoriesList] = useState([  { name: "uno" }]);
 
 
   function click(){

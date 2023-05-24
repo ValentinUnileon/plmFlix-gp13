@@ -11,7 +11,6 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import { useParams } from "react-router-dom";
-
 import axios from "axios";
 
 
@@ -20,63 +19,47 @@ import axios from "axios";
 
 export default function Categoria({click, categoria, filmLista}) {
     const classes = useStyles();
-    const [filmList, setFilmList] = useState([filmLista]);
-
-    function handleClick(film){
-        console.log("categori");
-        click(film);  
-    }
+    const [filmList, setFilmList] = useState([{name: "sadf" }, {name: "asdf"}, {name: "asdf"}, {name: "asdf"}]);
+    
     return (
-
-        
-        <div>
-            <div className={classes.titulo}><label>asdfasdfasdf</label></div>
-        
-            <Grid container spacing={2}>
-
+        <div className={classes.root}>
+            <div className={classes.titulo}>
+                Titulo de la categoria.
+            </div>
+            <div className={classes.container}>
             {filmList.map((film , index) => (
-
-                <Container maxW_idth={"sm"}>
-
-                <Grid item xs={2} key={index}>
-                 <div className={classes.pelis} onClick={() => handleClick(film)} ><Films film={film} /></div>
-                 </Grid >
-
-                 </Container>
-
+                 <div className={classes.pelis}><Films />
+                 </div>
             ))}
-
-         
-
-            </Grid>
-         
+            </div>
         </div>
       )
-
-
 }
 
 const useStyles = makeStyles({
-    root:  {
-      position: 'relative',
-      display: 'grid' ,
-      gridTemplateColumns: 'repeat(5, 370px)',
-      gridGap: '15px',
-      backgroundColor: '#fff',
-      height: '350px',
-      width: '100%',
-      marginTop: '0px',
+    root: {
+        width: '100%',
+        height: 'auto',
+    },
 
+    container:  {
+      display: 'flex',
+      maxHeight: '100%',
+      maxWidth: '100vw',
+      overflowX: 'auto',
+      "& container::-webkit-scrollbar":{
+        width: '0',
+    }
+    },
+    titulo: {
+        color: 'white',
+        fontSize: '25px',
     },
 
     pelis: {
-        backgroundColor: '#fff5',
-        width: '370px',
-        margin: 'auto',
-    },
-
-    titulo: {
-        backgroundColor: '#f3ff',  
+        minWidth:'370px',
+        height: '200px',
+        lineHeight: '200px',
+        marginRight: '0px',
     }
-  
   });

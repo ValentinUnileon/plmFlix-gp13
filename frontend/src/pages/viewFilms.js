@@ -12,9 +12,11 @@ export default function ViewFilms(){
     const classes = useStyles();
   return (
     <div className={classes.root}>
-¡       olaaaaaaaaaaaaaaaaaa
-        
+      <Header />
+
+      <Footer />
     </div>
+    
   )
 }
 

@@ -1,77 +1,66 @@
-import * as React from 'react';
+import * as React from "react";
 //import {Button, TextField, Typography} from '@mui/material';
-import { makeStyles } from '@mui/styles';
-import Header from "../components/header"
+import { makeStyles } from "@mui/styles";
+import Header from "../components/header";
 import Banner from "../components/banner";
 import Footer from "../components/footer";
 import Categoria from "../components/category";
 import { useState } from "react";
 import { useEffect } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import {getEndpoint} from './const/const';
 
 import axios from "axios";
 
-
-
-export default function Home(){
-
-  //PARAMETROS PARA NAVEGAR A PAGINA DE PELICULAS
+export default function Home() {
   const navigate = useNavigate();
   const { user, profile } = useParams();
+  const [filmList, setFilmList] = useState([
+    { id: "1", name: "uno" },
+    { id: "2", name: "dos" },
+  ]);
 
-  //VARIABLES
-  const [filmList, setFilmList] = useState([]);
-  const [categoriesList, setCategoriesList] = useState([]);
+  const [categoriesList, setCategoriesList] = useState([
+    { name: "uno" },
+    { name: "dos" },
+  ]);
 
-  //FUNCIONES
-  function click(){
+  function click() {
     console.log("asdfasdf");
     navigate(`/${user}/${profile.name}/${filmList[0]}/viewFilms`);
   }
 
-  //CICLO DE VIDA DEL COMPONENTE
-
-  useEffect(() => {
-
-    axios.get(getEndpoint(`/${user}/${profile}/home`))
-    .then((response) => {
-  
-      //La peticion devuelve el array de todas las categorias de la database
-      setCategoriesList(response.data);   
-  
-    });
-  
-    }, []);  
-
-    const classes = useStyles();
+  const classes = useStyles();
   return (
     <div className={classes.root}>
-        <Header />
+      <Header />
+      <div className={classes.body}>
         <Banner />
-
-        {categoriesList.map((categoria , index) => (
-          <div className='container'>
-          <Categoria click={click} categoria={categoria}film={filmList}  />
-          </div>
-        ))}
-
-
-        <Footer />
-        
+        <div className={classes.categorias}>
+          {categoriesList.map((categoria, index) => (
+            <div className="container">
+              <Categoria click={click} categoria={categoria} film={filmList} />
+            </div>
+          ))}
+        </div>
+      </div>
+      <Footer />
     </div>
-  )
+  );
 }
 
 const useStyles = makeStyles({
-    root:  {
-      backgroundColor: '#111',
-      width: '100%',
-      height:'100%',
-    },
+  root: {
+    backgroundColor: "#111",
+    width: "100%",
+    height: "100%",
+  },
 
-    container: {
-      margin: '10px 10px 10px 10px',
-    }
+  categorias: {
+    display: "grid",
+    gridAutoRows: "repeat(2, auto)",
+    gridGap: "30px",
+    margin: '30px 0 30px 0',
+  },
 });

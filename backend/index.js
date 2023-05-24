@@ -25,6 +25,7 @@ app.use("/api", require("./routes/profiles"));
 
 
 connectDB().then((result) => {
+  console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
   crearDB();
 
   app.listen(5000, function () {

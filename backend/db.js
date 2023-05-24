@@ -9,7 +9,7 @@ const connectDB = async () => {
    useNewUrlParser: true ,
    useUnifiedTopology: true ,
    });
-
+   
 };
 
  module.exports = connectDB;

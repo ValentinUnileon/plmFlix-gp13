@@ -23,6 +23,7 @@ const dataE = require("./episodios");
 const episodios = dataE.data;
 
 const crearDB = () => {
+    console.log("entrando en crearDB");
     mongoose.connection.dropDatabase()
         .then(() => {
             console.log('Todas las colecciones de la base de datos han sido eliminadas.');
@@ -33,8 +34,12 @@ const crearDB = () => {
             const categoriasArray = categorias;
             const episodiosArray = episodios;
 
+           
+
             const insertarUsuariosPerfiles = async () => {
                 try {
+
+                    console.log("insertar usuarios perfiles");
                     const usuarios = await User.insertMany(usuariosArray);
 
                     const perfilesConReferencia = perfilesArray.map(perfil => {

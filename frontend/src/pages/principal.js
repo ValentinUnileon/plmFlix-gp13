@@ -1,13 +1,19 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import {Button, TextField, Typography} from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import {getEndPoint} from './const/const';
-import { makeStyles } from '@mui/styles';
+const PREFIX = 'principal';
 
+const classes = {
+  root: `${PREFIX}-root`,
+  textfield: `${PREFIX}-textfield`,
+  formContainer: `${PREFIX}-formContainer`
+};
 
-const useStyles = makeStyles({
-  root: {
+const Root = styled('p')({
+  [`& .${classes.root}`]: {
     backgroundImage: 'url(https://assets.nflxext.com/ffe/siteui/vlv3/efb4855d-e702-43e5-9997-bba0154152e0/1844f11c-1c2c-453b-80d4-2287d580c455/ES-es-20230417-popsignuptwoweeks-perspective_alpha_website_medium.jpg)',
     backgroundSize: 'cover',
     height: '100vh',
@@ -15,7 +21,7 @@ const useStyles = makeStyles({
     justifyContent: 'center',
     alignContent: 'center'
   },
-  textfield:{
+  [`& .${classes.textfield}`]: {
     '& .MuiInputBase-input':{
       color: 'white',
     },
@@ -29,7 +35,7 @@ const useStyles = makeStyles({
       borderColor: 'white',
     },
   },
-  formContainer: {
+  [`& .${classes.formContainer}`]: {
     position: 'absolute',
     top: '50%',
     left: '50%',
@@ -47,11 +53,9 @@ export default function Principal() {
 
   const navigate = useNavigate();
 
-  const classes = useStyles();
+
     
 
 
-  return (
-        <p>olaaaaaa</p>
-  );
+  return <Root>olaaaaaa</Root>;
 }

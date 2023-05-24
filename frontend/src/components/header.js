@@ -1,15 +1,26 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import { Toolbar, AppBar, Avatar} from '@mui/material';
-import { makeStyles } from '@mui/styles';
 import logoNetflix from "../images/logoNetflix.png"
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 
-const useStyles = makeStyles({
+const PREFIX = 'header';
+
+const classes = {
+  root: `${PREFIX}-root`,
+  logo: `${PREFIX}-logo`,
+  transparent: `${PREFIX}-transparent`,
+  avatar: `${PREFIX}-avatar`,
+  toolbar: `${PREFIX}-toolbar`,
+  item: `${PREFIX}-item`
+};
+
+const Root = styled('div')({
   
-  root: {
+  [`& .${classes.root}`]: {
     backgroundColor: '#000',
     height: "50px",
     position: 'sticky',
@@ -21,31 +32,31 @@ const useStyles = makeStyles({
     zIndex: 1,
   },
 
-  logo:  {
+  [`& .${classes.logo}`]: {
     width: '100px',
     cursor: 'pointer',
   },
-  transparent: {
+  [`& .${classes.transparent}`]: {
     backgroundColor: 'transparent',
   },
-  avatar:{
+  [`& .${classes.avatar}`]: {
     cursor:'pointer',
   },
-  toolbar: {
+  [`& .${classes.toolbar}`]: {
     width: '100%',
     display: 'flex', 
     justifyContent: 'space-between',
     alignItems: 'center',
     margin: '0px 15px 0px',
   },
-  item: {
+  [`& .${classes.item}`]: {
     color: 'white',
   }
 });
 
 
 export default function Header(){
-  const classes = useStyles();
+
   const [show, setShow] = useState(false);
   
   const hideHeader = () =>{
@@ -64,7 +75,7 @@ export default function Header(){
 
 
   return (
-    <div className={`${classes.root} ${!show && classes.transparent}`} elevation={0}>
+    <Root className={`${classes.root} ${!show && classes.transparent}`} elevation={0}>
       <div className={classes.toolbar}>
         <Link to="/login">
           <img src={logoNetflix} alt="logo Netflix" className={classes.logo} />
@@ -79,9 +90,8 @@ export default function Header(){
           <Avatar className={classes.avatar}></Avatar>
         </Link>
       </div>
-    </div>
-      
-  )
+    </Root>
+  );
 }
 
 

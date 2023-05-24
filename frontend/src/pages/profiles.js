@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { makeStyles } from '@mui/styles';
+import { styled } from '@mui/material/styles';
 import Profile from "../components/profile";
 import { createTheme, ThemeProvider  } from '@mui/material/styles';
 import {Button, TextField, Typography, Avatar} from '@mui/material';
@@ -13,8 +13,17 @@ import Header from "../components/header"
 import Footer from "../components/footer";
 
 
-const useStyles = makeStyles({
-  root: {
+const PREFIX = 'profiles';
+
+const classes = {
+  root: `${PREFIX}-root`,
+  formContainer: `${PREFIX}-formContainer`,
+  title: `${PREFIX}-title`,
+  avatarContainer: `${PREFIX}-avatarContainer`
+};
+
+const Root = styled('div')({
+  [`& .${classes.root}`]: {
     backgroundColor: 'black',
     backgroundSize: 'cover',
     height: '100vh',
@@ -22,7 +31,7 @@ const useStyles = makeStyles({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  formContainer: {
+  [`& .${classes.formContainer}`]: {
     position: 'absolute',
     display: 'flex',
     flexDirection: 'column',
@@ -35,11 +44,11 @@ const useStyles = makeStyles({
     boxShadow: '0 0.5rem 1rem rgba(0, 0, 0, 0.9)',
     textAlign: 'center',
   },
-  title: {
+  [`& .${classes.title}`]: {
     marginBottom: '1rem',
     color: 'white',
   },
-  avatarContainer: {
+  [`& .${classes.avatarContainer}`]: {
     display: 'flex',
     justifyContent: 'center',
     marginTop: '2rem',
@@ -52,7 +61,7 @@ export default function Profiles() {
 
 
   const { user } = useParams();
-  const classes = useStyles();
+
   const navigate = useNavigate();
   const [profilesList, setProfilesList] = useState([]);
 
@@ -91,7 +100,7 @@ export default function Profiles() {
 
 
   return (
-    <div>
+    <Root>
     <Header />
     
         
@@ -116,6 +125,6 @@ export default function Profiles() {
         </div>
         </div>
     <Footer />
-    </div>
+    </Root>
   );
 }

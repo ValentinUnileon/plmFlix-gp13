@@ -1,6 +1,5 @@
 import * as React from "react";
-//import {Button, TextField, Typography} from '@mui/material';
-import { makeStyles } from "@mui/styles";
+import { styled } from '@mui/material/styles';
 import Header from "../components/header";
 import Banner from "../components/banner";
 import Footer from "../components/footer";
@@ -12,6 +11,28 @@ import { useParams } from "react-router-dom";
 import {getEndpoint} from './const/const';
 
 import axios from "axios";
+
+const PREFIX = 'home';
+
+const classes = {
+  root: `${PREFIX}-root`,
+  categorias: `${PREFIX}-categorias`
+};
+
+const Root = styled('div')({
+  [`&.${classes.root}`]: {
+    backgroundColor: "#111",
+    width: "100%",
+    height: "100%",
+  },
+
+  [`& .${classes.categorias}`]: {
+    display: "grid",
+    gridAutoRows: "repeat(2, auto)",
+    gridGap: "30px",
+    margin: '30px 0 30px 0',
+  },
+});
 
 export default function Home() {
   const navigate = useNavigate();
@@ -31,9 +52,9 @@ export default function Home() {
     navigate(`/${user}/${profile.name}/${filmList[0]}/viewFilms`);
   }
 
-  const classes = useStyles();
+
   return (
-    <div className={classes.root}>
+    <Root className={classes.root}>
       <Header />
       <div className={classes.body}>
         <Banner />
@@ -46,21 +67,6 @@ export default function Home() {
         </div>
       </div>
       <Footer />
-    </div>
+    </Root>
   );
 }
-
-const useStyles = makeStyles({
-  root: {
-    backgroundColor: "#111",
-    width: "100%",
-    height: "100%",
-  },
-
-  categorias: {
-    display: "grid",
-    gridAutoRows: "repeat(2, auto)",
-    gridGap: "30px",
-    margin: '30px 0 30px 0',
-  },
-});

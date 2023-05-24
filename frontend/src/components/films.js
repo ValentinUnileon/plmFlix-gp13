@@ -1,5 +1,5 @@
 import React from 'react'
-import { makeStyles } from '@mui/styles';
+import { styled } from '@mui/material/styles';
 import { useState } from "react";
 import { useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
@@ -7,8 +7,37 @@ import { useParams } from "react-router-dom";
 
 
 
+const PREFIX = 'films';
+
+const classes = {
+  root: `${PREFIX}-root`,
+  cartel: `${PREFIX}-cartel`
+};
+
+const Root = styled('div')({
+  [`&.${classes.root}`]: {
+    position: 'relative',
+    width: '370px',
+    height: '200px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+
+  [`& .${classes.cartel}`]: {
+    width: '95%',
+    height: '95%',
+    backgroundSize: 'cover',
+    position: 'relative',
+    backgroundImage: `url(${"https://img.youtube.com/vi/sec80NHLdmU/0.jpg"})`,
+  }
+
+});
+
+
+
 export default function Films({film}) {
-  const classes = useStyles();
+
   /* film.name para el nombre del video */
   /* film.url para el link del video */
 
@@ -27,30 +56,9 @@ function click(){
   navigate(`/${user}/${profile.name}/${filmList[0]}/viewFilms`);
 }
   return (
-
-    <div className={classes.root} onClick={() => handleClick(film)} >
+    <Root className={classes.root} onClick={() => handleClick(film)} >
       <div className={classes.cartel}></div>
-    </div>
-  )
+    </Root>
+  );
 }
-
-const useStyles = makeStyles({
-  root:  {
-    position: 'relative',
-    width: '370px',
-    height: '200px',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-
-  cartel: {
-    width: '95%',
-    height: '95%',
-    backgroundSize: 'cover',
-    position: 'relative',
-    backgroundImage: `url(${"https://img.youtube.com/vi/sec80NHLdmU/0.jpg"})`,
-  }
-
-});
 

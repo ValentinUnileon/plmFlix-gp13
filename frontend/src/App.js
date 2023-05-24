@@ -1,11 +1,11 @@
 import './App.css';
+import { styled } from '@mui/material/styles';
 import Login from "./pages/login.js";
 import Profiles from "./pages/profiles.js";
 import Home from "./pages/home";
 import ViewFilms from "./pages/viewFilms";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { makeStyles } from '@mui/styles';
 import {
   BrowserRouter as Router,
   Routes,
@@ -15,10 +15,23 @@ import {
 import Configuration from './pages/configuration';
 import Administrador from './pages/administrador';
 
+const PREFIX = 'App';
+
+const classes = {
+  root: `${PREFIX}-root`
+};
+
+const StyledLocalizationProvider = styled(LocalizationProvider)({
+  [`& .${classes.root}`]: {
+    minHeight: '100vh',
+    backgroundColor: '#111',
+  },
+});
+
 function App() {
-  const classes = useStyles();
+
   return (
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
+    <StyledLocalizationProvider dateAdapter={AdapterDayjs}>
       <Router>
         <Routes>
           <Route path="/" element={<Navigate to="/login" />} />
@@ -30,14 +43,8 @@ function App() {
           <Route path="/:user/:profile/administrador" element={<Administrador />} />
         </Routes>
       </Router>
-    </LocalizationProvider>
+    </StyledLocalizationProvider>
   );
 }
 
-const useStyles = makeStyles({
-  root: {
-    minHeight: '100vh',
-    backgroundColor: '#111',
-  },
-});
 export default App;

@@ -1,13 +1,22 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import {Button, TextField, Typography, Alert, Box} from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import {getEndpoint} from './const/const';
-import { makeStyles } from '@mui/styles';
 import { Divider } from '@mui/material';
 
-const useStyles = makeStyles({
-  root: {
+const PREFIX = 'configuration';
+
+const classes = {
+  root: `${PREFIX}-root`,
+  textField: `${PREFIX}-textField`,
+  formContainer: `${PREFIX}-formContainer`,
+  textoPrincipal: `${PREFIX}-textoPrincipal`
+};
+
+const Root = styled('div')({
+  [`&.${classes.root}`]: {
     //backgroundImage: 'url(https://www.ribescasals.com/media/catalog/product/cache/ac95d467f39086acf44821b87fe7ae41/t/e/tela-loneta-negra.jpg)',
     backgroundSize: 'cover',
     backgroundColor: '#111',
@@ -16,7 +25,7 @@ const useStyles = makeStyles({
     justifyContent: 'center',
     alignContent: 'center'
   },
-  textField: {
+  [`& .${classes.textField}`]: {
     '& .MuiInputBase-input': {
       color: '#fff',
     },
@@ -29,7 +38,7 @@ const useStyles = makeStyles({
       },
     },
   },
-  formContainer: {
+  [`& .${classes.formContainer}`]: {
     position: 'absolute',
     top: '50%',
     left: '50%',
@@ -41,7 +50,7 @@ const useStyles = makeStyles({
     marginTop: '0.4%'
 
   },
-  textoPrincipal: {
+  [`& .${classes.textoPrincipal}`]: {
     
     marginTop: '10px',
     fontFamily: 'Verdana'
@@ -54,7 +63,7 @@ export default function Configuration() {
 
   const navigate = useNavigate();
 
-  const classes = useStyles();
+
     
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -75,7 +84,7 @@ export default function Configuration() {
   };
 
   return (
-    <div className={classes.root}>
+    <Root className={classes.root}>
 
         <Typography variant="h4" frontWeight = 'bold' color='white' style={{ fontFamily: 'Palatino', marginTop: '12px' }} className={classes.textoPrincipal}>Configuración de usuario</Typography>
         <br></br><br></br>
@@ -101,6 +110,6 @@ export default function Configuration() {
 
           <Button variant="contained" color="primary" fullWidth type="submit">Editar perfiles</Button>
         </Box>
-    </div>
+    </Root>
   );
 }

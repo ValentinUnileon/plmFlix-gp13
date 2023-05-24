@@ -1,46 +1,22 @@
 
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import {Button, TextField, Typography, Toolbar, AppBar, Avatar} from '@mui/material';
-import { makeStyles } from '@mui/styles';
 import { Link } from 'react-router-dom';
 //import imgBanner from '../images/banner1.jpg';
 //import videoBanner from '../videos/Vengadores.mp4'
 import '../cssComponents/banner.css'
 
-export default function Banner(){
-    const classes = useStyles();
+const PREFIX = 'banner';
 
-    /* funcion onclick que lleve a la pagina de ver el video del banner*/
-    /* funcion onclick que ponga mute o no el banner */
-    /* funcion añadir a mi lista */
-    /* funcion map para poner video del banner  */ 
-  
+const classes = {
+  root: `${PREFIX}-root`,
+  buttons: `${PREFIX}-buttons`,
+  content: `${PREFIX}-content`
+};
 
-  return (
-    <div className="video-background"> 
-    <video autoPlay muted loop>
-        { //<source src={videoBanner} type="video/mp4" /> 
-        }
-
-    </video>
-      <div className="video-overlay">
-        <div className={classes.content}>
-        <Typography variant="h2" color='white'>
-          Movie Title
-        </Typography>
-        </div>
-        <div className={classes.buttons}>
-          <Button>Play</Button>
-          <Button>My List</Button>
-        </div>
-      </div>
-      
-    </div>
-  )
-}
-
-const useStyles = makeStyles({
-    root:  {
+const Root = styled('div')({
+    [`& .${classes.root}`]: {
       //backgroundImage: `url(${imgBanner})`,
       position: 'relative',
       width: '100%',
@@ -50,7 +26,7 @@ const useStyles = makeStyles({
       backgroundPosition: 'center',
     },
 
-    buttons: {
+    [`& .${classes.buttons}`]: {
       "& button": {
         left: '75px',
         top: '300px',
@@ -68,10 +44,42 @@ const useStyles = makeStyles({
       }, 
     },
 
-    content: {
+    [`& .${classes.content}`]: {
       position: 'relative',
       left: '50px',
       top: '10px',
     }
 });
+
+export default function Banner(){
+
+
+    /* funcion onclick que lleve a la pagina de ver el video del banner*/
+    /* funcion onclick que ponga mute o no el banner */
+    /* funcion añadir a mi lista */
+    /* funcion map para poner video del banner  */ 
+  
+
+  return (
+    <Root className="video-background"> 
+    <video autoPlay muted loop>
+        { //<source src={videoBanner} type="video/mp4" /> 
+        }
+
+    </video>
+      <div className="video-overlay">
+        <div className={classes.content}>
+        <Typography variant="h2" color='white'>
+          Movie Title
+        </Typography>
+        </div>
+        <div className={classes.buttons}>
+          <Button>Play</Button>
+          <Button>My List</Button>
+        </div>
+      </div>
+      
+    </Root>
+  );
+}
 

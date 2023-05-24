@@ -1,13 +1,19 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import {Button, TextField, Typography, Alert, Box} from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import {getEndpoint} from './const/const';
-import { makeStyles } from '@mui/styles';
+const PREFIX = 'login';
 
+const classes = {
+  root: `${PREFIX}-root`,
+  textField: `${PREFIX}-textField`,
+  formContainer: `${PREFIX}-formContainer`
+};
 
-const useStyles = makeStyles({
-  root: {
+const Root = styled('div')({
+  [`&.${classes.root}`]: {
     backgroundImage: 'url(https://assets.nflxext.com/ffe/siteui/vlv3/efb4855d-e702-43e5-9997-bba0154152e0/1844f11c-1c2c-453b-80d4-2287d580c455/ES-es-20230417-popsignuptwoweeks-perspective_alpha_website_medium.jpg)',
     backgroundSize: 'cover',
     backgroundColor: '#fff',
@@ -16,7 +22,7 @@ const useStyles = makeStyles({
     justifyContent: 'center',
     alignContent: 'center'
   },
-  textField: {
+  [`& .${classes.textField}`]: {
     '& .MuiInputBase-input': {
       color: '#fff',
     },
@@ -29,7 +35,7 @@ const useStyles = makeStyles({
       },
     },
   },
-  formContainer: {
+  [`& .${classes.formContainer}`]: {
     position: 'absolute',
     top: '50%',
     left: '50%',
@@ -47,7 +53,7 @@ export default function Login() {
 
   const navigate = useNavigate();
 
-  const classes = useStyles();
+
     
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -72,7 +78,7 @@ export default function Login() {
   };
 
   return (
-    <div className={classes.root}>
+    <Root className={classes.root}>
       <Box sx={{
             marginTop: 8,
             display: 'flex',
@@ -90,6 +96,6 @@ export default function Login() {
           <Button variant="contained" color="primary" fullWidth type="submit">Iniciar Sesion</Button>
         </Box>
       </Box>
-    </div>
+    </Root>
   );
 }

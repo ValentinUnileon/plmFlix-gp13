@@ -28,7 +28,7 @@ console.log("despues de app use");
 
 connectDB().then((result) => {
   console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-  crearDB();
+  //crearDB();
 
   app.listen(5000, function () {
     console.log("Servidor arrancado en el puerto 5000!");

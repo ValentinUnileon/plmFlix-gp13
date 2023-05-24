@@ -36,12 +36,13 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Navigate to="/login" />} />
-          <Route path="/login" element={<Register />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/:user/profiles" element={<Profiles />} />
           <Route path="/:user/:profile/home" element={<Home />} />
           <Route path="/:user/:profile/:film/viewFilms" element={<ViewFilms />} />
           <Route path="/:user/:profile/configuration" element={<Configuration />} />
           <Route path="/administrador" element={<Administrador />} />
+          <Route path="/register" element={<Register />} />
         </Routes>
       </Router>
     </StyledLocalizationProvider>

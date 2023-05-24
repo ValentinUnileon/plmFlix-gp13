@@ -14,7 +14,7 @@ const classes = {
 
 const Root = styled('div')({
   [`&.${classes.root}`]: {
-    backgroundImage: 'url(https://assets.nflxext.com/ffe/siteui/vlv3/efb4855d-e702-43e5-9997-bba0154152e0/1844f11c-1c2c-453b-80d4-2287d580c455/ES-es-20230417-popsignuptwoweeks-perspective_alpha_website_medium.jpg)',
+    backgroundImage: 'url(https://fondosmil.com/fondo/57395.jpg)',
     backgroundSize: 'cover',
     backgroundColor: '#fff',
     height: '100vh',
@@ -63,18 +63,22 @@ export default function Register() {
       password: data.get('password'),
     }
 
-    axios.post(getEndpoint('/login'), payload)
+    axios.put(getEndpoint('/register'), payload)
     .then((response)=> {
       navigate(`/${response.data.username}/profiles`);
-      console.log("segurooo");
+      console.log("Éxito al registrar usuario");
     })
     .catch((error)=>{
-      console.log(getEndpoint('/login'), payload);
+      console.log(getEndpoint('/register'), payload);
       setshowError(true);
       console.log("ERROR");
     
     });
 
+  };
+
+  const goToLogin = () => {
+    navigate(`/login`);
   };
 
   return (
@@ -87,13 +91,15 @@ export default function Register() {
           }}>
       {
         showError &&
-        <Alert severity="error">Usuario o contraseña mal</Alert>
+        <Alert severity="error">Error al registrarse</Alert>
       }
         <Box component="form" onSubmit={handleSubmit} noValidate className={classes.formContainer}>
-          <Typography variant="h4" frontWeight = 'bold' color='white'>Iniciar sesión</Typography>
+          <Typography variant="h4" frontWeight = 'bold' color='white'>Regístrate en PLMFlix</Typography>
           <TextField label='Correo electrónico' className={classes.textField} margin="normal" fullWidth id="email" name="email" autoComplete="email" required autoFocus/>
           <TextField label='Contraseña' type="password" className={classes.textField} margin="normal" fullWidth id="password" name="password" required  />
-          <Button variant="contained" color="primary" fullWidth type="submit">Iniciar Sesion</Button>
+          <Button variant="contained" color="primary" fullWidth type="submit">Registrarse</Button>
+          <br></br><br></br>
+          <Button variant="contained" color="primary" fullWidth onClick={goToLogin}>Volver a Iniciar sesión</Button>
         </Box>
       </Box>
     </Root>

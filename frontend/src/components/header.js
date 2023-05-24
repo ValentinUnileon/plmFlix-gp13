@@ -45,6 +45,9 @@ const Root = styled('div')({
   },
   [`& .${classes.avatar}`]: {
     cursor:'pointer',
+    marginRight: '5%',
+    height: "55px",
+    width: '55px',
   },
   [`& .${classes.toolbar}`]: {
     width: '100%',
@@ -111,13 +114,14 @@ export default function Header(){
         <Link to="/login">
           <img src={logoNetflix} alt="logo Netflix" className={classes.logo} />
         </Link>
+       
         <Link to="/profiles" className={classes.item}>
           Peliculas
         </Link>
         <Link to="/profiles" className={classes.item}>
           Series
         </Link>
-       
+
         <Avatar className={classes.avatar} onClick={abrirMenu}></Avatar>
         <Menu
           anchorEl={anchorEl}

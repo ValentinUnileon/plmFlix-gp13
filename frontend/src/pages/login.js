@@ -63,6 +63,8 @@ export default function Login() {
       password: data.get('password'),
     }
 
+  
+
     axios.post(getEndpoint('/login'), payload)
     .then((response)=> {
       navigate(`/${response.data.username}/profiles`);
@@ -75,6 +77,10 @@ export default function Login() {
     
     });
 
+  };
+
+  const goToRegister = () => {
+    navigate(`/register`);
   };
 
   return (
@@ -94,6 +100,9 @@ export default function Login() {
           <TextField label='Correo electrónico' className={classes.textField} margin="normal" fullWidth id="email" name="email" autoComplete="email" required autoFocus/>
           <TextField label='Contraseña' type="password" className={classes.textField} margin="normal" fullWidth id="password" name="password" required  />
           <Button variant="contained" color="primary" fullWidth type="submit">Iniciar Sesion</Button>
+          <br></br><br></br>
+          <Typography variant="h6" frontWeight = 'bold' color='white' align='center'>¿No estás registrado?</Typography>
+          <Button variant="contained" color="primary" fullWidth onClick={goToRegister}>Regístrate gratis</Button>
         </Box>
       </Box>
     </Root>

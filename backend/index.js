@@ -22,12 +22,12 @@ if (process.env.NODE_ENV === "production") {
 
 app.use("/api/login", require("./routes/login"));
 app.use("/api", require("./routes/profiles"));
+app.use("/api", require("./routes/home"));
 
 
 
 connectDB().then((result) => {
-  console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-  crearDB();
+  //crearDB();
 
   app.listen(5000, function () {
     console.log("Servidor arrancado en el puerto 5000!");

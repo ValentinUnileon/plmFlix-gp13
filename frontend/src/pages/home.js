@@ -4,6 +4,7 @@ import Header from "../components/header";
 import Banner from "../components/banner";
 import Footer from "../components/footer";
 import Categoria from "../components/category";
+import VideoPop from "../components/videoPop";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -35,29 +36,28 @@ const Root = styled('div')({
 });
 
 export default function Home() {
-  const navigate = useNavigate();
   const { user, profile } = useParams();
+  const [open, setOpen] = useState(false);
   const [filmList, setFilmList] = useState([
     { id: "1", name: "uno" },
     { id: "2", name: "dos" },
   ]);
 
-  const [categoriesList, setCategoriesList] = useState([
-    { name: "uno" },
-    { name: "dos" },
-  ]);
+  const [categoriesList, setCategoriesList] = useState([]);
 
   function click() {
-    console.log("asdfasdf");
-    navigate(`/${user}/${profile.name}/${filmList[0]}/viewFilms`);
+    setOpen(true);
   }
 
+  useEffect(()=>{
 
+  },[])
   return (
     <Root className={classes.root}>
       <Header />
       <div className={classes.body}>
         <Banner />
+        <VideoPop open={open}/>
         <div className={classes.categorias}>
           {categoriesList.map((categoria, index) => (
             <div className="container">

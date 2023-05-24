@@ -19,8 +19,17 @@ let profile = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Video',
     }],
-    
+
     vistoList: [{
+        video: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Video',
+        },
+        currentTime: {
+            type: Number
+        }
+    }],
+    pendienteList: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Video',
     }],

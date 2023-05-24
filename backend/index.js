@@ -21,17 +21,17 @@ if (process.env.NODE_ENV === "production") {
  });
 }
 
+connectDB()
+
+  crearDB();
+
 app.use("/api/login", require("./routes/login"));
 app.use("/api", require("./routes/profiles"));
 
 
 
-connectDB().then((result) => {
-  console.log("antes de entrar en crearDB");
-  crearDB();
+
 
   app.listen(5000, function () {
     console.log("Servidor arrancado en el puerto 5000!");
   });
-
-}).catch((error)=> {console.log("error al arrancar servidor", error.message)})

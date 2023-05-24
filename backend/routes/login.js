@@ -4,7 +4,7 @@ const User = require("../models/User");
 
 router.post("/", async function (req, res) {
   
-
+  console.log("llego a post del back")
   const user = req.body.user;
   const password = req.body.password;
   

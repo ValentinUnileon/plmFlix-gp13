@@ -15,7 +15,7 @@ export default function Films({film}) {
   const navigate = useNavigate();
   const { user, profile } = useParams();
   const [filmList, setFilmList] = useState([  { id: "1", name: "uno" },
-  { id: "2", name: "dos" }]);
+  { id: "2", name: "dos" }, { id: "3", name: "tres" }, { id: "4", name: "cuatro" }]);
 
   function handleClick(film){
     console.log("categori");
@@ -37,8 +37,7 @@ function click(){
 const useStyles = makeStyles({
   root:  {
     position: 'relative',
-    backgroundColor: 'green',
-    width: '370ox',
+    width: '370px',
     height: '200px',
     display: 'flex',
     alignItems: 'center',
@@ -49,9 +48,8 @@ const useStyles = makeStyles({
     width: '95%',
     height: '95%',
     backgroundSize: 'cover',
-    backgroundColor: 'gray',
-    //position: 'relative',
-    //backgroundImage: `url(${"https://img.youtube.com/vi/sec80NHLdmU/0.jpg"})`,
+    position: 'relative',
+    backgroundImage: `url(${"https://img.youtube.com/vi/sec80NHLdmU/0.jpg"})`,
   }
 
 });

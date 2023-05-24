@@ -5,7 +5,6 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import { useParams } from "react-router-dom";
-
 import axios from "axios";
 
 
@@ -14,11 +13,13 @@ import axios from "axios";
 
 export default function Categoria({click, categoria, filmLista}) {
     const classes = useStyles();
-    const [filmList, setFilmList] = useState([{name: "sadf" }, {name: "asdf"}]);
+    const [filmList, setFilmList] = useState([{name: "sadf" }, {name: "asdf"}, {name: "asdf"}, {name: "asdf"}]);
     
     return (
         <div className={classes.root}>
-            <div><label>ss</label></div>
+            <div className={classes.titulo}>
+                Titulo de la categoria.
+            </div>
             <div className={classes.container}>
             {filmList.map((film , index) => (
                  <div className={classes.pelis}><Films />
@@ -31,28 +32,28 @@ export default function Categoria({click, categoria, filmLista}) {
 
 const useStyles = makeStyles({
     root: {
-        backgroundColor: 'blue',
         width: '100%',
-        height: '300px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
+        height: 'auto',
     },
 
     container:  {
-      //position: 'relative',
-      display: 'grid' ,
-      gridTemplateColumns: 'repeat(5, 370px)',
-      gridGap: '15px',
-      backgroundColor: 'white',
-      height: '90%',
-      width: '100%',
-      marginTop: '0px',
-        
+      display: 'flex',
+      maxHeight: '100%',
+      maxWidth: '100vw',
+      overflowX: 'auto',
+      "& container::-webkit-scrollbar":{
+        width: '0',
+    }
+    },
+    titulo: {
+        color: 'white',
+        fontSize: '25px',
     },
 
     pelis: {
-        backgroundColor: 'red',  
+        minWidth:'370px',
+        height: '200px',
+        lineHeight: '200px',
+        marginRight: '0px',
     }
-  
   });

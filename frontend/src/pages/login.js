@@ -63,7 +63,7 @@ export default function Login() {
       console.log("segurooo");
     })
     .catch((error)=>{
-      
+      console.log(getEndpoint('/login'), payload);
       setshowError(true);
       console.log("ERROR");
     

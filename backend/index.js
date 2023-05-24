@@ -24,7 +24,7 @@ if (process.env.NODE_ENV === "production") {
 app.use("/api/login", require("./routes/login"));
 app.use("/api", require("./routes/profiles"));
 
-
+console.log("despues de app use");
 
 connectDB().then((result) => {
   console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");

@@ -148,6 +148,7 @@ const crearDB = () => {
 
             const insertarCategorias = async () => {
                 try {
+                    console.log("Categorias con sus videos");
                     await insertarVideos();
                     const categoriasConVideos = [];
                     for (const cat of categoriasArray) {
@@ -159,9 +160,9 @@ const crearDB = () => {
                             videos: videosCat,
                         });
                     }
-
+                    
                     const categoriasInsert = await Categoria.insertMany(categoriasConVideos);
-                    console.log("Categorias con sus videos");
+                    
                 } catch (err) {
                     console.error(err);
                 }

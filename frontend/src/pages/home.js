@@ -48,6 +48,7 @@ export default function Home() {
 
   function click(id) {
     console.log(id);
+    setVideo(video);
     setOpen(true);
   }
 

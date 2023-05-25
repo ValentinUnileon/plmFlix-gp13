@@ -47,7 +47,7 @@ export default function Home() {
   const [video, setVideo]=useState("");
 
   function click(id) {
-    //console.log(id);
+    console.log(id);
     setOpen(true);
   }
 
@@ -73,7 +73,7 @@ export default function Home() {
       <Header />
       <div className={classes.body}>
         <Banner />
-        <VideoPop open={open}/>
+ 
         <div className={classes.categorias}>
 
         {console.log("visto mg", vistoList)}
@@ -81,7 +81,7 @@ export default function Home() {
           {likeList.length > 0 &&
             
                 <div className="container">
-                  <Categoria click={click} nombrecategoria={"Peliculas favoritas"} listaPelis={likeList} />
+                  <Categoria click={click()} nombrecategoria={"Peliculas favoritas"} listaPelis={likeList} />
                 </div>
           }
     

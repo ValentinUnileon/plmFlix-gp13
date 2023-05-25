@@ -46,9 +46,9 @@ export default function Films({click, film}) {
 
 
   function handleClick(film){
-    console.log("categori");
     click(film);  
   }
+
 
 
   useEffect(() => {

@@ -56,20 +56,17 @@ const Root = styled('div')({
 
 
 
+export default function Categoria({click, nombrecategoria, listaPelis}) {
 
-
-export default function Categoria({click, categoria, filmLista}) {
-
-    const [filmList, setFilmList] = useState([{name: "sadf" }, {name: "asdf"}, {name: "asdf"}, {name: "asdf"}]);
-    
     return (
         <Root className={classes.root}>
             <div className={classes.titulo}>
-                Titulo de la categoria.
+                {nombrecategoria}
             </div>
             <div className={classes.container}>
-            {filmList.map((film , index) => (
-                 <div className={classes.pelis}><Films />
+            {listaPelis.map((peli , index) => (
+                
+                 <div className={classes.pelis}><Films film={peli} />
                  </div>
             ))}
             </div>

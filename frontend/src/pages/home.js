@@ -11,6 +11,8 @@ import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import {getEndpoint} from './const/const';
 
+import {Button} from "@mui/material";
+
 import axios from "axios";
 
 const PREFIX = 'home';
@@ -39,41 +41,36 @@ export default function Home() {
   const { user, profile } = useParams();
   const [open, setOpen] = useState(false);
 
-
   const [categoriesList, setCategoriesList] = useState([]);
   const [likeList, setLikeList] = useState([]);
   const [pendientesList, setPendientesList] = useState([]);
   const [vistoList, setVistoList] = useState([]);
-  const [video, setVideo]=useState("");
+  const [video, setVideo] = useState("");
 
   function click(id) {
-    console.log(id);
-    setVideo(video);
+    setVideo(id);
     setOpen(true);
   }
+  const handleClose = () => {
+    setOpen(false);
+
+  };
 
   useEffect(()=>{
-
     axios.get(getEndpoint(`/${user}/${profile}/home`))
-    .then((response) => {
-
+    .then((response)=>{
       setCategoriesList(response.data.categories);
-      console.log("categorias")
-
       setLikeList(response.data.perfile.likeList);
       setPendientesList(response.data.perfile.pendienteList);
       setVistoList(response.data.perfile.vistoList);
-
     });
-
-  },[])
-
-
+  },[profile])
   return (
     <Root className={classes.root}>
       <Header />
       <div className={classes.body}>
         <Banner />
+        <VideoPop open={open} video={video} handleClose={handleClose} likeList={likeList} pendientesList={pendientesList} vistoList={vistoList}/>
  
         <div className={classes.categorias}>
 

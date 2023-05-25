@@ -65,6 +65,7 @@ export default function VideoPop({open, video, handleClose, likeList, pendientes
 
     //gestion de botones
     const clickMegusta = () =>{
+        alert("gusta");
         if(gusta){//ya en la lista(delete)
 
         }else{//boton blanco(put)
@@ -74,6 +75,7 @@ export default function VideoPop({open, video, handleClose, likeList, pendientes
     }
 
     const clickPendiente = () =>{
+        alert("pendiente");
         if(pendiente){//ya en la lista(delete)
 
         }else{//boton blanco
@@ -82,6 +84,7 @@ export default function VideoPop({open, video, handleClose, likeList, pendientes
     }
 
     const clickReproducir = () =>{
+        alert("reproducir");
         if(!visto){//añadir a la lista (put)
 
         }
@@ -105,7 +108,7 @@ export default function VideoPop({open, video, handleClose, likeList, pendientes
                     height="500"
                     image={videoThum}
                 />
-                <Button variant="contained" startIcon={<PlayArrowIcon />} style={{color: "black", backgroundColor: "white"}} >
+                <Button variant="contained" startIcon={<PlayArrowIcon />} style={{color: "black", backgroundColor: "white"}} onClick={clickReproducir} >
                     Reproducir
                 </Button>
                 <IconButton aria-label="add to favorites" style={{color: "white"}} onClick={clickMegusta}>

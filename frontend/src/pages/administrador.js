@@ -117,7 +117,7 @@ export default function Administrador() {
 
     <div className={classes.root}>
 
-        <Typography variant="h4" frontWeight = 'bold' color='white' style={{ fontFamily: 'Palatino', marginTop: '20px'}} className={classes.textoPrincipal}>Página del administrador</Typography>
+        <Typography variant="h4" color='white' style={{ fontFamily: 'Palatino', marginTop: '20px'}} className={classes.textoPrincipal}>Página del administrador</Typography>
         <br></br><br></br>
 
       <Box component="form" noValidate className={classes.formContainer}>

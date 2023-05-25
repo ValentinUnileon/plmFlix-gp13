@@ -5,9 +5,6 @@ const crearDB = require ("./datos/datosDb");
 const path = require('path');
 
 
-//connectDB ();
-//crearDB();
-
 var app = express();
 app.use(express.json());
 app.use(cors());
@@ -23,11 +20,11 @@ if (process.env.NODE_ENV === "production") {
 app.use("/api/login", require("./routes/login"));
 app.use("/api", require("./routes/profiles"));
 app.use("/api", require("./routes/home"));
-
+app.use("/api/register", require("./routes/register"));
 
 
 connectDB().then((result) => {
-  //crearDB();
+  crearDB();
 
   app.listen(5000, function () {
     console.log("Servidor arrancado en el puerto 5000!");

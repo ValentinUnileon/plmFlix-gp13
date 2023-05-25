@@ -59,13 +59,13 @@ export default function Register() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     let payload = {
-      user: data.get('email'),
+      user: data.get('username'),
       password: data.get('password'),
     }
 
-    axios.put(getEndpoint('/register'), payload)
+    axios.post(getEndpoint('/register'), payload)
     .then((response)=> {
-      navigate(`/${response.data.username}/profiles`);
+      navigate(`/${payload.user}/profiles`);
       console.log("Éxito al registrar usuario");
     })
     .catch((error)=>{
@@ -95,7 +95,7 @@ export default function Register() {
       }
         <Box component="form" onSubmit={handleSubmit} noValidate className={classes.formContainer}>
           <Typography variant="h4" frontWeight = 'bold' color='white'>Regístrate en PLMFlix</Typography>
-          <TextField label='Correo electrónico' className={classes.textField} margin="normal" fullWidth id="email" name="email" autoComplete="email" required autoFocus/>
+          <TextField label='Nombre de usuario' className={classes.textField} margin="normal" fullWidth id="username" name="username" autoComplete="username" required autoFocus/>
           <TextField label='Contraseña' type="password" className={classes.textField} margin="normal" fullWidth id="password" name="password" required  />
           <Button variant="contained" color="primary" fullWidth type="submit">Registrarse</Button>
           <br></br><br></br>

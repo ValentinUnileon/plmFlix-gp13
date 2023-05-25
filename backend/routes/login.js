@@ -10,6 +10,7 @@ router.post("/", async function (req, res) {
   
   const logedUser = await User.findOne({username: user});
 
+
   if(logedUser==null) {
     return res.status(400).send("No existe usuario");
   }
@@ -17,7 +18,7 @@ router.post("/", async function (req, res) {
   if(logedUser.password != password){
     return res.status(400).send("Contraseña incorrecta");
   }
-  
+
   return res.json(logedUser);
 
 });

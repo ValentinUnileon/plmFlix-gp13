@@ -11,6 +11,8 @@ import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import {getEndpoint} from './const/const';
 
+import {Button} from "@mui/material";
+
 import axios from "axios";
 
 const PREFIX = 'home';
@@ -38,32 +40,47 @@ const Root = styled('div')({
 export default function Home() {
   const { user, profile } = useParams();
   const [open, setOpen] = useState(false);
-  const [filmList, setFilmList] = useState([
-    { id: "1", name: "uno" },
-    { id: "2", name: "dos" },
-  ]);
 
   const [categoriesList, setCategoriesList] = useState([]);
+  const [likeList, setLikeList] = useState([]);
+  const [pendientesList, setPendientesList] = useState([]);
+  const [vistoList, setVistoList] = useState([]);
+  const [video, setVideo] = useState("");
 
-  function click() {
+  function click(id) {
+    setVideo(id);
     setOpen(true);
   }
+  const handleClose = () => {
+    setOpen(false);
+
+  };
 
   useEffect(()=>{
-
-  },[])
+    axios.get(getEndpoint(`/${user}/${profile}/home`))
+    .then((response)=>{
+      setCategoriesList(response.data.categories);
+      setLikeList(response.data.perfile.likeList);
+      setPendientesList(response.data.perfile.pendienteList);
+      setVistoList(response.data.perfile.vistoList);
+    });
+  },[profile])
   return (
     <Root className={classes.root}>
       <Header />
       <div className={classes.body}>
         <Banner />
-        <VideoPop open={open}/>
-        <div className={classes.categorias}>
-          {categoriesList.map((categoria, index) => (
-            <div className="container">
-              <Categoria click={click} categoria={categoria} film={filmList} />
+        <VideoPop open={open} video={video} handleClose={handleClose}/>
+        <div>
+          {categoriesList.map((categoria)=>(
+            <div>
+              <p>{categoria.title}</p>
+              {categoria.videos.map((video)=>(
+                <Button onClick={() => click(video._id)}>{video._id}</Button>
+              ))}
             </div>
-          ))}
+          )
+          )}
         </div>
       </div>
       <Footer />

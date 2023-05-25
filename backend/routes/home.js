@@ -57,7 +57,7 @@ router.get("/:user/:profile/home", async function (req, res) {
 });
 
 //al clickar en el thumnail del video
-router.get("/:user/:profile/:video", async function (req, res) {
+router.get("/:video", async function (req, res) {
     try {
         let videoId = req.params.video;
 

@@ -70,7 +70,7 @@ export default function Home() {
       <Header />
       <div className={classes.body}>
         <Banner />
-        <VideoPop open={open} video={video} handleClose={handleClose}/>
+        <VideoPop open={open} video={video} handleClose={handleClose} likeList={likeList} pendientesList={pendientesList} vistoList={vistoList}/>
         <div>
           {categoriesList.map((categoria)=>(
             <div>

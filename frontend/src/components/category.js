@@ -58,6 +58,11 @@ const Root = styled('div')({
 
 export default function Categoria({click, nombrecategoria, listaPelis}) {
 
+    function handleClick(film){
+        console.log("handle categoria");
+        click(film);  
+      }
+
     return (
         <Root className={classes.root}>
             <div className={classes.titulo}>
@@ -66,7 +71,7 @@ export default function Categoria({click, nombrecategoria, listaPelis}) {
             <div className={classes.container}>
             {listaPelis.map((peli , index) => (
                 
-                 <div className={classes.pelis}><Films film={peli} />
+                 <div className={classes.pelis}><Films click={handleClick(peli._id)} film={peli}  />
                  </div>
             ))}
             </div>

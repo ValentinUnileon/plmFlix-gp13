@@ -44,8 +44,10 @@ export default function Home() {
   const [likeList, setLikeList] = useState([]);
   const [pendientesList, setPendientesList] = useState([]);
   const [vistoList, setVistoList] = useState([]);
+  const [video, setVideo]=useState("");
 
-  function click() {
+  function click(id) {
+    //console.log(id);
     setOpen(true);
   }
 
@@ -76,11 +78,11 @@ export default function Home() {
 
         {console.log("visto mg", vistoList)}
 
-        {likeList.length > 0 &&
-           
-              <div className="container">
-                <Categoria click={click} nombrecategoria={"Peliculas favoritas"} listaPelis={likeList} />
-              </div>
+          {likeList.length > 0 &&
+            
+                <div className="container">
+                  <Categoria click={click} nombrecategoria={"Peliculas favoritas"} listaPelis={likeList} />
+                </div>
           }
     
           {pendientesList  > 0 &&

@@ -36,12 +36,11 @@ const Root = styled('div')({
 
 
 
-export default function Films({film}) {
+export default function Films({click, film}) {
 
   /* film.name para el nombre del video */
   /* film.url para el link del video */
 
-  console.log("componente film",film);
   const navigate = useNavigate();
   const { user, profile } = useParams();
 
@@ -51,10 +50,6 @@ export default function Films({film}) {
     click(film);  
   }
 
-  function click(){
-    console.log("asdfasdf");
-    navigate(`/${user}/${profile.name}/${film.title}/viewFilms`);
-  }
 
   useEffect(() => {
     const rootElement = document.getElementById(`film-${film._id}`);
@@ -65,7 +60,7 @@ export default function Films({film}) {
 
 
   return (
-    <Root className={classes.root} onClick={() => handleClick(film)} >
+    <Root className={classes.root} onClick={() => handleClick(film._id)} >
 
       <div className={classes.cartel} id={`film-${film._id}`} />
     </Root>

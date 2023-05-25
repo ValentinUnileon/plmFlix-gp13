@@ -4,11 +4,14 @@ import Header from "../components/header";
 import Banner from "../components/banner";
 import Footer from "../components/footer";
 import Categoria from "../components/category";
+import VideoPop from "../components/videoPop";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import {getEndpoint} from './const/const';
+
+import {Button} from "@mui/material";
 
 import axios from "axios";
 
@@ -35,35 +38,75 @@ const Root = styled('div')({
 });
 
 export default function Home() {
-  const navigate = useNavigate();
   const { user, profile } = useParams();
-  const [filmList, setFilmList] = useState([
-    { id: "1", name: "uno" },
-    { id: "2", name: "dos" },
-  ]);
+  const [open, setOpen] = useState(false);
 
-  const [categoriesList, setCategoriesList] = useState([
-    { name: "uno" },
-    { name: "dos" },
-  ]);
+  const [categoriesList, setCategoriesList] = useState([]);
+  const [likeList, setLikeList] = useState([]);
+  const [pendientesList, setPendientesList] = useState([]);
+  const [vistoList, setVistoList] = useState([]);
+  const [video, setVideo] = useState("");
 
-  function click() {
-    console.log("asdfasdf");
-    navigate(`/${user}/${profile.name}/${filmList[0]}/viewFilms`);
+  function click(id) {
+    setVideo(id);
+    setOpen(true);
   }
+  const handleClose = () => {
+    setOpen(false);
 
+  };
 
+  useEffect(()=>{
+    axios.get(getEndpoint(`/${user}/${profile}/home`))
+    .then((response)=>{
+      setCategoriesList(response.data.categories);
+      setLikeList(response.data.perfile.likeList);
+      setPendientesList(response.data.perfile.pendienteList);
+      setVistoList(response.data.perfile.vistoList);
+    });
+  },[profile])
   return (
     <Root className={classes.root}>
       <Header />
       <div className={classes.body}>
         <Banner />
+        <VideoPop open={open} video={video} handleClose={handleClose} likeList={likeList} pendientesList={pendientesList} vistoList={vistoList}/>
+ 
         <div className={classes.categorias}>
-          {categoriesList.map((categoria, index) => (
-            <div className="container">
-              <Categoria click={click} categoria={categoria} film={filmList} />
-            </div>
-          ))}
+
+        {console.log("visto mg", vistoList)}
+
+          {likeList.length > 0 &&
+            
+                <div className="container">
+                  <Categoria click={click()} nombrecategoria={"Peliculas favoritas"} listaPelis={likeList} />
+                </div>
+          }
+    
+          {pendientesList  > 0 &&
+              <div className="container">
+                <Categoria click={click} nombrecategoria={"Peliculas pendientes"} listaPelis={pendientesList} />
+              </div>
+          }
+
+          {vistoList  > 0 &&
+              <div className="container">
+                <Categoria click={click} nombrecategoria={"Peliculas vistas"} listaPelis={vistoList} />
+              </div>
+          }
+
+
+
+        {categoriesList.map((categoria, index) => {
+          if (categoria.videos.length > 0) {
+            return (
+              <div className="container">
+                <Categoria click={click} nombrecategoria={categoria.title} listaPelis={categoria.videos}  />
+              </div>
+            );
+          }
+        })}
+
         </div>
       </div>
       <Footer />

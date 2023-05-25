@@ -29,35 +29,40 @@ const Root = styled('div')({
     height: '95%',
     backgroundSize: 'cover',
     position: 'relative',
-    backgroundImage: `url(${"https://img.youtube.com/vi/sec80NHLdmU/0.jpg"})`,
+    
   }
 
 });
 
 
 
-export default function Films({film}) {
+export default function Films({click, film}) {
 
   /* film.name para el nombre del video */
   /* film.url para el link del video */
 
   const navigate = useNavigate();
   const { user, profile } = useParams();
-  const [filmList, setFilmList] = useState([  { id: "1", name: "uno" },
-  { id: "2", name: "dos" }, { id: "3", name: "tres" }, { id: "4", name: "cuatro" }]);
+
 
   function handleClick(film){
-    console.log("categori");
     click(film);  
-}
+  }
 
-function click(){
-  console.log("asdfasdf");
-  navigate(`/${user}/${profile.name}/${filmList[0]}/viewFilms`);
-}
+
+
+  useEffect(() => {
+    const rootElement = document.getElementById(`film-${film._id}`);
+    if (rootElement) {
+      rootElement.style.backgroundImage = `url(${film.thumbnailUrl})`;
+    }
+  }, []);
+
+
   return (
-    <Root className={classes.root} onClick={() => handleClick(film)} >
-      <div className={classes.cartel}></div>
+    <Root className={classes.root} onClick={() => handleClick(film._id)} >
+
+      <div className={classes.cartel} id={`film-${film._id}`} />
     </Root>
   );
 }

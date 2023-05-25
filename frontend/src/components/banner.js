@@ -17,7 +17,7 @@ const classes = {
 
 const Root = styled('div')({
     [`& .${classes.root}`]: {
-      //backgroundImage: `url(${imgBanner})`,
+      //backgroundImage: `url(${"https://img.youtube.com/vi/sec80NHLdmU/0.jpg"})`,
       position: 'relative',
       width: '100%',
       height: '440px',

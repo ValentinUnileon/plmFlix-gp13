@@ -27,7 +27,7 @@ connectDB()
 
 app.use("/api/login", require("./routes/login"));
 app.use("/api", require("./routes/profiles"));
-
+app.use("/api", require("./routes/home"));
 
 
 

@@ -17,6 +17,7 @@ import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import CloseIcon from "@mui/icons-material/Close";
 import { getEndpoint } from "../pages/const/const";
 import Slide from '@mui/material/Slide';
+import ViewFilms from "./viewVideoDialog"
 
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -209,10 +210,7 @@ export default function VideoPop({
         TransitionComponent={Transition}
       >
         {/* comp Edu */}
-        <p>{user}</p>
-        <p>{perfil}</p>
-        <p>{videoUrl}</p>
-        <p>{video}</p>
+        <ViewFilms user= {user} profiles={perfil} videoURL={videoUrl} videoID={video}></ViewFilms>
       </Dialog>
     </Dialog>
   );

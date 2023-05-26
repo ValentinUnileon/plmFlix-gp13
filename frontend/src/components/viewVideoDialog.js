@@ -6,7 +6,7 @@ import Footer from "../components/footer";
 import Categoria from "../components/category";
 import ReactPlayer from "react-player";
 
-
+import {Button} from "@mui/material";
 const PREFIX = "viewFilms";
 
 const classes = {

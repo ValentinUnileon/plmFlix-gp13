@@ -16,6 +16,12 @@ import AddIcon from "@mui/icons-material/Add";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import CloseIcon from "@mui/icons-material/Close";
 import { getEndpoint } from "../pages/const/const";
+import Slide from '@mui/material/Slide';
+
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 export default function VideoPop({
   user,
@@ -40,6 +46,9 @@ export default function VideoPop({
   const [pendiente, setPendiente] = useState(false);
   const [visto, setVisto] = useState(false);
   const [minuto, setMinuto] = useState();
+
+  const [openV, setOpenV] = React.useState(false);
+
 
   useEffect(() => {
     axios.get(getEndpoint(`/${video}`)).then((response) => {
@@ -135,10 +144,15 @@ export default function VideoPop({
 };
 
   const clickReproducir = () => {
+    setOpenV(true);
     if (!visto) {
       // Add to the watched list
       // Implement your logic here
     }
+  };
+
+  const handleCloseV = () => {
+    setOpenV(false);
   };
 
   return (
@@ -188,6 +202,18 @@ export default function VideoPop({
           <Typography variant="body1">{videoDes}</Typography>
         </CardContent>
       </Card>
+      <Dialog
+        fullScreen
+        open={openV}
+        onClose={handleCloseV}
+        TransitionComponent={Transition}
+      >
+        {/* comp Edu */}
+        <p>{user}</p>
+        <p>{perfil}</p>
+        <p>{videoUrl}</p>
+        <p>{video}</p>
+      </Dialog>
     </Dialog>
   );
 }

@@ -14,7 +14,7 @@ const classes = {
 
 const Root = styled('div')({
   [`&.${classes.root}`]: {
-    backgroundImage: 'url(https://assets.nflxext.com/ffe/siteui/vlv3/efb4855d-e702-43e5-9997-bba0154152e0/1844f11c-1c2c-453b-80d4-2287d580c455/ES-es-20230417-popsignuptwoweeks-perspective_alpha_website_medium.jpg)',
+    backgroundImage: 'url(https://fondosmil.com/fondo/57395.jpg)',
     backgroundSize: 'cover',
     backgroundColor: '#fff',
     height: '100vh',
@@ -47,7 +47,7 @@ const Root = styled('div')({
   }
 });
 
-export default function Login() {
+export default function Register() {
 
   const [showError, setshowError] = React.useState(false);
 
@@ -59,22 +59,17 @@ export default function Login() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     let payload = {
-      user: data.get('email'),
+      user: data.get('username'),
       password: data.get('password'),
     }
 
-    if(data.get('email')=="admin" && data.get('password')=="admin") {
-      navigate(`/administrador`);
-    }
-
-    axios.post(getEndpoint('/login'), payload)
+    axios.post(getEndpoint('/register'), payload)
     .then((response)=> {
-      navigate(`/${response.data.username}/profiles`);
-      console.log("segurooo");
-      console.log(getEndpoint('/login'), payload);
+      navigate(`/${payload.user}/profiles`);
+      console.log("Éxito al registrar usuario");
     })
     .catch((error)=>{
-      console.log(getEndpoint('/login'), payload);
+      console.log(getEndpoint('/register'), payload);
       setshowError(true);
       console.log("ERROR");
     
@@ -82,8 +77,8 @@ export default function Login() {
 
   };
 
-  const goToRegister = () => {
-    navigate(`/register`);
+  const goToLogin = () => {
+    navigate(`/login`);
   };
 
   return (
@@ -96,16 +91,15 @@ export default function Login() {
           }}>
       {
         showError &&
-        <Alert severity="error">Usuario o contraseña mal</Alert>
+        <Alert severity="error">Error al registrarse</Alert>
       }
         <Box component="form" onSubmit={handleSubmit} noValidate className={classes.formContainer}>
-          <Typography variant="h4" frontWeight = 'bold' color='white'>Iniciar sesión</Typography>
-          <TextField label='Correo electrónico' className={classes.textField} margin="normal" fullWidth id="email" name="email" autoComplete="email" required autoFocus/>
+          <Typography variant="h4" frontWeight = 'bold' color='white'>Regístrate en PLMFlix</Typography>
+          <TextField label='Nombre de usuario' className={classes.textField} margin="normal" fullWidth id="username" name="username" autoComplete="username" required autoFocus/>
           <TextField label='Contraseña' type="password" className={classes.textField} margin="normal" fullWidth id="password" name="password" required  />
-          <Button variant="contained" color="primary" fullWidth type="submit">Iniciar Sesion</Button>
+          <Button variant="contained" color="primary" fullWidth type="submit">Registrarse</Button>
           <br></br><br></br>
-          <Typography variant="h6" frontWeight = 'bold' color='white' align='center'>¿No estás registrado?</Typography>
-          <Button variant="contained" color="primary" fullWidth onClick={goToRegister}>Regístrate gratis</Button>
+          <Button variant="contained" color="primary" fullWidth onClick={goToLogin}>Volver a Iniciar sesión</Button>
         </Box>
       </Box>
     </Root>

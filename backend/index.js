@@ -5,9 +5,6 @@ const crearDB = require ("./datos/datosDb");
 const path = require('path');
 
 
-//connectDB ();
-//crearDB();
-
 var app = express();
 app.use(express.json());
 app.use(cors());
@@ -23,7 +20,8 @@ if (process.env.NODE_ENV === "production") {
 app.use("/api/login", require("./routes/login"));
 app.use("/api", require("./routes/profiles"));
 app.use("/api", require("./routes/home"));
-
+app.use("/api/register", require("./routes/register"));
+app.use("/api/administrador", require("./routes/administrador"));
 
 
 connectDB().then((result) => {

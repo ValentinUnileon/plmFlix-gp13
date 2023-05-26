@@ -12,6 +12,8 @@ import { useParams } from "react-router-dom";
 import { getEndpoint } from "./const/const";
 import { Button } from "@mui/material";
 import axios from "axios";
+import { TransitionProps } from '@mui/material/transitions';
+import Slide from '@mui/material/Slide';
 
 const PREFIX = "home";
 
@@ -34,6 +36,8 @@ const Root = styled("div")({
     margin: "30px 0 30px 0",
   },
 });
+
+
 
 export default function Home() {
   const { user, profile } = useParams();

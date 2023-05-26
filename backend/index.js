@@ -5,9 +5,6 @@ const crearDB = require ("./datos/datosDb");
 const path = require('path');
 
 
-//connectDB ();
-//crearDB();
-
 var app = express();
 app.use(express.json());
 app.use(cors());

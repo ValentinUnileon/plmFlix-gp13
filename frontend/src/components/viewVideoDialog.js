@@ -40,7 +40,6 @@ export default function ViewFilms({user, profiles, videoURL, videoID}) {
             width="100%"
             height="100%"
           />
-
           <Button></Button>
         </div>
       </div>

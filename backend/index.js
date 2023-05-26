@@ -27,7 +27,7 @@ app.use("/api", require("./routes/home"));
 
 
 connectDB().then((result) => {
-  //crearDB();
+  crearDB();
 
   app.listen(5000, function () {
     console.log("Servidor arrancado en el puerto 5000!");

@@ -26,25 +26,24 @@ const Root = styled("div")({
   },
 });
 
-export default function ViewFilms() {
+export default function ViewFilms({user, profiles, videoURL, videoID}) {
+    
   return (
     <Root className={classes.root}>
-      <Header />
       <div className="body">
-        <Header />
         <div className="video-back">
           <ReactPlayer
-            url="https://www.youtube.com/watch?v=ws00k_lIQ9U"
+            url= {videoURL} 
             controls
             playing
             muted
             width="100%"
             height="100%"
           />
+
+          <Button></Button>
         </div>
-        <Footer />
       </div>
-      <Footer />
     </Root>
   );
 }

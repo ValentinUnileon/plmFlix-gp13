@@ -84,12 +84,11 @@ export default function Home() {
         />
 
         <div className={classes.categorias}>
-          {console.log("visto mg", vistoList)}
           {vistoList.length > 0 && (
             <div className="container">
               <Categoria
                 click={click}
-                nombrecategoria={"Peliculas vistas"}
+                nombrecategoria={"Seguir viendo"}
                 listaPelis={vistoList}
               />
             </div>
@@ -99,7 +98,7 @@ export default function Home() {
             <div className="container">
               <Categoria
                 click={click}
-                nombrecategoria={"Peliculas favoritas"}
+                nombrecategoria={"Favoritos"}
                 listaPelis={likeList}
               />
             </div>
@@ -109,7 +108,7 @@ export default function Home() {
             <div className="container">
               <Categoria
                 click={click}
-                nombrecategoria={"Peliculas pendientes"}
+                nombrecategoria={"Pendiente de ver"}
                 listaPelis={pendientesList}
               />
             </div>

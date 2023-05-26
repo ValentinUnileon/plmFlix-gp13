@@ -46,7 +46,8 @@ export default function VideoPop({
   const [gusta, setGusta] = useState(false);
   const [pendiente, setPendiente] = useState(false);
   const [visto, setVisto] = useState(false);
-  const [minuto, setMinuto] = useState();
+  
+  const [tiempo, setTiempo] = useState();
 
   const [openV, setOpenV] = React.useState(false);
 
@@ -210,7 +211,7 @@ export default function VideoPop({
         TransitionComponent={Transition}
       >
         {/* comp Edu */}
-        <ViewFilms user= {user} profiles={perfil} videoURL={videoUrl} videoID={video}></ViewFilms>
+        <ViewFilms user= {user} profiles={perfil} videoURL={videoUrl} videoID={video} tiempo={tiempo}></ViewFilms>
       </Dialog>
     </Dialog>
   );

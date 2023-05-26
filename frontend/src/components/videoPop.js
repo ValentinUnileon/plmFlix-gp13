@@ -18,12 +18,17 @@ import CloseIcon from "@mui/icons-material/Close";
 import { getEndpoint } from "../pages/const/const";
 
 export default function VideoPop({
+  user,
+  perfil,
   open,
   video,
   handleClose,
   likeList,
+  setLikeList,
   pendientesList,
+  setPendientesList,
   vistoList,
+  setVistoList,
 }) {
   const [videoTitle, setVideoTitle] = useState("");
   const [videoDes, setVideoDes] = useState("");
@@ -59,25 +64,75 @@ export default function VideoPop({
     }
   }, [video, likeList, pendientesList, vistoList]);
 
-  const clickMegusta = () => {
-    if (gusta) {
-      // Already in the list, delete it
-      setGusta(false);
-    } else {
-      // Not in the list, add it
-      setGusta(true);
-    }
-  };
 
+  //Control de botones
+  ///LikeList
+  const clickMegusta = () => {
+  if (gusta) {
+    // Already in the list, delete it
+    axios
+      .delete(getEndpoint(`/${user}/${perfil}/megusta_dlt`), {
+        data: { videoId: video },
+      })
+      .then(() => {
+        const updatedLikeList = likeList.filter((item) => item._id !== video);
+        setLikeList(updatedLikeList);
+        setGusta(false);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  } else {
+    // Not in the list, add it
+    axios
+      .put(getEndpoint(`/${user}/${perfil}/megusta_add`), { videoId: video })
+      .then(() => {
+        const updatedLikeList = [
+          { _id: video, videoUrl: videoUrl, thumbnailUrl: videoThum },
+          ...likeList,
+        ];
+        setLikeList(updatedLikeList);
+        setGusta(true);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+};
+
+  ///lista pendientes
   const clickPendiente = () => {
     if (pendiente) {
       // Already in the list, delete it
-      // Implement your logic here
-    } else {
-      // Not in the list, add it
-      // Implement your logic here
-    }
-  };
+    axios
+    .delete(getEndpoint(`/${user}/${perfil}/pendientes_dlt`), {
+      data: { videoId: video },
+    })
+    .then(() => {
+      const updatedPendList = pendientesList.filter((item) => item._id !== video);
+      setPendientesList(updatedPendList);
+      setPendiente(false);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+} else {
+  // Not in the list, add it
+  axios
+    .put(getEndpoint(`/${user}/${perfil}/pendientes_add`), { videoId: video })
+    .then(() => {
+      const updatedPendList = [
+        { _id: video, videoUrl: videoUrl, thumbnailUrl: videoThum },
+        ...pendientesList,
+      ];
+      setPendientesList(updatedPendList);
+      setPendiente(true);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
+};
 
   const clickReproducir = () => {
     if (!visto) {

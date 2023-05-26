@@ -63,7 +63,7 @@ const UserList = () => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    axios.get('/api/users')
+    axios.get('/administrador')
       .then(response => {
         setUsers(response.data);
       })
@@ -88,7 +88,7 @@ const MovieList = () => {
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
-    axios.get('/api/movies')
+    axios.get('/administrador')
       .then(response => {
         setMovies(response.data);
       })

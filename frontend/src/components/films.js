@@ -4,37 +4,8 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import { useParams } from "react-router-dom";
-
-
-
-const PREFIX = 'films';
-
-const classes = {
-  root: `${PREFIX}-root`,
-  cartel: `${PREFIX}-cartel`
-};
-
-const Root = styled('div')({
-  [`&.${classes.root}`]: {
-    position: 'relative',
-    width: '370px',
-    height: '200px',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-
-  [`& .${classes.cartel}`]: {
-    width: '95%',
-    height: '95%',
-    backgroundSize: 'cover',
-    position: 'relative',
-    
-  }
-
-});
-
-
+import Card from '@mui/material/Card';
+import CardMedia from '@mui/material/CardMedia';
 
 export default function Films({click, film}) {
 
@@ -49,21 +20,15 @@ export default function Films({click, film}) {
     click(film);  
   }
 
-
-
-  useEffect(() => {
-    const rootElement = document.getElementById(`film-${film._id}`);
-    if (rootElement) {
-      rootElement.style.backgroundImage = `url(${film.thumbnailUrl})`;
-    }
-  }, []);
-
-
   return (
-    <Root className={classes.root} onClick={() => handleClick(film._id)} >
-
-      <div className={classes.cartel} id={`film-${film._id}`} />
-    </Root>
+    <Card onClick={() => handleClick(film._id)}>
+      <CardMedia
+        component="img"
+        height="140"
+        image={film.thumbnailUrl}
+        alt="Descripción de la imagen"
+      />
+    </Card>
   );
 }
 

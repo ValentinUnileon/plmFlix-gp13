@@ -45,10 +45,46 @@ router.get("/:user/:profile/home", async function (req, res) {
             videos: videos
         });
     }
+    let like = [];
+
+        for (let j = 0; j < perfile.likeList.length; j++) {
+            let video = perfile.likeList[j];
+            let videoIn = await Videos.findOne(video);
+            like.push({
+                _id: videoIn._id,
+                videoUrl: videoIn.videoUrl,
+                thumbnailUrl: videoIn.thumbnailUrl
+            });
+        }
+        let pen = [];
+
+        for (let j = 0; j < perfile.pendienteList.length; j++) {
+            let video = perfile.pendienteList[j];
+            let videoIn = await Videos.findOne(video);
+            pen.push({
+                _id: videoIn._id,
+                videoUrl: videoIn.videoUrl,
+                thumbnailUrl: videoIn.thumbnailUrl
+            });
+        }
+        let vis = [];
+
+        for (let j = 0; j < perfile.vistoList.length; j++) {
+            let video = perfile.vistoList[j];
+            let videoIn = await Videos.findOne(video);
+            vis.push({
+                _id: videoIn._id,
+                videoUrl: videoIn.videoUrl,
+                thumbnailUrl: videoIn.thumbnailUrl
+            });
+        }
 
     let respuesta = {
         perfile: perfile,
-        categories: categoriasVideoIdThumnail
+        categories: categoriasVideoIdThumnail,
+        likeList: like,
+        pendienteList: pen,
+        vistoList: vis
     }
 
     if (!perfile)

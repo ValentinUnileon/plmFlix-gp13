@@ -60,9 +60,9 @@ export default function Home() {
     axios.get(getEndpoint(`/${user}/${profile}/home`))
     .then((response)=>{
       setCategoriesList(response.data.categories);
-      setLikeList(response.data.perfile.likeList);
-      setPendientesList(response.data.perfile.pendienteList);
-      setVistoList(response.data.perfile.vistoList);
+      setLikeList(response.data.likeList);
+      setPendientesList(response.data.pendienteList);
+      setVistoList(response.data.vistoList);
     });
   },[profile])
   return (
@@ -75,11 +75,16 @@ export default function Home() {
         <div className={classes.categorias}>
 
         {console.log("visto mg", vistoList)}
+          {vistoList  > 0 &&
+                <div className="container">
+                  <Categoria click={click} nombrecategoria={"Peliculas vistas"} listaPelis={vistoList} />
+                </div>
+            }
 
           {likeList.length > 0 &&
             
                 <div className="container">
-                  <Categoria click={click()} nombrecategoria={"Peliculas favoritas"} listaPelis={likeList} />
+                  <Categoria click={click} nombrecategoria={"Peliculas favoritas"} listaPelis={likeList} />
                 </div>
           }
     
@@ -89,12 +94,7 @@ export default function Home() {
               </div>
           }
 
-          {vistoList  > 0 &&
-              <div className="container">
-                <Categoria click={click} nombrecategoria={"Peliculas vistas"} listaPelis={vistoList} />
-              </div>
-          }
-
+          
 
 
         {categoriesList.map((categoria, index) => {

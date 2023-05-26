@@ -21,6 +21,7 @@ app.use("/api/login", require("./routes/login"));
 app.use("/api", require("./routes/profiles"));
 app.use("/api", require("./routes/home"));
 app.use("/api/register", require("./routes/register"));
+app.use("/api/administrador", require("./routes/administrador"));
 
 
 connectDB().then((result) => {

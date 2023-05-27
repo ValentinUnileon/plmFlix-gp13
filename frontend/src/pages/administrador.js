@@ -7,6 +7,8 @@ import {getEndpoint} from './const/const';
 import { Divider } from '@mui/material';
 import { useState, useEffect } from 'react';
 import '../cssComponents/adminStyle.css';
+import MovieList from "../components/UserList";
+import UserList from "../components/MovieList";
 
 const PREFIX = 'administrador';
 
@@ -41,15 +43,7 @@ const Root = styled('div')({
     },
   },
   [`& .${classes.formContainer}`]: {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    backgroundColor: 'rgba(0, 0, 0, 0.88)',
-    padding: '2rem',
-    borderRadius: '0.5rem',
-    boxShadow: '0 0.5rem 1rem rgba(0, 0, 0, 0.9)',
-    marginTop: '0.4%'
+    
 
   },
   [`& .${classes.textoPrincipal}`]: {
@@ -59,56 +53,6 @@ const Root = styled('div')({
     }
 });
 
-const UserList = () => {
-  const [users, setUsers] = useState([]);
-
-  useEffect(() => {
-    axios.get('/administrador')
-      .then(response => {
-        setUsers(response.data);
-      })
-      .catch(error => {
-        console.error('Error al buscar los usuarios: ', error);
-      });
-  }, []);
-
-  return (
-    <Root>
-      <h2 className='textoLista'>Eliminar usuario de la aplicacion</h2>
-      <ul>
-        {users.map((user) => (
-          <li key={user._id}>{user.name}</li>
-        ))}
-      </ul>
-    </Root>
-  );
-};
-
-const MovieList = () => {
-  const [movies, setMovies] = useState([]);
-
-  useEffect(() => {
-    axios.get('/administrador')
-      .then(response => {
-        setMovies(response.data);
-      })
-      .catch(error => {
-        console.error('Error al buscar las peliculas:', error);
-      });
-  }, []);
-
-  return (
-    <div>
-      <h2 className='textoLista'>Eliminar pelicula de la aplicacion</h2>
-      <ul>
-        {movies.map((movie) => (
-          <li key={movie._id}>{movie.name}</li>
-        ))}
-      </ul>
-    </div>
-  );
-};
-
 export default function Administrador() {
 
 
@@ -117,11 +61,12 @@ export default function Administrador() {
 
     <Root className={classes.root}>
 
-        <Typography variant="h4" color='white' style={{ fontFamily: 'Palatino', marginTop: '20px'}} className={classes.textoPrincipal}>Página del administrador</Typography>
-        <br></br><br></br>
+        
 
       <Box component="form" noValidate className={classes.formContainer}>
         <div>
+        <Typography variant="h4" color='white' style={{ fontFamily: 'Palatino', marginTop: '20px'}} className={classes.textoPrincipal}>Página del administrador</Typography>
+        <br></br><br></br>
           <UserList />
           <Button variant="contained" color="primary" fullWidth sx={{ width: '200px' }}  type="submit">Añadir usuario</Button>
           <MovieList />

@@ -54,4 +54,29 @@ router.post("/users", async function (req, res) {
 
 });
 
+router.post("/movies", async function (req, res) {
+    
+    
+    const newMovie = new Video({
+        title: req.body.title,
+        description: req.body.description,
+        thumbnailUrl: req.body.thumbnailUrl,
+        videoUrl: req.body.videoUrl,
+        likes: req.body.likes,
+        categorie: req.body.categorie,
+    });
+
+    await newMovie.save()
+        .then(() => {
+            console.log("SE HA GUARDADO LA PELICULA", newMovie.title);
+        })
+        .catch((err) => {
+        console.error(err);
+        res.status(500).send('Error al guardar la pelicula');
+        });
+
+    return res.json(newMovie);
+
+});
+
 module.exports = router;

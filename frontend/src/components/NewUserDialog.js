@@ -33,7 +33,7 @@ export default function NewUserDialog(users={users}, setUsers={setUsers}) {
     const handleCreateUser = () => {
         let payload = {
             username: username,
-            password: password
+            password: password,
         };
 
 
@@ -63,11 +63,11 @@ export default function NewUserDialog(users={users}, setUsers={setUsers}) {
                 <DialogContent>
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
-                            <TextField label="Username" value={username} onChange={handleUsernameChange} />
+                            <TextField label="Username" fullWidth value={username} onChange={handleUsernameChange} />
                         </Grid>
 
                         <Grid item xs={12}>
-                        <TextField label="Password" type="password" value={password} onChange={handlePasswordChange} />
+                        <TextField label="Password" fullWidth type="password" value={password} onChange={handlePasswordChange} />
                         </Grid>
 
                     </Grid>

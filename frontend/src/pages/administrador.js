@@ -82,7 +82,6 @@ export default function Administrador() {
           <Divider color="grey" variant="fullWidth" />
 
           <MovieList />
-          <Button variant="contained" color="primary" fullWidth sx={{ width: '200px' }}  type="submit">Añadir pelicula</Button>
          
 
         </div>

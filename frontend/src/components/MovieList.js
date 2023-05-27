@@ -6,6 +6,8 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 import '../cssComponents/adminStyle.css';
 import { getEndpoint } from '../pages/const/const';
+import NewMovieDialog from './NewMovieDialog';
+
 
 export default function MovieList() {
 
@@ -28,7 +30,11 @@ export default function MovieList() {
           .then((response)=>{
             setMovies(response.data);
           });
-        }, []);
+        }, [movies]);
+
+        const handleCreateMovie = (movie) => {
+          setMovies([...movies, movie]);
+        };
       
         return (
           <div>
@@ -41,6 +47,8 @@ export default function MovieList() {
                 </Button>
               </Box>
             ))}
+
+            <NewMovieDialog onCreateMovie={handleCreateMovie}/>
            
           </div>
         );

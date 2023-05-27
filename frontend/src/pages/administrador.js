@@ -7,8 +7,8 @@ import {getEndpoint} from './const/const';
 import { Divider } from '@mui/material';
 import { useState, useEffect } from 'react';
 import '../cssComponents/adminStyle.css';
-import MovieList from "../components/UserList";
-import UserList from "../components/MovieList";
+import UserList from "../components/UserList";
+import MovieList from "../components/MovieList";
 
 const PREFIX = 'administrador';
 
@@ -55,7 +55,11 @@ const Root = styled('div')({
 
 export default function Administrador() {
 
+  const navigate = useNavigate();
 
+  const goToLogin = () => {
+    navigate(`/login`);
+  };
 
   return (
 
@@ -67,15 +71,20 @@ export default function Administrador() {
         <div>
         <Typography variant="h4" color='white' style={{ fontFamily: 'Palatino', marginTop: '20px'}} className={classes.textoPrincipal}>Página del administrador</Typography>
         <br></br><br></br>
+          <Divider color="grey" variant="fullWidth" />
+
           <UserList />
           <Button variant="contained" color="primary" fullWidth sx={{ width: '200px' }}  type="submit">Añadir usuario</Button>
+          <br></br><br></br>
+          <Divider color="grey" variant="fullWidth" />
+
           <MovieList />
           <Button variant="contained" color="primary" fullWidth sx={{ width: '200px' }}  type="submit">Añadir pelicula</Button>
          
 
         </div>
         <br></br><br></br><br></br>
-        <Button variant="contained" color="primary" fullWidth sx={{ width: '100px' }}  type="submit">Volver</Button>
+        <Button variant="contained" color="primary" fullWidth sx={{ width: '100px' }} onClick={goToLogin}>Volver</Button>
       </Box>
 
     </Root>

@@ -24,9 +24,9 @@ const classes = {
 
 const Root = styled('div')({
   [`&.${classes.root}`]: {
-    //backgroundImage: 'url(https://www.ribescasals.com/media/catalog/product/cache/ac95d467f39086acf44821b87fe7ae41/t/e/tela-loneta-negra.jpg)',
-    backgroundSize: 'cover',
+
     backgroundColor: '#111',
+
     height: 'auto',
     width: '100vw',
     display: 'flex',
@@ -80,6 +80,7 @@ export default function Configuration() {
   const [nuevoNombre, setNuevoNombre] = useState('')
   const [contraActual, setContraActual] = useState('')
   const [contraNueva, setContraNueva] = useState('')
+  const [nombrePerfil, setNombrePerfil] = useState('')
 
 
   useEffect(() => {
@@ -117,8 +118,6 @@ export default function Configuration() {
 
   const actualizarContraseña = () => {
 
-
-
     axios.get(getEndpoint(`/${user}/config`))
     .then((response) => {
 
@@ -127,28 +126,29 @@ export default function Configuration() {
         const query = {password: contraNueva}
         axios.put(getEndpoint(`/${user}/config`), query)
         .then((response) => {  
-
-          console.log("pass cambiada con exito");
-
+          setshowError(false);
+          setContraNueva("");
+          setContraActual("");
         });
-
+      }else{
+        setshowError(true);
       }
+
+
     });
   };
 
   function borrar(perfil){
     //no se pued borrar el perfil si solo queda uno o si se quiere borrar en el que esta ahroa mismo
 
-      console.log("comparacion ", perfil.name==profile, " valores ", perfil.name, " y ", profile)
-
     if(profilesList.length>1 && perfil.name!==profile){
-      console.log(profilesList.length, "asdlf");
+
       axios.delete(getEndpoint(`/${user}/${perfil.name}`))
       .then((response) => {
   
         if(response.status === 200){
   
-          setProfileList(profilesList.filter((perfil) => perfil._id !== perfil._id));
+          setProfileList(profilesList.filter((pCopi) => pCopi._id !== perfil._id));
   
         }else{
           console.log("Fallo al intentar borrar perfil", perfil.name);
@@ -156,6 +156,19 @@ export default function Configuration() {
       });
 
     }
+
+  }
+
+  function añadirPerfil(){
+
+    console.log("como ", user, " y y ", nombrePerfil);
+    axios.post(getEndpoint(`/${user}/config/${nombrePerfil}`))
+    .then((response) => {
+
+      setProfileList([...profilesList, response.data ]);
+      setNombrePerfil("");
+    });
+
 
   }
 
@@ -172,33 +185,63 @@ export default function Configuration() {
   }
 
 
-  return (
-    <Root className={classes.root}>
+  const handleChangeNombrePerfil = (event) => {
+    setNombrePerfil(event.target.value);
+  }
 
+
+  return (
+    
+    <Root className={classes.root}>
 
 
         <Box component="form" onSubmit={handleSubmit} noValidate className={classes.formContainer}>
           
         <Typography variant="h4" frontWeight = 'bold' color='white' style={{ fontFamily: 'Palatino', marginTop: '12px' }} className={classes.textoPrincipal}>Configuración de usuario</Typography>
         <br></br><br></br>
-          <Typography variant="h5" frontWeight = 'bold' style={{ fontFamily: 'Palatino' }} color='white'  >Cambiar nombre de usuario</Typography>
-          <TextField label='Nuevo nombre' className={classes.textField} margin="normal" fullWidth id="email" name="email" autoComplete="email" value={nuevoNombre} onChange={handleChangeNombre} autoFocus/>
-          <Button variant="contained" color="primary" fullWidth sx={{ width: '200px' }} onClick={() => actualizarNombre()}type="submit">Cambiar nombre</Button>
 
-            <br></br><br></br>
-          <Divider color="grey" variant="fullWidth" />
           <br></br>
-
+          {
+            showError &&  <Alert severity="error">Las contraseñas no coinciden</Alert>
+          }
+           <br></br>
           <Typography variant="h5" frontWeight = 'bold' style={{ fontFamily: 'Palatino' }} color='white'>Cambiar contraseña</Typography>
           <TextField label='Contraseña actual' type="password" className={classes.textField} margin="normal" fullWidth id="oldPassword" name="oldPassword" value={contraActual} onChange={handleChangePass}  />
           <TextField label='Nueva contraseña' type="password" className={classes.textField} margin="normal" fullWidth id="newPassword" name="newPassword"  value={contraNueva} onChange={handleChangePassNew} />
+          
           <Button variant="contained" color="primary" fullWidth sx={{ width: '250px' }} onClick={() => actualizarContraseña()} type="submit">Cambiar contraseña</Button>
 
           <br></br><br></br>
           <Divider color="grey" variant="fullWidth" />
           <br></br><br></br>
 
-          <Typography variant="h5" frontWeight = 'bold' style={{ fontFamily: 'Palatino' }} color='white'>Eliminar perfil</Typography>
+          <Typography variant="h5" frontWeight = 'bold' style={{ fontFamily: 'Palatino' }} color='white'>Añadir perfil</Typography>
+
+          <div className={classes.perfiles}>
+
+          <TextField label='Nombre' type="text" className={classes.textField} margin="normal" fullWidth id="newProfile" name="newProfile"  value={nombrePerfil} onChange={handleChangeNombrePerfil} />
+
+
+          <div className={classes.avatar}>
+          
+          </div>
+          <div className={classes.botonEliminar}> 
+          <Button variant="contained" color="primary" fullWidth type="submit" onClick={() => añadirPerfil()} > ✓</Button> 
+          </div>
+
+          </div>
+
+
+
+
+
+
+
+          <br></br><br></br>
+          <Divider color="grey" variant="fullWidth" />
+          <br></br><br></br>
+
+          <Typography variant="h5" frontWeight = 'bold' style={{ fontFamily: 'Palatino' }} color='white'>Eliminar perfiles</Typography>
 
           <br></br><br></br>
           {profilesList.map((perfil, index) => (

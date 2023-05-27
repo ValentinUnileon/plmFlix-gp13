@@ -27,8 +27,8 @@ const Root = styled('div')({
     //backgroundImage: 'url(https://www.ribescasals.com/media/catalog/product/cache/ac95d467f39086acf44821b87fe7ae41/t/e/tela-loneta-negra.jpg)',
     backgroundSize: 'cover',
     backgroundColor: '#111',
-    height: '100vh',
-     width: '100vw',
+    height: 'auto',
+    width: '100vw',
     display: 'flex',
     justifyContent: 'center',
     alignContent: 'center'
@@ -70,13 +70,17 @@ const Root = styled('div')({
 
 export default function Configuration() {
 
-  const { user } = useParams();
+
+  const { user, profile } = useParams();
 
   const navigate = useNavigate();
 
   const [showError, setshowError] = React.useState(false);
   const [profilesList, setProfileList] = useState([]);
   const [nuevoNombre, setNuevoNombre] = useState('')
+  const [contraActual, setContraActual] = useState('')
+  const [contraNueva, setContraNueva] = useState('')
+
 
   useEffect(() => {
 
@@ -105,38 +109,49 @@ export default function Configuration() {
       axios.put(getEndpoint(`/${user}/profiles/change`), query)
       .then((response) => {
        console.log("nombre actualizado");
+       navigate(`/${nuevoNombre}/${profile}/configuration`);
       });
-
-
-      const url = new URL(window.location.href);
-
-      url.searchParams.set(user, nuevoNombre);
-      window.history.replaceState(null, '', url.toString());
     } 
-
-
 
   };
 
   const actualizarContraseña = () => {
 
-    console.log('Se hizo clic en el botón');
+
+
+    axios.get(getEndpoint(`/${user}/config`))
+    .then((response) => {
+
+      if(response.data.password==contraActual){
+        
+        const query = {password: contraNueva}
+        axios.put(getEndpoint(`/${user}/config`), query)
+        .then((response) => {  
+
+          console.log("pass cambiada con exito");
+
+        });
+
+      }
+    });
   };
 
-  function borrar(profile){
-    console.log("borrando")
+  function borrar(perfil){
+    //no se pued borrar el perfil si solo queda uno o si se quiere borrar en el que esta ahroa mismo
 
-    if(profilesList.length>1){
+      console.log("comparacion ", perfil.name==profile, " valores ", perfil.name, " y ", profile)
+
+    if(profilesList.length>1 && perfil.name!==profile){
       console.log(profilesList.length, "asdlf");
-      axios.delete(getEndpoint(`/${user}/${profile.name}`))
+      axios.delete(getEndpoint(`/${user}/${perfil.name}`))
       .then((response) => {
   
         if(response.status === 200){
   
-          setProfileList(profilesList.filter((perfil) => perfil._id !== profile._id));
+          setProfileList(profilesList.filter((perfil) => perfil._id !== perfil._id));
   
         }else{
-          console.log("Fallo al intentar borrar perfil", profile.name);
+          console.log("Fallo al intentar borrar perfil", perfil.name);
         }
       });
 
@@ -147,6 +162,14 @@ export default function Configuration() {
   const handleChangeNombre = (event) => {
     setNuevoNombre(event.target.value);
   };
+
+  const handleChangePass = (event) => {
+    setContraActual(event.target.value);
+  }
+
+  const handleChangePassNew = (event) => {
+    setContraNueva(event.target.value);
+  }
 
 
   return (
@@ -167,9 +190,9 @@ export default function Configuration() {
           <br></br>
 
           <Typography variant="h5" frontWeight = 'bold' style={{ fontFamily: 'Palatino' }} color='white'>Cambiar contraseña</Typography>
-          <TextField label='Contraseña actual' type="password" className={classes.textField} margin="normal" fullWidth id="oldPassword" name="oldPassword"   />
-          <TextField label='Nueva contraseña' type="password" className={classes.textField} margin="normal" fullWidth id="newPassword" name="newPassword"   />
-          <Button variant="contained" color="primary" fullWidth sx={{ width: '250px' }} onClick={actualizarContraseña} type="submit">Cambiar contraseña</Button>
+          <TextField label='Contraseña actual' type="password" className={classes.textField} margin="normal" fullWidth id="oldPassword" name="oldPassword" value={contraActual} onChange={handleChangePass}  />
+          <TextField label='Nueva contraseña' type="password" className={classes.textField} margin="normal" fullWidth id="newPassword" name="newPassword"  value={contraNueva} onChange={handleChangePassNew} />
+          <Button variant="contained" color="primary" fullWidth sx={{ width: '250px' }} onClick={() => actualizarContraseña()} type="submit">Cambiar contraseña</Button>
 
           <br></br><br></br>
           <Divider color="grey" variant="fullWidth" />
@@ -178,17 +201,17 @@ export default function Configuration() {
           <Typography variant="h5" frontWeight = 'bold' style={{ fontFamily: 'Palatino' }} color='white'>Eliminar perfil</Typography>
 
           <br></br><br></br>
-          {profilesList.map((profile , index) => (
+          {profilesList.map((perfil, index) => (
 
                 <div className={classes.perfiles}>
 
                   <div className={classes.avatar}>
-                  <Profile profile={profile} />
+                  <Profile profile={perfil} />
                   </div>
 
 
                    <div className={classes.botonEliminar}> 
-                   <Button variant="contained" color="primary" fullWidth type="submit" onClick={() => borrar(profile)} >X</Button> 
+                   <Button variant="contained" color="primary" fullWidth type="submit" onClick={() => borrar(perfil)} >X</Button> 
                    </div>
 
                 </div>

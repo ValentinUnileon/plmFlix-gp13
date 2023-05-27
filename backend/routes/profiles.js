@@ -24,6 +24,7 @@ router.delete("/:user/:profiles", async function(req, res){
     return res.json(deleteResult);
 });
 
+//quitar
 router.put("/:user/profiles/change", async function(req, res){
 
     const username = req.params.user;

@@ -67,7 +67,6 @@ export default function Header(){
   const [show, setShow] = useState(false);
 
   const [anchorEl, setAnchorEl] = useState(null);
-
   const navigate = useNavigate();
   const { user,profile } = useParams();
 

@@ -70,7 +70,7 @@ export default function VideoPop({
 
     if (vistoList.some(item => item._id === video)) {
       setVisto(true);
-      setMinuto(vistoList.find((item) => item.video === video).currentTime);
+      //setMinuto(vistoList.find((item) => item.video === video).currentTime);
     }else{
         setVisto(false);
     }
@@ -146,13 +146,39 @@ export default function VideoPop({
 }
 };
 
-  const clickReproducir = () => {
-    setOpenV(true);
-    if (!visto) {
-      // Add to the watched list
-      // Implement your logic here
-    }
-  };
+const clickReproducir = () => {
+  setOpenV(true);
+  if (visto) {
+    // Already in the list, delete it
+  axios
+  .delete(getEndpoint(`/${user}/${perfil}/visto_dlt`), {
+    data: { videoId: video },
+  })
+  .then(() => {
+    const updatedVistoList = vistoList.filter((item) => item._id !== video);
+    setVistoList(updatedVistoList);
+    setVisto(false);
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+} else {
+    axios
+  .put(getEndpoint(`/${user}/${perfil}/visto_add`), { videoId: video })
+  .then(() => {
+    const updatedVistoList = [
+      { _id: video, videoUrl: videoUrl },
+      ...vistoList,
+    ];
+    setVistoList(updatedVistoList);
+    setVisto(true);
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+    // Implement your logic here
+  }
+};
 
   const handleCloseV = () => {
     setOpenV(false);

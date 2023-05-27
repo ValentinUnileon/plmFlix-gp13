@@ -6,6 +6,7 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 import '../cssComponents/adminStyle.css';
 import { getEndpoint } from '../pages/const/const';
+import NewUserDialog from './NewUserDialog';
 
 export default function UserList() {
 
@@ -22,13 +23,17 @@ export default function UserList() {
           console.error('Error al eliminar el usuario:', error);
         });
     };
+
+    const handleCreateUser = (user) => {
+      setUsers([...users, user]);
+    };
       
-        useEffect(() => {
-          axios.get(getEndpoint('/administrador/users'))
-          .then((response)=>{
-            setUsers(response.data);
-          });
-        }, []);
+    useEffect(() => {
+      axios.get(getEndpoint('/administrador/users'))
+      .then((response)=>{
+      setUsers(response.data);
+     });
+        }, [users]);
       
         return (
           <div>
@@ -41,6 +46,8 @@ export default function UserList() {
                 </Button>
               </Box>
             ))}
+
+          <NewUserDialog onCreateUser={handleCreateUser}/>
            
           </div>
         );

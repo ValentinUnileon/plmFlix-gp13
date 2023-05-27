@@ -9,6 +9,7 @@ import { useState, useEffect } from 'react';
 import '../cssComponents/adminStyle.css';
 import UserList from "../components/UserList";
 import MovieList from "../components/MovieList";
+import NewUserDialog from '../components/NewUserDialog';
 
 const PREFIX = 'administrador';
 
@@ -24,19 +25,19 @@ const Root = styled('div')({
     //backgroundImage: 'url(https://www.ribescasals.com/media/catalog/product/cache/ac95d467f39086acf44821b87fe7ae41/t/e/tela-loneta-negra.jpg)',
     backgroundSize: 'cover',
     backgroundColor: '#111',
-    height: '100vh',
+    height: 'auto',
     display: 'flex',
     justifyContent: 'center',
     alignContent: 'center'
   },
-  [`& .${classes.textField}`]: {
+  [`&.${classes.textField}`]: {
     '& .MuiInputBase-input': {
       color: '#fff',
     },
     '& .MuiInputLabel-root': {
       color: '#fff',
     },
-    '& .MuiOutlinedInput-root': {
+    '&.MuiOutlinedInput-root': {
       '& fieldset': {
         borderColor: '#fff',
       },
@@ -50,7 +51,7 @@ const Root = styled('div')({
     
     marginTop: '10px',
     fontFamily: 'Verdana',
-    }
+  }
 });
 
 export default function Administrador() {
@@ -60,6 +61,8 @@ export default function Administrador() {
   const goToLogin = () => {
     navigate(`/login`);
   };
+
+  
 
   return (
 
@@ -74,7 +77,7 @@ export default function Administrador() {
           <Divider color="grey" variant="fullWidth" />
 
           <UserList />
-          <Button variant="contained" color="primary" fullWidth sx={{ width: '200px' }}  type="submit">Añadir usuario</Button>
+          
           <br></br><br></br>
           <Divider color="grey" variant="fullWidth" />
 
@@ -84,7 +87,7 @@ export default function Administrador() {
 
         </div>
         <br></br><br></br><br></br>
-        <Button variant="contained" color="primary" fullWidth sx={{ width: '100px' }} onClick={goToLogin}>Volver</Button>
+        <Button variant="contained" color="primary" className={classes.botonVolver} fullWidth sx={{ width: '100px', marginBottom: '10%' }} onClick={goToLogin}>Volver</Button>
       </Box>
 
     </Root>

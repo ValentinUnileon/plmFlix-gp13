@@ -48,6 +48,7 @@ export default function VideoPop({
   const [visto, setVisto] = useState(false);
   
   const [tiempo, setTiempo] = useState();
+  const [minuto, setMinuto] = useState();
 
   const [openV, setOpenV] = React.useState(false);
 

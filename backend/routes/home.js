@@ -270,20 +270,33 @@ router.post("/:user/:profile/visto_add", async function (req, res) {
         let user = req.params.user;
         const videoId = req.body.videoID;
 
-        res.status(200).json({message: "tu prima"});
+
         const userM = await User.findOne({
             username: user
         }, "_id");
 
-        
+
 
         const perfilM = await Profile.findOne({
             user: userM._id,
             name: perfil
         });
 
+
+
         if (!perfilM.vistoList.includes(videoId)) {
-            perfilM.vistoList.push(videoId);
+
+            //perfilM.vistoList.push(videoId);
+
+            const actuResult =await Profile.findByIdAndUpdate(
+                perfilM._id,
+                { $push: { vistoList: videoId } },
+               
+            )
+            
+            res.status(200).json({message: actuResult + "tu prima"});
+
+
             perfilM.vistoList.currentTime = 0;
             await perfilM.save();
 

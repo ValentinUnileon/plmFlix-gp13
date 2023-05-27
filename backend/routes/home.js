@@ -264,8 +264,44 @@ router.delete("/:user/:profile/pendientes_dlt", async function (req, res) {
 
 //Lista de vistos
 ///que gestione los minutos vistos por perfil
-router.put("/:user/:profile/visto", async function (req, res) {
+router.post("/:user/:profile/visto_add", async function (req, res) {
+    try {
+        let perfil = req.params.profile;
+        let user = req.params.user;
+        const videoId = req.body.videoID;
 
+        res.status(200).json({message: "tu prima"});
+        const userM = await User.findOne({
+            username: user
+        }, "_id");
+
+        
+
+        const perfilM = await Profile.findOne({
+            user: userM._id,
+            name: perfil
+        });
+
+        if (!perfilM.vistoList.includes(videoId)) {
+            perfilM.vistoList.push(videoId);
+            perfilM.vistoList.currentTime = 0;
+            await perfilM.save();
+
+            res.status(200).json({
+                message: 'Video añadido a la lista de "vistoList"'
+            });
+        } else {
+            res.status(500).json({
+                message: 'Video ya esta en la lista de "vistoList"'
+            });
+        }
+
+    } catch (error) {
+        res.status(500).json({
+            message: 'Error al añadir el video a la lista de "vistoList"'
+        });
+    }
 });
+
 
 module.exports = router;

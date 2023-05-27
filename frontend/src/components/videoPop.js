@@ -148,6 +148,19 @@ export default function VideoPop({
     setOpenV(true);
     if (!visto) {
       // Add to the watched list
+      axios
+    .put(getEndpoint(`/${user}/${perfil}/visto_add`), { videoId: video })
+    .then(() => {
+      const updatedVistoList = [
+        { _id: video, videoUrl: videoUrl, },
+        ...vistoList,
+      ];
+      setVistoList(updatedVistoList);
+      setVisto(true);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
       // Implement your logic here
     }
   };

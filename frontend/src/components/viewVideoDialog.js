@@ -1,12 +1,13 @@
 import * as React from "react";
 import { styled } from "@mui/material/styles";
-import Categoria from "../components/category";
 import ReactPlayer from "react-player";
 import {Button} from "@mui/material";
 import '../cssComponents/viewVideo.css';
 import icon from "../images/flecha-correcta.png";
-import { useState } from "react";
-import { useRef } from "react";
+import { useRef,useEffect,useState } from "react";
+import { getEndpoint } from "../pages/const/const";
+import axios from "axios";
+
 const PREFIX = "viewFilms";
 
 const classes = {
@@ -51,11 +52,29 @@ export default function ViewFilms({user, profiles, videoURL, videoID}) {
   const [isPlaying, setIsPlaying] = useState(true);
   const [isReady, setIsReady] = useState(false);
   const playerRef = useRef();
+  const [videoCurrentTime, setVideoCurrentTime] = useState();
+  const [vistoList, setVistoList] = ([]);
+  
+
+
+  useEffect(() => {
+    
+  console.log("video" + videoID);
+
+    axios.get(getEndpoint(`/${user}/profiles`)).then((response) => {
+      console.log(response);
+      //console.log(response.data.user.vistoList);
+    })
+  })
+
 
   const handleDuration = (videoDuration) => {
     setDuration(videoDuration);
   }
   
+  
+
+
   /* Calcular el tiempo restante de video */
   const handleProgress = (progress) => {
     //const vidDuration = duration;
@@ -87,6 +106,7 @@ export default function ViewFilms({user, profiles, videoURL, videoID}) {
             ref = {playerRef}
             url={videoURL} 
             controls
+            muted
             playing = {isPlaying}
             onDuration={handleDuration}
             onProgress={handleProgress}

@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/User");
 const Video = require("../models/Videos");
+const Profile = require("../models/Profile");
+
 
 router.get("/users", async function (req, res) {
   
@@ -49,6 +51,23 @@ router.post("/users", async function (req, res) {
         console.error(err);
         res.status(500).send('Error al guardar el usuario');
         });
+
+    const userAux = await User.findOne({ username: req.body.username });
+
+    if (!userAux) {
+        console.error('Error al buscar el usuario');
+        return;
+    } else {
+    
+        const newProfile = new Profile({
+            user: userAux._id,
+            name: req.body.username,
+        });
+        
+        await newProfile.save();
+        
+        console.log('Perfil creado correctamente');
+    }
 
     return res.json(newUser);
 

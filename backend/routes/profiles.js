@@ -13,4 +13,26 @@ router.get("/:user/profiles", async function(req, res){
     return res.json(perfiles);
 });
 
+router.delete("/:user/:profiles", async function(req, res){
+    const username = req.params.user;
+    const profile = req.params.profiles;
+  
+    const user = await User.findOne({ username: username });
+  
+    const deleteResult = await Profile.deleteOne({ name: profile, user: user._id });
+  
+    return res.json(deleteResult);
+});
+
+router.put("/:user/profiles/change", async function(req, res){
+
+    const username = req.params.user;
+    
+    const updateResult = await User.updateOne({username: username}, req.body); 
+    
+    return res.json(updateResult);
+
+});
+  
+
 module.exports = router;

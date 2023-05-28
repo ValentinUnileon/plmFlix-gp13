@@ -100,7 +100,7 @@ export default function Profiles() {
 
 
   return (
-    <Root>
+    <Root className={classes.root}>
     <Header />
     
         

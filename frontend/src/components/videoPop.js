@@ -148,6 +148,7 @@ export default function VideoPop({
 
 const clickReproducir = () => {
   setOpenV(true);
+  //const currentTimeValue = 0;
   if (visto) {
     // Already in the list, delete it
   axios
@@ -164,10 +165,10 @@ const clickReproducir = () => {
   });
 } else {
     axios
-  .put(getEndpoint(`/${user}/${perfil}/visto_add`), { videoId: video })
+  .put(getEndpoint(`/${user}/${perfil}/visto_add`), { videoId: video, currentTime: 0 })
   .then(() => {
     const updatedVistoList = [
-      { _id: video, videoUrl: videoUrl },
+      { _id: video, videoUrl: videoUrl, currentTime: 0 },
       ...vistoList,
     ];
     setVistoList(updatedVistoList);

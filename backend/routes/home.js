@@ -278,7 +278,7 @@ router.put("/:user/:profile/visto_add", async function (req, res) {
     let perfil = req.params.profile;
     let user = req.params.user;
     const videoId = req.body.videoId;
-    //const curretTime = 0;
+    const curretTime = req.body.currentTime;
     const userM = await User.findOne(
       {
         username: user,
@@ -291,8 +291,9 @@ router.put("/:user/:profile/visto_add", async function (req, res) {
     });
 
     if (!perfilM.vistoList.includes(videoId)) {
-        perfilM.vistoList.push(videoId);
-        perfilM.vistoList.currentTime = 0;
+        perfilM.vistoList.push({video: videoId,
+            currentTime: curretTime,
+        }); /* buscar el video y actualizar el currentTime */
         await perfilM.save();
   
         res.status(200).json({
@@ -351,6 +352,35 @@ router.delete("/:user/:profile/visto_dlt", async function (req, res) {
       res.status(500).json({
         message: 'Error al eliminar el video de la lista de "vistoList"',
       });
+    }
+  });
+
+
+  router.get("/:user/:profile/vistoList", async function(req, res){
+    try{
+        const username = req.params.user;
+        const profile = req.params.profile;
+
+        const user = await User.findOne({ username });
+        if (!user) {
+          return res.status(404).json({ message: "Usuario no encontrado" });
+        }
+          const perfile = await Profile.findOne({
+            name: profile,
+            user: user._id,
+          }).select("vistoList");
+
+          if(!perfile) return res.status(404).json({
+            message: "Perfil no encontrado"
+          });
+
+          const vistoList = perfile.vistoList;
+          res.json(vistoList);
+        }catch(error){
+        console.error("Error retrieving video: ", error);
+        return res.status(500).json({
+            error: "Internal Server Error",
+        });
     }
   });
 

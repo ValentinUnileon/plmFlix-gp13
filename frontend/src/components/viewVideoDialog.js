@@ -59,14 +59,30 @@ export default function ViewFilms({ user, profiles, videoURL, videoID }) {
     setDuration(videoDuration);
   };
 
-  useEffect(() => {
+  /*useEffect(() => {
 
-    axios.get(getEndpoint(`/${user}/profiles`))
-    .then((response) => {
-      console.log(profiles);
-    });
+    axios.get(getEndpoint(`/${user}/${profiles}/vistoList`))
+  .then((response) => {
+    const vistoList = response.data;
+    if (Array.isArray(vistoList) && vistoList.length > 0) {
+      const firstItem = vistoList[0];
+      if (firstItem && firstItem.currentTime !== undefined) {
+        const currentTime = firstItem.currentTime;
+        setVideoCurrentTime= currentTime;
+        console.log(currentTime);
+      } else {
+        console.log("currentTime no está definido");
+      }
+    } else {
+      console.log("vistoList está vacía");
+    }
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+
   
-    }, []);  
+    }, []);  */
 
   /* Calcular el tiempo restante de video */
   const handleProgress = (progress) => {

@@ -39,6 +39,7 @@ const Root = styled('div')({
       overflowX: 'auto',
       "& container::-webkit-scrollbar":{
         width: '0',
+        margin: "10px",
     }
     },
     [`& .${classes.titulo}`]: {
@@ -50,7 +51,7 @@ const Root = styled('div')({
         minWidth:'370px',
         height: '200px',
         lineHeight: '200px',
-        marginRight: '0px',
+        marginRight: '15px',
     }
   });
 

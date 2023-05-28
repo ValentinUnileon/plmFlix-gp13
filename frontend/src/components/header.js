@@ -1,10 +1,14 @@
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import { Toolbar, AppBar, Avatar} from '@mui/material';
-import logoNetflix from "../images/logoNetflix.png"
+import logoNetflix from "../images/logo.png"
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { MenuItem, Menu } from '@mui/material'; 
+import { useNavigate } from 'react-router-dom';
+import { useParams } from "react-router-dom";
+import Profile from './profile';
 
 
 const PREFIX = 'header';
@@ -41,6 +45,9 @@ const Root = styled('div')({
   },
   [`& .${classes.avatar}`]: {
     cursor:'pointer',
+    marginRight: '5%',
+    height: "55px",
+    width: '55px',
   },
   [`& .${classes.toolbar}`]: {
     width: '100%',
@@ -58,6 +65,32 @@ const Root = styled('div')({
 export default function Header(){
 
   const [show, setShow] = useState(false);
+
+  const [anchorEl, setAnchorEl] = useState(null);
+  const navigate = useNavigate();
+  const { user,profile } = useParams();
+
+
+  const abrirMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const opcion1Menu = () => {
+    setAnchorEl(null);
+
+    navigate(`/${user}/${profile}/configuration`);
+  };
+
+  const opcion2Menu = () => {
+    setAnchorEl(null);
+
+    navigate(`/login`);
+  };
+
+  const cerrarMenu = () => {
+    setAnchorEl(null);
+  };
+
   
   const hideHeader = () =>{
     if(window.scrollY < 15){
@@ -80,15 +113,28 @@ export default function Header(){
         <Link to="/login">
           <img src={logoNetflix} alt="logo Netflix" className={classes.logo} />
         </Link>
+       
         <Link to="/profiles" className={classes.item}>
           Peliculas
         </Link>
         <Link to="/profiles" className={classes.item}>
           Series
         </Link>
-        <Link to="/profiles" className={classes.item}>
-          <Avatar className={classes.avatar}></Avatar>
-        </Link>
+
+        <Avatar className={classes.avatar} onClick={abrirMenu}></Avatar>
+        <Menu
+          anchorEl={anchorEl}
+          open={Boolean(anchorEl)}
+          onClose={cerrarMenu}
+          anchorOrigin={{ 
+            vertical: 'top',
+            horizontal: 'right', }}
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'right', }} >
+        <MenuItem onClick={opcion1Menu}>Configuración</MenuItem>
+        <MenuItem onClick={opcion2Menu}>Cerrar sesión</MenuItem>
+      </Menu>
       </div>
     </Root>
   );

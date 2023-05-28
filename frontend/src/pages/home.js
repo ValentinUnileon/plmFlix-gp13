@@ -1,5 +1,5 @@
 import * as React from "react";
-import { styled } from '@mui/material/styles';
+import { styled } from "@mui/material/styles";
 import Header from "../components/header";
 import Banner from "../components/banner";
 import Footer from "../components/footer";
@@ -9,20 +9,20 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
-import {getEndpoint} from './const/const';
-
-import {Button} from "@mui/material";
-
+import { getEndpoint } from "./const/const";
+import { Button } from "@mui/material";
 import axios from "axios";
+import { TransitionProps } from '@mui/material/transitions';
+import Slide from '@mui/material/Slide';
 
-const PREFIX = 'home';
+const PREFIX = "home";
 
 const classes = {
   root: `${PREFIX}-root`,
-  categorias: `${PREFIX}-categorias`
+  categorias: `${PREFIX}-categorias`,
 };
 
-const Root = styled('div')({
+const Root = styled("div")({
   [`&.${classes.root}`]: {
     backgroundColor: "#111",
     width: "100%",
@@ -33,9 +33,11 @@ const Root = styled('div')({
     display: "grid",
     gridAutoRows: "repeat(2, auto)",
     gridGap: "30px",
-    margin: '30px 0 30px 0',
+    margin: "30px 0 30px 0",
   },
 });
+
+
 
 export default function Home() {
   const { user, profile } = useParams();
@@ -53,60 +55,82 @@ export default function Home() {
   }
   const handleClose = () => {
     setOpen(false);
-
   };
 
-  useEffect(()=>{
-    axios.get(getEndpoint(`/${user}/${profile}/home`))
-    .then((response)=>{
-      setCategoriesList(response.data.categories);
-      setLikeList(response.data.perfile.likeList);
-      setPendientesList(response.data.perfile.pendienteList);
-      setVistoList(response.data.perfile.vistoList);
-    });
-  },[profile])
+  useEffect(() => {
+    axios
+      .get(getEndpoint(`/${user}/${profile}/home`))
+      .then((response) => {
+        setCategoriesList(response.data.categories);
+        setLikeList(response.data.likeList);
+        setPendientesList(response.data.pendienteList);
+        setVistoList(response.data.vistoList);
+      });
+  }, [profile]);
+
   return (
     <Root className={classes.root}>
       <Header />
       <div className={classes.body}>
         <Banner />
-        <VideoPop open={open} video={video} handleClose={handleClose} likeList={likeList} pendientesList={pendientesList} vistoList={vistoList}/>
- 
+        <VideoPop
+          user={user}
+          perfil={profile}
+          open={open}
+          video={video}
+          handleClose={handleClose}
+          likeList={likeList}
+          setLikeList={setLikeList}
+          pendientesList={pendientesList}
+          setPendientesList={setPendientesList}
+          vistoList={vistoList}
+          setVistoList={setVistoList}
+        />
+
         <div className={classes.categorias}>
+          {vistoList.length > 0 && (
+            <div className="container">
+              <Categoria
+                click={click}
+                nombrecategoria={"Seguir viendo"}
+                listaPelis={vistoList}
+              />
+            </div>
+          )}
 
-        {console.log("visto mg", vistoList)}
+          {likeList.length > 0 && (
+            <div className="container">
+              <Categoria
+                click={click}
+                nombrecategoria={"Favoritos"}
+                listaPelis={likeList}
+              />
+            </div>
+          )}
 
-          {likeList.length > 0 &&
-            
+          {pendientesList.length > 0 && (
+            <div className="container">
+              <Categoria
+                click={click}
+                nombrecategoria={"Pendiente de ver"}
+                listaPelis={pendientesList}
+              />
+            </div>
+          )}
+
+          {categoriesList.map((categoria, index) => {
+            if (categoria.videos.length > 0) {
+              return (
                 <div className="container">
-                  <Categoria click={click()} nombrecategoria={"Peliculas favoritas"} listaPelis={likeList} />
+                  <Categoria
+                    click={click}
+                    nombrecategoria={categoria.title}
+                    listaPelis={categoria.videos}
+                  />
                 </div>
-          }
-    
-          {pendientesList  > 0 &&
-              <div className="container">
-                <Categoria click={click} nombrecategoria={"Peliculas pendientes"} listaPelis={pendientesList} />
-              </div>
-          }
-
-          {vistoList  > 0 &&
-              <div className="container">
-                <Categoria click={click} nombrecategoria={"Peliculas vistas"} listaPelis={vistoList} />
-              </div>
-          }
-
-
-
-        {categoriesList.map((categoria, index) => {
-          if (categoria.videos.length > 0) {
-            return (
-              <div className="container">
-                <Categoria click={click} nombrecategoria={categoria.title} listaPelis={categoria.videos}  />
-              </div>
-            );
-          }
-        })}
-
+              );
+            }
+          })}
         </div>
       </div>
       <Footer />

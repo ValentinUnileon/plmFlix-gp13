@@ -212,7 +212,7 @@ export default function VideoPop({
         TransitionComponent={Transition}
       >
         {/* comp Edu */}
-        <ViewFilms user= {user} profiles={perfil} videoURL={videoUrl} videoID={video} tiempo={tiempo}></ViewFilms>
+        <ViewFilms user= {user} profiles={perfil} videoURL={videoUrl} videoID={video} handleCloseV={handleCloseV}></ViewFilms>
       </Dialog>
     </Dialog>
   );

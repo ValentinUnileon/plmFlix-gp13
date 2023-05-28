@@ -18,7 +18,7 @@ const classes = {
 };
 
 const Root = styled('div')({
-  [`& .${classes.root}`]: {
+  [`&.${classes.root}`]: {
     //backgroundImage: 'url(https://www.ribescasals.com/media/catalog/product/cache/ac95d467f39086acf44821b87fe7ae41/t/e/tela-loneta-negra.jpg)',
     backgroundSize: 'cover',
     backgroundColor: '#111',
@@ -63,7 +63,7 @@ const UserList = () => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    axios.get('/api/users')
+    axios.get('/administrador')
       .then(response => {
         setUsers(response.data);
       })
@@ -88,7 +88,7 @@ const MovieList = () => {
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
-    axios.get('/api/movies')
+    axios.get('/administrador')
       .then(response => {
         setMovies(response.data);
       })
@@ -115,9 +115,9 @@ export default function Administrador() {
 
   return (
 
-    <div className={classes.root}>
+    <Root className={classes.root}>
 
-        <Typography variant="h4" frontWeight = 'bold' color='white' style={{ fontFamily: 'Palatino', marginTop: '20px'}} className={classes.textoPrincipal}>Página del administrador</Typography>
+        <Typography variant="h4" color='white' style={{ fontFamily: 'Palatino', marginTop: '20px'}} className={classes.textoPrincipal}>Página del administrador</Typography>
         <br></br><br></br>
 
       <Box component="form" noValidate className={classes.formContainer}>
@@ -133,6 +133,6 @@ export default function Administrador() {
         <Button variant="contained" color="primary" fullWidth sx={{ width: '100px' }}  type="submit">Volver</Button>
       </Box>
 
-    </div>
+    </Root>
   );
 }

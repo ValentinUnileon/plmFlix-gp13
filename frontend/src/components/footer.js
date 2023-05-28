@@ -56,13 +56,13 @@ export default function Footer() {
         </Link>
       </div>
       <div className={classes.row}>
-        <Link to="/login" className={classes.item}>Terminos y Aviso de privacidad</Link>
+        <Link to="/login" className={classes.item}>Términos y Aviso de privacidad</Link>
         <Link to="/login" className={classes.item}>Ayuda</Link>
         <Link to="/login" className={classes.item}>Acerca de nosotros</Link>
       </div>
 
       <div className={classes.row}>
-        <p style={{color: 'grey'}}>©2022-2023, PLMIndutries.com,Inc. o sus filiales</p>
+        <p style={{color: 'grey'}}>©2022-2023, PLMIndustries.com,Inc. o sus filiales</p>
       </div>
     </Root>
   );

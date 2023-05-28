@@ -14,6 +14,7 @@ import {
 } from "react-router-dom";
 import Configuration from './pages/configuration';
 import Administrador from './pages/administrador';
+import Register from './pages/register';
 
 const PREFIX = 'App';
 
@@ -40,7 +41,8 @@ function App() {
           <Route path="/:user/:profile/home" element={<Home />} />
           <Route path="/:user/:profile/:film/viewFilms" element={<ViewFilms />} />
           <Route path="/:user/:profile/configuration" element={<Configuration />} />
-          <Route path="/:user/:profile/administrador" element={<Administrador />} />
+          <Route path="/administrador" element={<Administrador />} />
+          <Route path="/register" element={<Register />} />
         </Routes>
       </Router>
     </StyledLocalizationProvider>

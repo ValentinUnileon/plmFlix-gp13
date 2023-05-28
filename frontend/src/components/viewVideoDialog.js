@@ -1,13 +1,14 @@
 import * as React from "react";
 import { styled } from "@mui/material/styles";
 import ReactPlayer from "react-player";
-import { Button } from "@mui/material";
+import { Button, Dialog } from "@mui/material";
 import "../cssComponents/viewVideo.css";
 import icon from "../images/flecha-correcta.png";
 import { useRef, useEffect, useState } from "react";
 import { getEndpoint } from "../pages/const/const";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+
 const PREFIX = "viewFilms";
 
 const classes = {
@@ -45,58 +46,59 @@ const Root = styled("div")({
   },
 });
 
-export default function ViewFilms({ user, profiles, videoURL, videoID }) {
+export default function ViewFilms({
+  user,
+  profiles,
+  videoURL,
+  videoID,
+  listaVistos,
+}) {
   const [duration, setDuration] = useState(0);
   const [SecondsViews, setSecondsViews] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
   const [isReady, setIsReady] = useState(false);
   const playerRef = useRef();
   const [videoCurrentTime, setVideoCurrentTime] = useState(0);
-  const [vistoList, setVistoList] = [];
-
+  const [vistoList, setVistoList] = useState([]);
+  const [visto, setVisto] = useState(false);
+  const [open, setOpen] = useState(false);
   const navigate = useNavigate();
+
+
   const handleDuration = (videoDuration) => {
     setDuration(videoDuration);
   };
 
   useEffect(() => {
+    axios
+      .get(getEndpoint(`/${user}/${profiles}/vistoList`))
+      .then((response) => {
+        const vistoList = response.data;
+        if (Array.isArray(vistoList) && vistoList.length === 1) {
+          setVideoCurrentTime(vistoList[0].currentTime);
+          console.log(videoCurrentTime);
+        } else if (Array.isArray(vistoList) && vistoList.length > 1) {
+          const item = vistoList[vistoList.length - 2];
+          if (item && item.currentTime !== undefined) {
+            const currentTime = item.currentTime;
+            setVideoCurrentTime(currentTime);
+            console.log(videoCurrentTime);
+          } else {
+            console.log("currentTime no está definido");
+          }
+        } else {
+          console.log(
+            "vistoList no tiene suficientes elementos" + vistoList.length
+          );
+        }
+      })
 
-    axios.get(getEndpoint(`/${user}/${profiles}/vistoList`))
-  .then((response) => {
-    console.log(response.data);
-  })
-  .catch((error) => {
-    console.log(error);
-  });
-    }, []); 
-  
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
-  /*useEffect(() => {
-
-    axios.get(getEndpoint(`/${user}/${profiles}/vistoList`))
-  .then((response) => {
-    const vistoList = response.data;
-    if (Array.isArray(vistoList) && vistoList.length > 0) {
-      const firstItem = vistoList[0];
-      if (firstItem && firstItem.currentTime !== undefined) {
-        const currentTime = firstItem.currentTime;
-        setVideoCurrentTime= currentTime;
-        console.log(currentTime);
-      } else {
-        console.log("currentTime no está definido");
-      }
-    } else {
-      console.log("vistoList está vacía");
-    }
-  })
-  .catch((error) => {
-    console.log(error);
-  });
-
-  
-    }, []);  */
-
-  /* Calcular el tiempo restante de video */
+  /* Obtiene los segundos vistos */
   const handleProgress = (progress) => {
     //const vidDuration = duration;
     const currentTime = progress.playedSeconds;
@@ -104,23 +106,37 @@ export default function ViewFilms({ user, profiles, videoURL, videoID }) {
     setSecondsViews(currentTime);
   };
 
+  /* Inicia el video en el segundo timeStart */
   const onReady = React.useCallback(() => {
     if (!isReady) {
       /* Duracion - tiempo Restante */
-      const timeStart = SecondsViews;
+      const timeStart = videoCurrentTime;
       playerRef.current.seekTo(timeStart, "seconds");
     }
   }, [isReady]);
 
-  /* onClick() 
-  guarda los sec remaining de cada video de cada usuario
+  /*
+  actualiza los sec vistos de cada video de cada usuario
   y me regresa a home
-  usar profile y videoID para ello 
   */
-
-  function click(profiles) {
-    navigate(`/${user}/${profiles}/home`);
-    console.log("harto ya joder");
+  function click() {
+    /*axios
+      .put(getEndpoint(`/${user}/${profiles}/visto_add`), {
+        videoId: videoID,
+        currentTime: SecondsViews,
+      })
+      .then(() => {
+        const updatedVistoList = [
+          { _id: videoID, videoUrl: videoURL, currentTime: SecondsViews },
+          ...listaVistos,
+        ];
+        setVistoList(updatedVistoList);
+        setVisto(true);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+      */
   }
 
   return (
@@ -161,15 +177,8 @@ export default function ViewFilms({ user, profiles, videoURL, videoID }) {
       </div>
 
       <div className="button">
-        <Button onClick={() => {
-          /* bajar el componente */
-    console.log("harto ya joder");
-    console.log(SecondsViews);
-    }}>
+        <Button>
           <img src={icon} height="50px" width="50px" />
-          {/*
-  funcion onClick();
-  */}
         </Button>
       </div>
     </Root>

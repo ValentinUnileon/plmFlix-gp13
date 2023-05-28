@@ -239,7 +239,7 @@ const clickReproducir = () => {
         TransitionComponent={Transition}
       >
         {/* comp Edu */}
-        <ViewFilms user= {user} profiles={perfil} videoURL={videoUrl} videoID={video} tiempo={tiempo}></ViewFilms>
+        <ViewFilms user= {user} profiles={perfil} videoURL={videoUrl} videoID={video} listaVistos ={vistoList} onClose={handleCloseV}></ViewFilms>
       </Dialog>
     </Dialog>
   );

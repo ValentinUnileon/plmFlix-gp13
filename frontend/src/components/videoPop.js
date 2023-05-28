@@ -6,7 +6,6 @@ import {
   CardHeader,
   CardMedia,
   CardContent,
-  CardActions,
   Typography,
   IconButton,
   Button,
@@ -69,7 +68,7 @@ export default function VideoPop({
 
     if (vistoList.some(item => item._id === video)) {
       setVisto(true);
-      setTiempo(vistoList.find((item) => item.video === video).currentTime);
+      //setTiempo(vistoList.find((item) => item.video === video).currentTime);
     }else{
         setVisto(false);
     }
@@ -147,18 +146,12 @@ export default function VideoPop({
 
   const clickReproducir = () => {
     if (visto) {
-      axios.get(`/${user}/${perfil}/visto`)
-      .then((response) =>{
-        setTiempo.apply(response.data.tiempo);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+      setOpenV(true);
     }else{
-      axios.put(`/${user}/${perfil}/visto`, {videoId: video, tiempo: 0})
+      axios.put(getEndpoint(`/${user}/${perfil}/visto`), {videoId: video, tiempo: 0})
       .then(()=>{
         const updatedVistoList = [
-          { _id: video, videoUrl: videoUrl, thumbnailUrl: videoThum, tiempo: 0},
+          { _id: video, videoUrl: videoUrl, thumbnailUrl: videoThum},
           ...vistoList,
         ];
         setVistoList(updatedVistoList);

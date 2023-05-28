@@ -47,37 +47,37 @@ router.get("/:user/:profile/home", async function (req, res) {
     }
     let like = [];
 
-        for (let j = 0; j < perfile.likeList.length; j++) {
-            let video = perfile.likeList[j];
-            let videoIn = await Videos.findOne(video);
-            like.push({
-                _id: videoIn._id,
-                videoUrl: videoIn.videoUrl,
-                thumbnailUrl: videoIn.thumbnailUrl
-            });
-        }
-        let pen = [];
+    for (let j = 0; j < perfile.likeList.length; j++) {
+        let video = perfile.likeList[j];
+        let videoIn = await Videos.findOne(video);
+        like.push({
+            _id: videoIn._id,
+            videoUrl: videoIn.videoUrl,
+            thumbnailUrl: videoIn.thumbnailUrl
+        });
+    }
+    let pen = [];
 
-        for (let j = 0; j < perfile.pendienteList.length; j++) {
-            let video = perfile.pendienteList[j];
-            let videoIn = await Videos.findOne(video);
-            pen.push({
-                _id: videoIn._id,
-                videoUrl: videoIn.videoUrl,
-                thumbnailUrl: videoIn.thumbnailUrl
-            });
-        }
-        let vis = [];
+    for (let j = 0; j < perfile.pendienteList.length; j++) {
+        let video = perfile.pendienteList[j];
+        let videoIn = await Videos.findOne(video);
+        pen.push({
+            _id: videoIn._id,
+            videoUrl: videoIn.videoUrl,
+            thumbnailUrl: videoIn.thumbnailUrl
+        });
+    }
+    let vis = [];
 
-        for (let j = 0; j < perfile.vistoList.length; j++) {
-            let video = perfile.vistoList[j];
-            let videoIn = await Videos.findOne(video);
-            vis.push({
-                _id: videoIn._id,
-                videoUrl: videoIn.videoUrl,
-                thumbnailUrl: videoIn.thumbnailUrl
-            });
-        }
+    for (let j = 0; j < perfile.vistoList.length; j++) {
+        let video = perfile.vistoList[j].video;
+        let videoIn = await Videos.findOne(video);
+        vis.push({
+            _id: videoIn._id,
+            videoUrl: videoIn.videoUrl,
+            thumbnailUrl: videoIn.thumbnailUrl
+        });
+    }
 
     let respuesta = {
         perfile: perfile,
@@ -263,49 +263,45 @@ router.delete("/:user/:profile/pendientes_dlt", async function (req, res) {
 });
 
 //Lista de vistos
-///al clickar en el boton de reproducir
+///al clickar en el boton de reproducirñ
 router.put("/:user/:profile/visto", async function (req, res) {
-    let perfil = req.params.profile;
-    let user = req.params.user;
+    const perfil = req.params.profile;
+    const user = req.params.user;
     const videoId = req.body.videoId;
     const time = req.body.tiempo;
-
-    const userM = await User.findOne({
-        username: user
-    });
-    const perfilM = await Profile.findOne({
-        user: userM,
-        name: perfil
-    });
-    if (!perfilM.vistoList.some(item => item.video === videoId)) { //si no esta se añade
-        const updatedVistoList = [{
-                video: videoId,
-                cucurrentTime: time
-            },
-            ...perfilM.vistoList
-        ];
-        perfilM.vistoList = updatedVistoList;
-        await perfilM.save();
-
-        res.status(200).json({
-            message: 'Video añadido a la lista de "visto"'
-        });
-    } else { //si esta actualiza la ese
-        const newArray = perfilM.vistoList.filter((element) => element !== itLT);
-        const updatedVistoList = [{
-                video: videoId,
-                cucurrentTime: time
-            },
-            ...newArray
-        ];
-        perfilM.vistoList = updatedVistoList;
-        await perfilM.save();
-
-        res.status(200).json({
-            message: 'Tiempo de video actualizado a la lista de "visto"'
-        });
+  
+    try {
+      const userDoc = await User.findOne({ username: user });
+  
+      if (!userDoc) {
+        return res.status(404).json({ message: "Usuario no encontrado" });
+      }
+  
+      let profile = await Profile.findOne({ name: perfil, user: userDoc._id });
+  
+      if (!profile) {
+        return res.status(404).json({ message: "Perfil no encontrado" });
+      }
+  
+      const existingItemIndex = profile.vistoList.findIndex((item) => item.video === videoId);
+  
+      if (existingItemIndex !== -1) {
+        profile.vistoList.splice(existingItemIndex, 1);
+      }
+  
+      profile.vistoList.unshift({ video: videoId, currentTime: time });
+      await profile.save();
+  
+      res.status(200).json({ message: "Elemento actualizado en 'vistoList'" });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Error en el servidor" });
     }
-});
+  });
+  
+  
+  
+
 
 //al clickar en un video de la lista de seguir viendo
 router.get("/:user/:profile/visto", async function (req, res) {

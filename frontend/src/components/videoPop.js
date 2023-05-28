@@ -146,10 +146,28 @@ export default function VideoPop({
 };
 
   const clickReproducir = () => {
-    setOpenV(true);
-    if (!visto) {
-      // Add to the watched list
-      // Implement your logic here
+    if (visto) {
+      axios.get(`/${user}/${perfil}/visto`)
+      .then((response) =>{
+        setTiempo.apply(response.data.tiempo);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    }else{
+      axios.put(`/${user}/${perfil}/visto`, {videoId: video, tiempo: 0})
+      .then(()=>{
+        const updatedVistoList = [
+          { _id: video, videoUrl: videoUrl, thumbnailUrl: videoThum, tiempo: 0},
+          ...vistoList,
+        ];
+        setVistoList(updatedVistoList);
+        setVisto(true);
+        setOpenV(true);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
     }
   };
 
@@ -211,7 +229,7 @@ export default function VideoPop({
         TransitionComponent={Transition}
       >
         {/* comp Edu */}
-        <ViewFilms user= {user} profiles={perfil} videoURL={videoUrl} videoID={video} tiempo={tiempo}></ViewFilms>
+        <ViewFilms user= {user} profiles={perfil} videoUrl={videoUrl} videoId={video} tiempo={tiempo} setOpen={handleCloseV}/>
       </Dialog>
     </Dialog>
   );

@@ -263,9 +263,70 @@ router.delete("/:user/:profile/pendientes_dlt", async function (req, res) {
 });
 
 //Lista de vistos
-///que gestione los minutos vistos por perfil
+///al clickar en el boton de reproducir
 router.put("/:user/:profile/visto", async function (req, res) {
+    let perfil = req.params.profile;
+    let user = req.params.user;
+    const videoId = req.body.videoId;
+    const time = req.body.tiempo;
 
+    const userM = await User.findOne({
+        username: user
+    });
+    const perfilM = await Profile.findOne({
+        user: userM,
+        name: perfil
+    });
+    if (!perfilM.vistoList.some(item => item.video === videoId)) { //si no esta se añade
+        const updatedVistoList = [{
+                video: videoId,
+                cucurrentTime: time
+            },
+            ...perfilM.vistoList
+        ];
+        perfilM.vistoList = updatedVistoList;
+        await perfilM.save();
+
+        res.status(200).json({
+            message: 'Video añadido a la lista de "visto"'
+        });
+    } else { //si esta actualiza la ese
+        const newArray = perfilM.vistoList.filter((element) => element !== itLT);
+        const updatedVistoList = [{
+                video: videoId,
+                cucurrentTime: time
+            },
+            ...newArray
+        ];
+        perfilM.vistoList = updatedVistoList;
+        await perfilM.save();
+
+        res.status(200).json({
+            message: 'Tiempo de video actualizado a la lista de "visto"'
+        });
+    }
+});
+
+//al clickar en un video de la lista de seguir viendo
+router.get("/:user/:profile/visto", async function (req, res) {
+    try {
+        let videoId = req.params.video;
+
+        const videoData = await Videos.findById(videoId);
+
+        if (!videoData) {
+            return res.status(404).json({
+                error: "Video not found"
+            });
+        }
+
+        return res.json(videoData);
+    } catch (error) {
+        console.error("Error retrieving video:", error);
+        return res.status(500).json({
+            error: "Internal Server Error"
+        });
+    }
 });
 
 module.exports = router;

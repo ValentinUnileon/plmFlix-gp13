@@ -59,6 +59,18 @@ export default function ViewFilms({ user, profiles, videoURL, videoID }) {
     setDuration(videoDuration);
   };
 
+  useEffect(() => {
+
+    axios.get(getEndpoint(`/${user}/${profiles}/vistoList`))
+  .then((response) => {
+    console.log(response.data);
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+    }, []); 
+  
+
   /*useEffect(() => {
 
     axios.get(getEndpoint(`/${user}/${profiles}/vistoList`))

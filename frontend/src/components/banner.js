@@ -76,7 +76,7 @@ export default function Banner({categoriesList, user, perfil, pendientesList, se
     console.log(categoriesList);
     useEffect(() => {
       if (categoriesList.length > 0) {
-        setVideoUrl(categoriesList[0].videos[0].videoUrl);
+        setVideoUrl(categoriesList[1].videos[0].videoUrl);
       }
     }, [categoriesList]);
 
@@ -115,7 +115,7 @@ export default function Banner({categoriesList, user, perfil, pendientesList, se
         TransitionComponent={Transition}
       >
         {/* comp Edu */}
-
+       // <ViewFilms user= {user} profiles={perfil} videoURL={videoUrl} videoID={video} handleCloseV={handleCloseV}></ViewFilms>
       </Dialog>
       </div>
       

@@ -69,7 +69,7 @@ export default function VideoPop({
 
     if (vistoList.some(item => item._id === video)) {
       setVisto(true);
-      setMinuto(vistoList.find((item) => item.video === video).currentTime);
+      setTiempo(vistoList.find((item) => item.video === video).currentTime);
     }else{
         setVisto(false);
     }

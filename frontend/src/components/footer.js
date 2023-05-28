@@ -1,7 +1,7 @@
 import * as React from "react";
 import { styled } from '@mui/material/styles';
 import { BottomNavigation } from "@mui/material";
-import logoNetflix from "../images/logoNetflix.png";
+import logoNetflix from "../images/logo.png";
 import { Link } from "react-router-dom";
 
 const PREFIX = 'footer';

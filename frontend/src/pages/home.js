@@ -48,6 +48,7 @@ export default function Home() {
   const [pendientesList, setPendientesList] = useState([]);
   const [vistoList, setVistoList] = useState([]);
   const [video, setVideo] = useState("");
+  const [currentCategory, setCurrentCategory] = useState(null);
 
   function click(id) {
     setVideo(id);
@@ -72,7 +73,9 @@ export default function Home() {
     <Root className={classes.root}>
       <Header />
       <div className={classes.body}>
-        <Banner />
+        <Banner 
+        categoriesList={categoriesList}
+        />
         <VideoPop
           user={user}
           perfil={profile}

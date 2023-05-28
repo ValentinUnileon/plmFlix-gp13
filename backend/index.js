@@ -20,7 +20,7 @@ if (process.env.NODE_ENV === "production") {
 
 connectDB()
 
- // crearDB();
+crearDB();
 
 app.use("/api/login", require("./routes/login"));
 app.use("/api", require("./routes/profiles"));

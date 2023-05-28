@@ -72,7 +72,11 @@ export default function Home() {
     <Root className={classes.root}>
       <Header />
       <div className={classes.body}>
-        <Banner />
+        {        console.log("AAAAAAAAAAAAAAAAAAAAAAAASDFASDF", categoriesList)}
+        <Banner
+
+        categoriesList={categoriesList}
+        />
         <VideoPop
           user={user}
           perfil={profile}

@@ -48,6 +48,7 @@ export default function VideoPop({
   const [visto, setVisto] = useState(false);
   
   const [tiempo, setTiempo] = useState();
+  const [minuto, setMinuto] = useState();
 
   const [openV, setOpenV] = React.useState(false);
 
@@ -69,7 +70,7 @@ export default function VideoPop({
 
     if (vistoList.some(item => item._id === video)) {
       setVisto(true);
-      setTiempo(vistoList.find((item) => item.video === video).currentTime);
+      setMinuto(vistoList.find((item) => item.video === video).currentTime);
     }else{
         setVisto(false);
     }
@@ -211,7 +212,7 @@ export default function VideoPop({
         TransitionComponent={Transition}
       >
         {/* comp Edu */}
-        <ViewFilms user= {user} profiles={perfil} videoURL={videoUrl} videoID={video} tiempo={tiempo}></ViewFilms>
+        <ViewFilms user= {user} profiles={perfil} videoURL={videoUrl} videoID={video} handleCloseV={handleCloseV}></ViewFilms>
       </Dialog>
     </Dialog>
   );

@@ -3,11 +3,23 @@ import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import {Button, TextField, Typography, Toolbar, AppBar, Avatar} from '@mui/material';
 import { Link } from 'react-router-dom';
-//import imgBanner from '../images/banner1.jpg';
-//import videoBanner from '../videos/Vengadores.mp4'
+import ReactPlayer from 'react-player';
 import '../cssComponents/banner.css'
+import { useState,useEffect } from 'react';
+import axios from "axios";
+import { getEndpoint } from "../pages/const/const";
+import ViewFilms from './viewVideoDialog';
+import Slide from '@mui/material/Slide';
+import {Dialog} from '@mui/material';
+import VideoPop from './videoPop';
+
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 const PREFIX = 'banner';
+
 
 const classes = {
   root: `${PREFIX}-root`,
@@ -17,7 +29,6 @@ const classes = {
 
 const Root = styled('div')({
     [`& .${classes.root}`]: {
-      //backgroundImage: `url(${"https://img.youtube.com/vi/sec80NHLdmU/0.jpg"})`,
       position: 'relative',
       width: '100%',
       height: '440px',
@@ -48,38 +59,77 @@ const Root = styled('div')({
       position: 'relative',
       left: '50px',
       top: '10px',
+    },
+
+    videoBack: {
+      height: '440px',
+      with: '100%',
+      objectFit: 'cover',
     }
+
 });
 
-export default function Banner(){
+export default function Banner({categoriesList, user, perfil, reproducir}){
+  const [videoUrl, setVideoUrl] = useState("");
+  const [videoId, setVideoId] = useState("");
+  const [openV, setOpenV] = React.useState(false);
+    /* funcion para poner video del banner*/
+    //console.log(categoriesList);
+    function generateRandomNumber(List) {
+      const randomNumber = Math.floor(Math.random() * Math.min(categoriesList.length, Number.MAX_SAFE_INTEGER));
+      return randomNumber;
+    }
+  const randomIndex = generateRandomNumber(categoriesList);
+  //const listaVid = categoriesList[randomIndex].videos;
+  //const randomIndex2 = generateRandomNumber(listaVid);
+  console.log("num random 1",randomIndex);
+  //console.log("num random 2",randomIndex2);
+  //console.log("videos lentgh", categoriesList[randomIndex].videos.length)
+    useEffect(() => {
+      if (categoriesList.length > 0) {
+        setVideoUrl(categoriesList[randomIndex].videos[0].videoUrl);
+        setVideoId(categoriesList[randomIndex].videos[0]._id)
+      }
+    }, [categoriesList]);
 
 
-    /* funcion onclick que lleve a la pagina de ver el video del banner*/
-    /* funcion onclick que ponga mute o no el banner */
-    /* funcion añadir a mi lista */
-    /* funcion map para poner video del banner  */ 
+     const clickReproducir = () => {
+      reproducir(videoId);
+    };
   
+    const handleCloseV = () => {
+      setOpenV(false);
+    };
 
   return (
     <Root className="video-background"> 
-    <video autoPlay muted loop>
-        { //<source src={videoBanner} type="video/mp4" /> 
-        }
-
-    </video>
+    <div className={classes.videoBack}>
+    <ReactPlayer
+            url= {videoUrl} 
+            playing
+            muted
+            width="100%"
+            height="440px"
+          />
+    </div>
       <div className="video-overlay">
-        <div className={classes.content}>
-        <Typography variant="h2" color='white'>
-          Movie Title
-        </Typography>
-        </div>
         <div className={classes.buttons}>
-          <Button>Play</Button>
-          <Button>My List</Button>
+          <Button onClick={clickReproducir}>Play</Button>
         </div>
+      </div>
+
+      <div>
+      <Dialog
+        fullScreen
+        open={openV}
+        onClose={handleCloseV}
+        TransitionComponent={Transition}
+      >
+        { console.log("estoy cansado: ",videoUrl)/* comp Edu */}
+        < ViewFilms user= {user} profiles={perfil} videoURL={videoUrl} setOpen={handleCloseV} />
+      </Dialog>
       </div>
       
     </Root>
   );
 }
-

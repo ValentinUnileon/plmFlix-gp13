@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 import { styled } from "@mui/material/styles";
 import ReactPlayer from "react-player";
 import { Button } from "@mui/material";
@@ -75,12 +75,12 @@ export default function ViewFilms({user, profiles, videoURL, videoID, handleClos
       <div className="body">
         <div className={classes.videoBack}>
           <ReactPlayer
-            url= {videoURL} 
-            controls
+            url={videoUrl}
             playing
-            muted
+            controls
             width="100%"
             height="100%"
+            style={{ position: 'absolute', top: 0, left: 0,}}
           />
         </div>
           {showButton && (

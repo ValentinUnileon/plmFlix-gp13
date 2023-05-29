@@ -6,7 +6,6 @@ import {
   CardHeader,
   CardMedia,
   CardContent,
-  CardActions,
   Typography,
   IconButton,
   Button,
@@ -70,7 +69,7 @@ export default function VideoPop({
 
     if (vistoList.some(item => item._id === video)) {
       setVisto(true);
-      setTiempo(vistoList.find((item) => item.video === video).currentTime);
+      //setTiempo(vistoList.find((item) => item.video === video).currentTime);
     }else{
         setVisto(false);
     }
@@ -147,10 +146,22 @@ export default function VideoPop({
 };
 
   const clickReproducir = () => {
-    setOpenV(true);
-    if (!visto) {
-      // Add to the watched list
-      // Implement your logic here
+    if (visto) {
+      setOpenV(true);
+    }else{
+      axios.put(getEndpoint(`/${user}/${perfil}/visto`), {videoId: video, tiempo: 0})
+      .then(()=>{
+        const updatedVistoList = [
+          { _id: video, videoUrl: videoUrl, thumbnailUrl: videoThum},
+          ...vistoList,
+        ];
+        setVistoList(updatedVistoList);
+        setVisto(true);
+        setOpenV(true);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
     }
   };
 

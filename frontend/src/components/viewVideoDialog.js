@@ -75,7 +75,7 @@ export default function ViewFilms({user, profiles, videoURL, videoID, handleClos
       <div className="body">
         <div className={classes.videoBack}>
           <ReactPlayer
-            url={videoUrl}
+            url={videoURL}
             playing
             controls
             width="100%"

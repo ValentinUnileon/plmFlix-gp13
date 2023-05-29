@@ -3,6 +3,7 @@ const router = express.Router();
 const User = require("../models/User");
 const Video = require("../models/Videos");
 const Profile = require("../models/Profile");
+const categorias = require("../models/Categorias");
 
 
 router.get("/users", async function (req, res) {
@@ -88,7 +89,35 @@ router.post("/movies", async function (req, res) {
     await newMovie.save()
         .then(() => {
             console.log("SE HA GUARDADO LA PELICULA", newMovie.title);
-        })
+
+            categorias.findOne({ title: newMovie.categorie })
+            .then((categoriaEncontrada) => {
+                if (categoriaEncontrada) {
+
+                categoriaEncontrada.videos.push(newMovie._id);
+                categoriaEncontrada.save()
+                    .then(() => {
+                    console.log('Video agregado a la categoría correctamente');
+                    })
+                    .catch((error) => {
+                    console.error('Error al guardar la categoría:', error);
+                    });
+                } else {
+                    const nuevaCategoria = new categorias({
+                        title: newMovie.categorie,
+                        videos: [newMovie._id],
+                      });
+            
+                      nuevaCategoria.save()
+                        .then(() => {
+                          console.log('Nueva categoría creada y video añadido correctamente');
+                        })
+                        .catch((error) => {
+                          console.error('Error al guardar la nueva categoría:', error);
+                        });
+                }
+      })
+     })
         .catch((err) => {
         console.error(err);
         res.status(500).send('Error al guardar la pelicula');

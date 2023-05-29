@@ -46,7 +46,7 @@ export default function VideoPop({
   const [pendiente, setPendiente] = useState(false);
   const [visto, setVisto] = useState(false);
   
-  const [tiempo, setTiempo] = useState();
+  
 
   const [openV, setOpenV] = React.useState(false);
 
@@ -146,7 +146,6 @@ export default function VideoPop({
 
   const clickReproducir = () => {
     if (visto) {
-      
       setOpenV(true);
     }else{
       axios.put(getEndpoint(`/${user}/${perfil}/visto`), {videoId: video, tiempo: 0})
@@ -223,7 +222,7 @@ export default function VideoPop({
         TransitionComponent={Transition}
       >
         {/* comp Edu */}
-        <ViewFilms user= {user} profiles={perfil} videoUrl={videoUrl} videoId={video} tiempo={tiempo} setOpen={handleCloseV}/>
+        <ViewFilms user= {user} profiles={perfil} videoUrl={videoUrl} videoId={video} setOpen={handleCloseV}/>
       </Dialog>
     </Dialog>
   );

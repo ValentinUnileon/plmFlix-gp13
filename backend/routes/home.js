@@ -292,7 +292,7 @@ router.put("/:user/:profile/visto", async function (req, res) {
             });
         }
 
-        const existingItemIndex = profile.vistoList.findIndex((item) => item.video === videoId);
+        const existingItemIndex = profile.vistoList.findIndex((item) => item.video === videoId && item.currentTime !== time);
 
         if (existingItemIndex !== -1) {
             profile.vistoList.splice(existingItemIndex, 1);
@@ -307,6 +307,51 @@ router.put("/:user/:profile/visto", async function (req, res) {
         res.status(200).json({
             message: "Elemento actualizado en 'vistoList'"
         });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            message: "Error en el servidor"
+        });
+    }
+});
+
+
+
+router.get("/:user/:profile/visto/:videoId", async function (req, res) {
+    const perfil = req.params.profile;
+    const user = req.params.user;
+    const videoId = req.params.videoId;
+    try {
+        const userDoc = await User.findOne({
+            username: user
+        });
+
+        if (!userDoc) {
+            return res.status(404).json({
+                message: "Usuario no encontrado"
+            });
+        }
+
+        let profile = await Profile.findOne({
+            name: perfil,
+            user: userDoc._id
+        });
+
+        if (!profile) {
+            return res.status(404).json({
+                message: "Perfil no encontrado"
+            });
+        }
+
+        const existingItem = profile.vistoList.find((item) => item.video.toString() === videoId);
+        if (!existingItem) {
+            return res.status(404).json({
+                error: "Video not found"
+            });
+        }
+
+        return res.json(existingItem.currentTime);
+
     } catch (error) {
         console.error(error);
         res.status(500).json({

@@ -263,64 +263,54 @@ router.delete("/:user/:profile/pendientes_dlt", async function (req, res) {
 });
 
 //Lista de vistos
-///al clickar en el boton de reproducirñ
+///al clickar en el boton de reproducir
 router.put("/:user/:profile/visto", async function (req, res) {
     const perfil = req.params.profile;
     const user = req.params.user;
     const videoId = req.body.videoId;
     const time = req.body.tiempo;
-  
+
     try {
-      const userDoc = await User.findOne({ username: user });
-  
-      if (!userDoc) {
-        return res.status(404).json({ message: "Usuario no encontrado" });
-      }
-  
-      let profile = await Profile.findOne({ name: perfil, user: userDoc._id });
-  
-      if (!profile) {
-        return res.status(404).json({ message: "Perfil no encontrado" });
-      }
-  
-      const existingItemIndex = profile.vistoList.findIndex((item) => item.video === videoId);
-  
-      if (existingItemIndex !== -1) {
-        profile.vistoList.splice(existingItemIndex, 1);
-      }
-  
-      profile.vistoList.unshift({ video: videoId, currentTime: time });
-      await profile.save();
-  
-      res.status(200).json({ message: "Elemento actualizado en 'vistoList'" });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Error en el servidor" });
-    }
-  });
-  
-  
-  
+        const userDoc = await User.findOne({
+            username: user
+        });
 
-
-//al clickar en un video de la lista de seguir viendo
-router.get("/:user/:profile/visto", async function (req, res) {
-    try {
-        let videoId = req.params.video;
-
-        const videoData = await Videos.findById(videoId);
-
-        if (!videoData) {
+        if (!userDoc) {
             return res.status(404).json({
-                error: "Video not found"
+                message: "Usuario no encontrado"
             });
         }
 
-        return res.json(videoData);
+        let profile = await Profile.findOne({
+            name: perfil,
+            user: userDoc._id
+        });
+
+        if (!profile) {
+            return res.status(404).json({
+                message: "Perfil no encontrado"
+            });
+        }
+
+        const existingItemIndex = profile.vistoList.findIndex((item) => item.video === videoId);
+
+        if (existingItemIndex !== -1) {
+            profile.vistoList.splice(existingItemIndex, 1);
+        }
+
+        profile.vistoList.unshift({
+            video: videoId,
+            currentTime: time
+        });
+        await profile.save();
+
+        res.status(200).json({
+            message: "Elemento actualizado en 'vistoList'"
+        });
     } catch (error) {
-        console.error("Error retrieving video:", error);
-        return res.status(500).json({
-            error: "Internal Server Error"
+        console.error(error);
+        res.status(500).json({
+            message: "Error en el servidor"
         });
     }
 });

@@ -146,6 +146,7 @@ export default function VideoPop({
 
   const clickReproducir = () => {
     if (visto) {
+      
       setOpenV(true);
     }else{
       axios.put(getEndpoint(`/${user}/${perfil}/visto`), {videoId: video, tiempo: 0})

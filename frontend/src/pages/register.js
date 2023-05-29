@@ -69,7 +69,7 @@ export default function Register() {
       console.log("Éxito al registrar usuario");
     })
     .catch((error)=>{
-      console.log(getEndpoint('/register'), payload);
+
       setshowError(true);
       console.log("ERROR");
     

@@ -69,8 +69,7 @@ export default function NewMovieDialog(movies={movies}, setMovies={setMovies}) {
           console.log("Éxito al crear pelicula");
         })
         .catch((error)=>{
-          console.log(getEndpoint('/administrador/movies'), payload);
-          console.log(error);
+     
           console.log("ERROR AL REGISTRAR PELICULA");
         
         });

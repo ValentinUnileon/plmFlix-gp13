@@ -17,7 +17,7 @@ export default function MovieList() {
 
       axios.delete(getEndpoint(`/administrador/movies/${movieId}`))
         .then((response) => {
-          console.log('Película eliminada:', response.data);
+
           setMovies(movies.filter((movie) => movie._id !== movieId));
         })
         .catch((error) => {

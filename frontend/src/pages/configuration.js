@@ -85,7 +85,6 @@ export default function Configuration() {
 
   useEffect(() => {
 
-    console.log("EL USUARIO ANTES", user)
 
     axios.get(getEndpoint(`/${user}/profiles`))
     .then((response) => {
@@ -102,14 +101,12 @@ export default function Configuration() {
 
   const actualizarNombre = () => {
 
-    console.log("Se hizo clic en el botón actualizar nombre");
-
     if(nuevoNombre != ''){
-      console.log("usuario del axios", user )
+
       const query = {username: nuevoNombre}
       axios.put(getEndpoint(`/${user}/profiles/change`), query)
       .then((response) => {
-       console.log("nombre actualizado");
+
        navigate(`/${nuevoNombre}/${profile}/configuration`);
       });
     } 
@@ -161,7 +158,6 @@ export default function Configuration() {
 
   function añadirPerfil(){
 
-    console.log("como ", user, " y y ", nombrePerfil);
     axios.post(getEndpoint(`/${user}/config/${nombrePerfil}`))
     .then((response) => {
 

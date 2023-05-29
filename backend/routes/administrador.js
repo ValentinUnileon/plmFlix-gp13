@@ -66,8 +66,7 @@ router.post("/users", async function (req, res) {
         });
         
         await newProfile.save();
-        
-        console.log('Perfil creado correctamente');
+
     }
 
     return res.json(newUser);
@@ -88,7 +87,7 @@ router.post("/movies", async function (req, res) {
 
     await newMovie.save()
         .then(() => {
-            console.log("SE HA GUARDADO LA PELICULA", newMovie.title);
+
 
             categorias.findOne({ title: newMovie.categorie })
             .then((categoriaEncontrada) => {

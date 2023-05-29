@@ -70,8 +70,7 @@ export default function Login() {
     axios.post(getEndpoint('/login'), payload)
     .then((response)=> {
       navigate(`/${response.data.username}/profiles`);
-      console.log("segurooo");
-      console.log(getEndpoint('/login'), payload);
+
     })
     .catch((error)=>{
       console.log(getEndpoint('/login'), payload);

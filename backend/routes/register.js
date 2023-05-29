@@ -32,8 +32,6 @@ router.post("/", async function (req, res) {
         });
     
         await newProfile.save();
-    
-        console.log('Perfil creado correctamente');
 
     }
 

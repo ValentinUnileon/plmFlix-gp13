@@ -74,17 +74,13 @@ export default function Banner({categoriesList, user, perfil, reproducir}){
   const [videoId, setVideoId] = useState("");
   const [openV, setOpenV] = React.useState(false);
     /* funcion para poner video del banner*/
-    //console.log(categoriesList);
+
     function generateRandomNumber(List) {
       const randomNumber = Math.floor(Math.random() * Math.min(categoriesList.length, Number.MAX_SAFE_INTEGER));
       return randomNumber;
     }
   const randomIndex = generateRandomNumber(categoriesList);
-  //const listaVid = categoriesList[randomIndex].videos;
-  //const randomIndex2 = generateRandomNumber(listaVid);
-  console.log("num random 1",randomIndex);
-  //console.log("num random 2",randomIndex2);
-  //console.log("videos lentgh", categoriesList[randomIndex].videos.length)
+
     useEffect(() => {
       if (categoriesList.length > 0) {
         setVideoUrl(categoriesList[randomIndex].videos[0].videoUrl);
@@ -125,7 +121,7 @@ export default function Banner({categoriesList, user, perfil, reproducir}){
         onClose={handleCloseV}
         TransitionComponent={Transition}
       >
-        { console.log("estoy cansado: ",videoUrl)/* comp Edu */}
+
         < ViewFilms user= {user} profiles={perfil} videoURL={videoUrl} setOpen={handleCloseV} />
       </Dialog>
       </div>

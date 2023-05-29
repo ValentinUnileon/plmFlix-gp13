@@ -42,8 +42,7 @@ export default function NewUserDialog(users={users}, setUsers={setUsers}) {
       console.log("Éxito al registrar usuario");
     })
     .catch((error)=>{
-      console.log(getEndpoint('/administrador/users'), payload);
-      console.log(error);
+
       console.log("ERROR AL REGISTRAR USUARIO");
     
     });

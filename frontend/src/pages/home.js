@@ -73,9 +73,7 @@ export default function Home() {
     <Root className={classes.root}>
       <Header />
       <div className={classes.body}>
-        <Banner 
-        categoriesList={categoriesList}
-        />
+        <Banner categoriesList={categoriesList}  video={video} reproducir={click}/>
         <VideoPop
           user={user}
           perfil={profile}

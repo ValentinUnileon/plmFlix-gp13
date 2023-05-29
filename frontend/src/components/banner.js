@@ -8,10 +8,12 @@ import '../cssComponents/banner.css'
 import { useState,useEffect } from 'react';
 import axios from "axios";
 import { getEndpoint } from "../pages/const/const";
-import videoPop from "./videoPop"
 import ViewFilms from './viewVideoDialog';
 import Slide from '@mui/material/Slide';
 import {Dialog} from '@mui/material';
+import VideoPop from './videoPop';
+
+
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -67,23 +69,32 @@ const Root = styled('div')({
 
 });
 
-export default function Banner({categoriesList, user, perfil, pendientesList, setPendientesList, video}){
+export default function Banner({categoriesList, user, perfil, reproducir}){
   const [videoUrl, setVideoUrl] = useState("");
+  const [videoId, setVideoId] = useState("");
   const [openV, setOpenV] = React.useState(false);
-    /* funcion onclick que lleve a la pagina de ver el video del banner*/
-  
-    /* funcion para poner video del banner  */ 
-    console.log(categoriesList);
+    /* funcion para poner video del banner*/
+    //console.log(categoriesList);
+    function generateRandomNumber(List) {
+      const randomNumber = Math.floor(Math.random() * Math.min(categoriesList.length, Number.MAX_SAFE_INTEGER));
+      return randomNumber;
+    }
+  const randomIndex = generateRandomNumber(categoriesList);
+  //const listaVid = categoriesList[randomIndex].videos;
+  //const randomIndex2 = generateRandomNumber(listaVid);
+  console.log("num random 1",randomIndex);
+  //console.log("num random 2",randomIndex2);
+  //console.log("videos lentgh", categoriesList[randomIndex].videos.length)
     useEffect(() => {
       if (categoriesList.length > 0) {
-        setVideoUrl(categoriesList[1].videos[0].videoUrl);
+        setVideoUrl(categoriesList[randomIndex].videos[0].videoUrl);
+        setVideoId(categoriesList[randomIndex].videos[0]._id)
       }
     }, [categoriesList]);
 
-    console.log(videoUrl);
 
-    const clickReproducir = () => {
-      setOpenV(true);
+     const clickReproducir = () => {
+      reproducir(videoId);
     };
   
     const handleCloseV = () => {
@@ -114,12 +125,11 @@ export default function Banner({categoriesList, user, perfil, pendientesList, se
         onClose={handleCloseV}
         TransitionComponent={Transition}
       >
-        {/* comp Edu */}
-       // <ViewFilms user= {user} profiles={perfil} videoURL={videoUrl} videoID={video} handleCloseV={handleCloseV}></ViewFilms>
+        { console.log("estoy cansado: ",videoUrl)/* comp Edu */}
+        < ViewFilms user= {user} profiles={perfil} videoURL={videoUrl} setOpen={handleCloseV} />
       </Dialog>
       </div>
       
     </Root>
   );
 }
-

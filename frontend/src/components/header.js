@@ -113,13 +113,6 @@ export default function Header(){
         <Link to="/login">
           <img src={logoNetflix} alt="logo Netflix" className={classes.logo} />
         </Link>
-       
-        <Link to="/profiles" className={classes.item}>
-          Peliculas
-        </Link>
-        <Link to="/profiles" className={classes.item}>
-          Series
-        </Link>
 
         <Avatar className={classes.avatar} onClick={abrirMenu}></Avatar>
         <Menu

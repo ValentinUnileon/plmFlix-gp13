@@ -10,6 +10,7 @@
     "@mui/styled-engine": "^5.12.3",
     "@mui/x-date-pickers": "^6.3.0",
     "axios": "^1.4.0",
+    "cheerio": "^1.0.0-rc.12",
     "config": "^3.3.9",
     "dayjs": "^1.11.7",
     "grommet": "^2.32.0",

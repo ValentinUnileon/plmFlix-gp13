@@ -1,8 +1,10 @@
+import { getEndpoint } from '../pages/const/const';
 import React, { useState } from 'react';
 import { Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
 import { TextField, Button, Grid } from '@mui/material';
 import axios from 'axios';
-import { getEndpoint } from '../pages/const/const';
+
+
 
 
 export default function NewMovieDialog(movies={movies}, setMovies={setMovies}) {
@@ -54,11 +56,12 @@ export default function NewMovieDialog(movies={movies}, setMovies={setMovies}) {
     };
 
 
+
+
     const handleCreateMovie = () => {
+
         let payload = {
-            title: title,
-            description: description,
-            thumbnailUrl: thumbnailUrl,
+
             videoUrl: videoUrl,
             likes: likes,
             categorie: categorie,
@@ -88,17 +91,6 @@ export default function NewMovieDialog(movies={movies}, setMovies={setMovies}) {
 
                 <DialogContent>
                     <Grid container spacing={2}>
-                        <Grid item xs={12}>
-                            <TextField label="Title" fullWidth value={title} onChange={handleTitleChange} />
-                        </Grid>
-
-                        <Grid item xs={12}>
-                        <TextField label="Description" fullWidth value={description} onChange={handleDescriptionChange} />
-                        </Grid>
-                        
-                        <Grid item xs={12}>
-                        <TextField label="URL de la miniatura" fullWidth value={thumbnailUrl} onChange={handleThumbnailUrlChange} />
-                        </Grid>
 
                         <Grid item xs={12}>
                         <TextField label="URL del video" fullWidth value={videoUrl} onChange={handleVideoUrlChange} />

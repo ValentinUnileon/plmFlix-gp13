@@ -4,6 +4,9 @@ const User = require("../models/User");
 const Video = require("../models/Videos");
 const Profile = require("../models/Profile");
 const categorias = require("../models/Categorias");
+const mongoose = require("mongoose");
+const cheerio = require('cheerio');
+const axios = require('axios');
 
 
 router.get("/users", async function (req, res) {
@@ -73,13 +76,42 @@ router.post("/users", async function (req, res) {
 
 });
 
+function getYouTubeThumbnail(url) {
+    const videoId = url.match(/(?:v=|youtu.be\/)(.+)/)[1];
+    const thumbnailUrl = 'https://img.youtube.com/vi/' + videoId + '/0.jpg';
+    return thumbnailUrl;
+}
+
+async function getYouTubeVideoInfo(url) {
+    try {
+        const response = await axios.get(url);
+        const html = response.data;
+        const $ = cheerio.load(html);
+        const title = $('meta[name="title"]').attr('content');
+        const description = $('meta[name="description"]').attr('content');
+
+        return {
+            title,
+            description
+        };
+    } catch (error) {
+        console.error('Error al obtener la información del video:', error);
+        return null;
+    }
+}
+
 router.post("/movies", async function (req, res) {
     
+    const info = await getYouTubeVideoInfo(req.body.videoUrl);
+
+    const miniatura =  getYouTubeThumbnail(req.body.videoUrl);
+
+
     
     const newMovie = new Video({
-        title: req.body.title,
-        description: req.body.description,
-        thumbnailUrl: req.body.thumbnailUrl,
+        title: info.title ,
+        description: info.description,
+        thumbnailUrl: miniatura,
         videoUrl: req.body.videoUrl,
         likes: req.body.likes,
         categorie: req.body.categorie,

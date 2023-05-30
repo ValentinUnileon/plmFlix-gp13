@@ -89,6 +89,8 @@ const crearDB = () => {
                                 if (videoInfo) {
                                     const titulo = videoInfo.title;
                                     const descripcion = videoInfo.description;
+
+                             
                                     return {
                                         videoUrl: video.videoUrl,
                                         title: titulo,

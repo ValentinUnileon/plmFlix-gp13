@@ -22,7 +22,7 @@ connectDB()
 
 //crear db
 
- crearDB();
+crearDB();
 
 app.use("/api/login", require("./routes/login"));
 app.use("/api", require("./routes/profiles"));

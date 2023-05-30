@@ -1,8 +1,8 @@
 /////CADA USERNAME VA A SER UNICO
 
 var data = [
-    {username: "0", password: "0"},
-    {username: "1", password: "0"},
-    {username: "2", password: "0"}
+    {username: "DavidTriana", password: "1"},
+    {username: "PabloGalvan", password: "1"},
+    {username: "WeptzelEdu", password: "1"}
 ];
 exports.data = data;

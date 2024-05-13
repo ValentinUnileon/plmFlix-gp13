@@ -1,3 +1,3 @@
 # plmFlix webpage
 
-![inicioSesion](imagen.jpg)
+![inicioSesion](imagen.png)
